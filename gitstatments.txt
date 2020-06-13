@@ -1,0 +1,11 @@
+git config --global user.name "anasbakla"
+git config --global user.email anas.bakla@gmail.com
+
+git init
+
+
+git clone https://github.com/HaldunMatar/storeMangent.git
+git add .
+git commit -m "Adding new file ANSA"
+git log --oneline
+git remote add origin https://github.com/HaldunMatar/storeMangent.get

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/itemTrackerFragment">
+
+    <fragment
+        android:id="@+id/itemTrackerFragment"
+        android:name="com.example.zaitoneh.itemtracker.ItemTrackerFragment"
+        android:label="ItemTrackerFragment" >
+        <action
+            android:id="@+id/action_itemTrackerFragment_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemDetailFragment"
+        android:name="com.example.zaitoneh.itemdetail.ItemDetailFragment"
+        android:label="ItemDetailFragment" />
+</navigation>

@@ -6,5 +6,10 @@
     <string name="add_button">add item</string>
     <string name="box">Box</string>
     <string name="kratin">Kratin</string>
+    <string name="itemLevel1">Describtion 1 </string>
+    <string name="itemLevel2">Describtion 2</string>
+    <string name="itemLevel3">Describtion 3</string>
+    <string name="itemLevel4">Describtion 4</string>
     <string name="materials">Materials</string>
+    <string name="save">Save</string>
 </resources>

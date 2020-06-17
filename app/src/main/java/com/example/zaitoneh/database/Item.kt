@@ -9,17 +9,23 @@ data class Item(
     var itemId: Long = 0L,
 
     @ColumnInfo(name = "item_name")
-    val itemMain: String = "name",
+    var itemMain: String = "",
 
     @ColumnInfo(name="item_type_level1")
-    var itemLevel1: String = "Type1",
+    var itemLevel1: String = "",
 
     @ColumnInfo(name = "item_type_level2")
-    var itemLevel2: String = "Type2",
+    var itemLevel2: String = "",
 
     @ColumnInfo(name = "item_type_level3")
-    var itemLevel3: String = "Type3",
+    var itemLevel3: String = "",
 
     @ColumnInfo(name = "item_type_level4")
-    var itemLevel4: String = "Type4"
-)
+    var itemLevel4: String = ""
+){
+    override fun toString(): String {
+        return "id = " + itemId + "  main name = " + itemMain + "  level 1 = " + itemLevel1 + "  level 2 = " + itemLevel2  + "  level 3 = " + itemLevel3
+    }
+
+
+}

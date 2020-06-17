@@ -1,5 +1,8 @@
 package com.example.zaitoneh.itemdetail
 
+import android.util.Log
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +25,8 @@ class ItemDetailViewModel(
      */
     val database = dataSource
 
+    lateinit var  listitems : List<Item>
+
     /** Coroutine setup variables */
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -30,9 +35,17 @@ class ItemDetailViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val item = MediatorLiveData<Item>()
 
+
+   val items = database.getItemWithId(111)
+
+    private val _saveItemToDataBase = MutableLiveData<Boolean?>()
+    val saveItemToDataBase: LiveData<Boolean?>
+        get() = _saveItemToDataBase
+
     fun getItem() = item
 
     init {
+        _saveItemToDataBase.value=false
         item.addSource(database.getItemWithId(itemKey), item::setValue)
     }
 
@@ -75,18 +88,55 @@ class ItemDetailViewModel(
     private suspend fun insert(item: Item) {
         withContext(Dispatchers.IO) {
             database.insert(item)
+
         }
     }
-    fun onCreateItem(newitem:Item) {
+
+  /*  private suspend fun getAll1():List<Item> {
+        Log.i("viewModelitem","getAll1")
+        return withContext(Dispatchers.IO) {
+             database.getAllItems()
+        }
+    }
+
+      fun getAll2(){
+        Log.i("viewModelitem","getAll2")
+          uiScope.launch {
+              listitems= getAll1()
+        }
+    }*/
+    /* fun   vaildateItem(newItem: Item,radioGroup: RadioGroup) : Int {
+        val radioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
+        if (radioButton == null) {
+            return 2
+        } else {
+            if (newItem.itemLevel1 == null || newItem.itemLevel2 == null || newItem.itemLevel3 == null || newItem.itemLevel3 == null) {
+                return 3
+            } else {
+                return 1
+            }
+
+        }
+    }*/
+
+
+        fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
+            val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
+          val   tempItem=newItem
+            tempItem.itemMain= radioButton.text.toString()
+        Log.i("viewModelitem","create new item")
         uiScope.launch {
-            // Create a new item,
-            // and insert it into the database.
-
-            insert(newitem)
-
-            //item.value = getTonightFromDatabase()
+            insert(tempItem)
+            _saveItemToDataBase.value=true
+            Log.i("viewModelitem",tempItem.toString())
         }
     }
+
+
+ fun   setSaveItemToDataBase(){
+     _saveItemToDataBase.value=false
+ }
+
 
 
 

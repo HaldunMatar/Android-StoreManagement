@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -32,6 +35,8 @@ android {
 }
 
 dependencies {
+    def room_version = "1.1.1"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -52,10 +57,21 @@ dependencies {
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 
-    implementation "androidx.room:room-runtime:$version_room"
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
     implementation 'androidx.navigation:navigation-fragment-ktx:2.0.0'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.0.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+
+
+    // Room and Lifecycle dependencies
+    //noinspection GradleDependency
+    implementation "androidx.room:room-runtime:$version_room"
+
+    //noinspection GradleDependency
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+
+        kapt "androidx.room:room-compiler:$version_room"
+
+
 
 }

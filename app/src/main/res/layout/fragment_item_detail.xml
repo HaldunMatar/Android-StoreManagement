@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingRight="30dp"
+
             app:layout_constraintBottom_toTopOf="@+id/itemLevel1_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="30dp"
                 android:text="@string/box"
+
                 app:layout_constraintEnd_toStartOf="@+id/itemMain_kratin_radio"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,8 +109,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> itemDetailViewModel.onCreateItem(item)}"
-            app:layout_constraintTop_toBottomOf="@+id/itemLevel3_input" />
+            app:layout_constraintTop_toBottomOf="@+id/itemLevel3_input"
+            android:onClick="@{() -> itemDetailViewModel.onCreateItem(item,radioGroup)}"
+            />
+
+
+
 
         <EditText
             android:id="@+id/itemLevel1_input"

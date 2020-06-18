@@ -2,8 +2,12 @@ package com.example.zaitoneh.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
+import androidx.room.Index
 
-@Entity(tableName="items_table")
+//@Entity(tableName="items_table")
+@Entity(tableName="items_table", indices = arrayOf(Index(value = ["item_type_level1", "item_type_level2","item_type_level2","item_name"],
+    unique = true)))
+
 data class Item(
     @PrimaryKey(autoGenerate = true)
     var itemId: Long = 0L,

@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="30dp"
                 android:text="@string/box"
-
+                android:checked="true"
                 app:layout_constraintEnd_toStartOf="@+id/itemMain_kratin_radio"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.zaitoneh.database.ItemDatabaseDao
 import com.example.zaitoneh.database.Item
 import kotlinx.coroutines.*
+import java.lang.Exception
 
 /**
  * ViewModel for SleepQualityFragment.
@@ -42,10 +43,15 @@ class ItemDetailViewModel(
     val saveItemToDataBase: LiveData<Boolean?>
         get() = _saveItemToDataBase
 
+    private val _itemValidation = MutableLiveData<Boolean?>()
+    val itemValidation: LiveData<Boolean?>
+        get() = _itemValidation
+
     fun getItem() = item
 
     init {
-        _saveItemToDataBase.value=false
+        _itemValidation.value=false
+        _saveItemToDataBase.value=true
         item.addSource(database.getItemWithId(itemKey), item::setValue)
     }
 
@@ -92,49 +98,38 @@ class ItemDetailViewModel(
         }
     }
 
-  /*  private suspend fun getAll1():List<Item> {
-        Log.i("viewModelitem","getAll1")
-        return withContext(Dispatchers.IO) {
-             database.getAllItems()
-        }
-    }
 
-      fun getAll2(){
-        Log.i("viewModelitem","getAll2")
-          uiScope.launch {
-              listitems= getAll1()
-        }
-    }*/
-    /* fun   vaildateItem(newItem: Item,radioGroup: RadioGroup) : Int {
-        val radioButton = radioGroup.findViewById<RadioButton>(radioGroup.checkedRadioButtonId)
-        if (radioButton == null) {
-            return 2
-        } else {
-            if (newItem.itemLevel1 == null || newItem.itemLevel2 == null || newItem.itemLevel3 == null || newItem.itemLevel3 == null) {
-                return 3
-            } else {
-                return 1
+     fun   vaildateItem(newItem: Item) : Boolean {
+         return !(newItem.itemLevel1 == "" || newItem.itemLevel2 == ""  || newItem.itemLevel3 == "" )
+
             }
-
-        }
-    }*/
 
 
         fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
             val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
-          val   tempItem=newItem
+            val   tempItem=newItem
             tempItem.itemMain= radioButton.text.toString()
-        Log.i("viewModelitem","create new item")
-        uiScope.launch {
-            insert(tempItem)
-            _saveItemToDataBase.value=true
-            Log.i("viewModelitem",tempItem.toString())
-        }
+            Log.i("viewModelitem","create new item")
+            if (vaildateItem(tempItem)) {
+                uiScope.launch {
+                    try {
+                        insert(tempItem)
+                        _saveItemToDataBase.value=true
+                    }
+                    catch (E:Exception){
+                        Log.i("Exception", "There is a problem in insert same item added")
+                        _saveItemToDataBase.value = false
+                    }
+                }
+            }
+            else{
+                _itemValidation.value=false
+            }
     }
 
 
  fun   setSaveItemToDataBase(){
-     _saveItemToDataBase.value=false
+     _saveItemToDataBase.value=true
  }
 
 

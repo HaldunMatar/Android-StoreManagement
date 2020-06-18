@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.StoreDatabase
@@ -44,10 +41,24 @@ class ItemDetailFragment : Fragment() {
         itemDetailViewModel.saveItemToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
                 binding.item=Item()
+            }
+            else{
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, "This item is already exist",Toast.LENGTH_LONG
+                    ).show()
+                //itemDetailViewModel.setSaveItemToDataBase()
+            }
+        })
 
+        itemDetailViewModel.itemValidation.observe(this, Observer {
+            if (it == false) { // Observed state is true.
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, "Please Fill all fields",Toast.LENGTH_LONG
+                    ).show()
                 itemDetailViewModel.setSaveItemToDataBase()
             }
         })
+
 
 
 

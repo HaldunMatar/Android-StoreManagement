@@ -14,5 +14,9 @@
     <fragment
         android:id="@+id/itemDetailFragment"
         android:name="com.example.zaitoneh.itemdetail.ItemDetailFragment"
-        android:label="ItemDetailFragment" />
+        android:label="ItemDetailFragment" >
+        <action
+            android:id="@+id/action_itemDetailFragment_to_itemTrackerFragment"
+            app:destination="@id/itemTrackerFragment" />
+    </fragment>
 </navigation>

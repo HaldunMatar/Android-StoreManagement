@@ -9,7 +9,6 @@
         <variable
             name="item"
             type="com.example.zaitoneh.database.Item" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

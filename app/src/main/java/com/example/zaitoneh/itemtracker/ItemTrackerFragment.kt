@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -27,9 +28,13 @@ class ItemTrackerFragment : Fragment() {
         val binding: FragmentItemTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_item_tracker, container, false)
 
-        binding.addButton.setOnClickListener (
-            //view.findNavController().navigate(R.id.action_itemTrackerFragment_to_itemDetailFragment)
-            Navigation.createNavigateOnClickListener(R.id.action_itemTrackerFragment_to_itemDetailFragment))
+
+
+        binding.addButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment())
+        }
+
+
 
         /****************************************************************************/
        val application = requireNotNull(this.activity).application
@@ -49,16 +54,14 @@ class ItemTrackerFragment : Fragment() {
 
 
         /******************************************/
-    /* val adapter = SleepNightAdapter()
-        binding.sleepList.adapter = adapter
+     val adapter = ItemAdapter()
+        binding.itemList.adapter = adapter
 
-        sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
+        itemTrackerViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
-        })*/
-
-
+        })
 
         return binding.root
     }

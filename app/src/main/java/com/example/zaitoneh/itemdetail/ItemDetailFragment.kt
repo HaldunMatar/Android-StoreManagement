@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.StoreDatabase
@@ -59,7 +60,9 @@ class ItemDetailFragment : Fragment() {
             }
         })
 
-
+        binding.backBtn.setOnClickListener (
+            //view.findNavController().navigate(R.id.action_itemTrackerFragment_to_itemDetailFragment)
+            Navigation.createNavigateOnClickListener(R.id.action_itemDetailFragment_to_itemTrackerFragment))
 
 
         return binding.root

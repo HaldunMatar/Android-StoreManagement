@@ -99,22 +99,19 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/itemLevel2_input"
             app:layout_constraintStart_toStartOf="@+id/itemLevel3_labe" />
 
+
         <Button
             android:id="@+id/save_btn"
             style="@style/Label_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> itemDetailViewModel.onCreateItem(item,radioGroup)}"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintHorizontal_bias="0.278"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemLevel3_input"
-            android:onClick="@{() -> itemDetailViewModel.onCreateItem(item,radioGroup)}"
-            />
-
-
-
+            app:layout_constraintTop_toBottomOf="@+id/itemLevel3_input" />
 
         <EditText
             android:id="@+id/itemLevel1_input"
@@ -150,6 +147,17 @@
             app:layout_constraintBottom_toTopOf="@+id/itemLevel3_input"
             app:layout_constraintStart_toStartOf="@+id/itemLevel1_input"
             app:layout_constraintTop_toBottomOf="@+id/itemLevel1_input" />
+
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:text="Back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/save_btn"
+            app:layout_constraintTop_toBottomOf="@+id/itemLevel3_input" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

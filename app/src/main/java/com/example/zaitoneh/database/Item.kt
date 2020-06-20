@@ -25,8 +25,14 @@ data class Item(
     var itemLevel3: String = "",
 
     @ColumnInfo(name = "item_type_level4")
-    var itemLevel4: String = ""
-){
+    var itemLevel4: String = "",
+    @ColumnInfo(name = "item_type_level5")
+    var itemLevel5: String = "",
+    @ColumnInfo(name = "item_type_level6")
+    var itemLevel6: String = ""
+)
+
+{
     override fun toString(): String {
         return "id = " + itemId + "  main name = " + itemMain + "  level 1 = " + itemLevel1 + "  level 2 = " + itemLevel2  + "  level 3 = " + itemLevel3
     }

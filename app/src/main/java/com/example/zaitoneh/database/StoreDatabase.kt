@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [Item::class], version = 4, exportSchema = true)
+@Database(entities = [Item::class], version = 4, exportSchema = false)
 abstract class StoreDatabase : RoomDatabase() {
 
     /**

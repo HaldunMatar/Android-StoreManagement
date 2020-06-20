@@ -31,4 +31,11 @@ interface ItemDatabaseDao{
     @Query("SELECT * from items_table WHERE itemId = :key")
     fun getItemWithId(key: Long): LiveData<Item>
 
+
+    /**
+     * Selects and returns the latest night.
+     */
+    @Query("SELECT * FROM items_table ORDER BY itemId DESC LIMIT 1")
+    fun getlatestItem(): Item?
+
 }

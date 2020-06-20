@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.zaitoneh.database.Item" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/item_name_image"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+
+        app:itemImage="@{item}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:srcCompat="@drawable/ic_boxdropboxicon" />
+
+        <TextView
+            android:id="@+id/item_type_level1"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+
+            android:layout_marginTop="8dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_name_image"
+            app:layout_constraintTop_toTopOf="@+id/item_name_image"
+            tools:text="item_type_level1"
+            app:level1Formatted="@{item}"/>
+
+        <TextView
+            android:id="@+id/item_type_level2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/item_type_level1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/item_type_level1"
+            app:layout_constraintTop_toBottomOf="@+id/item_type_level1"
+            tools:text="item_type_level2!!!"
+            app:level2Formatted="@{item}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

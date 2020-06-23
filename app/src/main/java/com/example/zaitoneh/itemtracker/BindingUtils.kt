@@ -16,6 +16,7 @@
 
 package com.example.zaitoneh.itemtracker
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -27,11 +28,13 @@ import kotlinx.android.synthetic.main.one_item.view.*
 
 @BindingAdapter("itemImage")
 fun ImageView.setItemImage(item: Item?) {
+    Log.i("bindingimage",item?.itemMain.toString())
     item?.let {
         setImageResource(when (item.itemMain) {
-           "Box" -> R.drawable.ic_boxdropboxicon
-            "Kratin"->R.drawable.ic_boxdropboxicon
-            "Materials"->R.drawable.ic_boxdropboxicon
+
+           "2131361929" -> R.drawable.ic_lamp
+            "2131361930"->R.drawable.ic_rocket
+            "2131361931"->R.drawable.ic_project
 
             else -> R.drawable.ic_boxdropboxicon
         })

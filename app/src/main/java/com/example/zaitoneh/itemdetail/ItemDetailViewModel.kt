@@ -108,7 +108,7 @@ class ItemDetailViewModel(
         fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
             val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
             val   tempItem=newItem
-            tempItem.itemMain= radioButton.text.toString()
+            tempItem.itemMain= radioButton.id.toString()
             Log.i("viewModelitem","create new item")
             if (vaildateItem(tempItem)) {
                 uiScope.launch {

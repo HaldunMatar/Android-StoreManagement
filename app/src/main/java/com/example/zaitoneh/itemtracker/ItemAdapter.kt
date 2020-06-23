@@ -23,9 +23,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.databinding.OneItemBinding
+import java.util.logging.Filter
 
-class ItemAdapter : ListAdapter<Item,
-        ItemAdapter.ViewHolder>(ItemDiffCallback()) {
+class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) {
+
+
+    var countryFilterList = ArrayList<String>()
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)

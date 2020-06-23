@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">زيتونة</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">أهلا بك </string>
+    <string name="add_button">إضافة مادة</string>
+    <string name="box">علب</string>
+    <string name="kratin">كراتين</string>
+    <string name="itemLevel1">الوصف الأول </string>
+    <string name="itemLevel2">الوصف الثاني</string>
+    <string name="itemLevel3">الوصف الثالث</string>
+    <string name="itemLevel4">الوصف الرابع</string>
+    <string name="materials">المواد</string>
+    <string name="save">حفظ</string>
+</resources>
+

@@ -18,17 +18,23 @@ package com.example.zaitoneh.itemtracker
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.databinding.OneItemBinding
-import java.util.logging.Filter
 
-class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) {
-
-
+//(private var mLstUser: MutableList<User>, private val callback: (Int) -> Unit)
+//class ItemAdapter (private var mLstUser: MutableList<Item>): ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) , Filterable {
+//class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) , Filterable {
+class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) , Filterable {
     var countryFilterList = ArrayList<String>()
+
+
+
+
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -58,6 +64,45 @@ class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback(
             }
         }
     }
+    fun updateList(lstItem: MutableList<Item>) {
+        mLstItem = lstItem
+        mFilteredList=lstItem
+    }
+    lateinit var mLstItem: MutableList<Item>
+    lateinit var mFilteredList: MutableList<Item>
+    override fun getFilter(): Filter {
+         /*********************************/
+        return object : Filter() {
+         override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
+
+             val charString = charSequence.toString()
+
+             if (charString.isEmpty()) {
+                 mFilteredList = mLstItem
+             } else {
+
+                 val filteredList = mLstItem
+                     .filter { it.itemLevel1?.toLowerCase()?.contains(charString)!! }
+                     .toMutableList()
+
+                 mFilteredList = filteredList
+             }
+
+             val filterResults = Filter.FilterResults()
+             filterResults.values = mFilteredList
+             return filterResults
+         }
+
+        override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
+            submitList(filterResults.values as MutableList<Item>)
+            notifyDataSetChanged()
+        }
+    }
+
+        /*********************************************/
+    }
+
+
 }
 
 /**
@@ -67,6 +112,7 @@ class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback(
  * list that's been passed to `submitList`.
  */
 class ItemDiffCallback : DiffUtil.ItemCallback<Item>() {
+
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem.itemId == newItem.itemId
     }

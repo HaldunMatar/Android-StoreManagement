@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import com.example.zaitoneh.database.Item
 
 import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.databinding.FragmentItemTrackerBinding
@@ -57,10 +59,30 @@ class ItemTrackerFragment : Fragment() {
      val adapter = ItemAdapter()
         binding.itemList.adapter = adapter
 
+
         itemTrackerViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {
+                adapter.updateList(it as MutableList<Item>)
                 adapter.submitList(it)
+
+
+
             }
+        })
+
+
+
+       val item_search= binding.itemSearch
+        item_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
         })
 
         return binding.root

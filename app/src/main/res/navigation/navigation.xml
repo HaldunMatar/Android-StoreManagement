@@ -18,5 +18,7 @@
         <action
             android:id="@+id/action_itemDetailFragment_to_itemTrackerFragment"
             app:destination="@id/itemTrackerFragment" />
+        <argument android:name="item_id"
+            app:argType="long" />
     </fragment>
 </navigation>

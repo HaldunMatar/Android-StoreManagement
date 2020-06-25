@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-package com.example.zaitoneh.itemtracker
 
+package com.example.zaitoneh.itemtracker
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -26,21 +26,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.databinding.OneItemBinding
 
-//(private var mLstUser: MutableList<User>, private val callback: (Int) -> Unit)
-//class ItemAdapter (private var mLstUser: MutableList<Item>): ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) , Filterable {
-//class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) , Filterable {
-class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) , Filterable {
-    var countryFilterList = ArrayList<String>()
-
-
-
-
-
-
+class ItemAdapter(val clickListener: ItemListener) : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback()) , Filterable {
+    lateinit var mLstItem: MutableList<Item>
+    lateinit var mFilteredList: MutableList<Item>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.bind(item)
+        holder.bind(clickListener,item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,8 +42,9 @@ class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback(
     class ViewHolder private constructor(val binding: OneItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Item) {
+        fun bind(clickListener: ItemListener,item: Item) {
             binding.item = item
+            binding.clickListener=clickListener
             binding.executePendingBindings()
         }
 
@@ -67,11 +60,13 @@ class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback(
     fun updateList(lstItem: MutableList<Item>) {
         mLstItem = lstItem
         mFilteredList=lstItem
+
     }
-    lateinit var mLstItem: MutableList<Item>
-    lateinit var mFilteredList: MutableList<Item>
+
+    /*********************************/
+
     override fun getFilter(): Filter {
-         /*********************************/
+
         return object : Filter() {
          override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
 
@@ -81,11 +76,11 @@ class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback(
                  mFilteredList = mLstItem
              } else {
 
-                 val filteredList = mLstItem
-                     .filter { it.itemLevel1?.toLowerCase()?.contains(charString)!! }
+                 val filteredList = mLstItem.filter { (it.itemLevel1+" " +it.itemLevel2)?.toLowerCase()?.contains(charString.toLowerCase())!! }
                      .toMutableList()
+                     mFilteredList = filteredList
 
-                 mFilteredList = filteredList
+
              }
 
              val filterResults = Filter.FilterResults()
@@ -99,8 +94,9 @@ class ItemAdapter : ListAdapter <Item,ItemAdapter.ViewHolder> (ItemDiffCallback(
         }
     }
 
-        /*********************************************/
+
     }
+    /*********************************************/
 
 
 }
@@ -120,4 +116,9 @@ class ItemDiffCallback : DiffUtil.ItemCallback<Item>() {
     override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem == newItem
     }
+}
+class ItemListener(val clickListener: (sleepId: Long) -> Unit) {
+
+    fun onClick(item: Item) = clickListener(item.itemId)
+
 }

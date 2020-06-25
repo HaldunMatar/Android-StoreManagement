@@ -1,6 +1,7 @@
 package com.example.zaitoneh.itemdetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,7 @@ class ItemDetailFragment : Fragment() {
             if (it == false) { // Observed state is true.
                 val toast =
                     Toast.makeText(activity!!.applicationContext, "Please Fill all fields",Toast.LENGTH_LONG
-                    ).show()
+                   ).show()
                 itemDetailViewModel.setSaveItemToDataBase()
             }
         })
@@ -64,6 +65,15 @@ class ItemDetailFragment : Fragment() {
             //view.findNavController().navigate(R.id.action_itemTrackerFragment_to_itemDetailFragment)
             Navigation.createNavigateOnClickListener(R.id.action_itemDetailFragment_to_itemTrackerFragment))
 
+
+
+       val args = ItemDetailFragmentArgs.fromBundle(requireArguments())
+       itemDetailViewModel.getItemByIdForDisplay(args.itemId)
+        Log.i("getItemByIdForDisplay" ,itemDetailViewModel.tempItem.itemLevel1 )
+         //  binding.item=item1 as Item
+
+     //   itemDetailViewModel.itemtemp
+     //   Toast.makeText(context,itemDetailViewModel.itemtemp.itemLevel1.toString() , Toast.LENGTH_LONG).show()
 
         return binding.root
     }

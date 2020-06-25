@@ -5,7 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Index
 
 //@Entity(tableName="items_table")
-@Entity(tableName="items_table", indices = arrayOf(Index(value = ["item_type_level1", "item_type_level2","item_type_level2","item_name"],
+@Entity(tableName="items_table", indices = arrayOf(Index(value = ["item_type_level1", "item_type_level2","item_type_level3","item_name"],
     unique = true)))
 
 data class Item(

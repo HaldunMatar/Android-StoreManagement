@@ -10,8 +10,8 @@ import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.zaitoneh.database.Item
 
 import com.example.zaitoneh.database.StoreDatabase
@@ -29,11 +29,8 @@ class ItemTrackerFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentItemTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_item_tracker, container, false)
-
-
-
-        binding.addButton.setOnClickListener { view: View ->
-            view.findNavController().navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment())
+           binding.addButton.setOnClickListener { view: View ->
+          view.findNavController().navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment(0))
         }
 
 
@@ -56,7 +53,22 @@ class ItemTrackerFragment : Fragment() {
 
 
         /******************************************/
-     val adapter = ItemAdapter()
+     val adapter = ItemAdapter(ItemListener { itemId ->
+            itemTrackerViewModel.onItemClicked(itemId)
+            //  Toast.makeText(context, "${nightId}", Toast.LENGTH_LONG).show()
+        })
+
+
+
+
+        itemTrackerViewModel.navigateToEditItem.observe(this, Observer { item ->
+            item?.let {
+
+                view?.findNavController()?.navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment(it))
+            }
+        })
+
+
         binding.itemList.adapter = adapter
 
 
@@ -66,7 +78,6 @@ class ItemTrackerFragment : Fragment() {
                 adapter.submitList(it)
 
 
-
             }
         })
 
@@ -74,13 +85,16 @@ class ItemTrackerFragment : Fragment() {
 
        val item_search= binding.itemSearch
         item_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+
                 adapter.filter.filter(newText)
                 return false
+
             }
 
         })

@@ -17,6 +17,7 @@
 package  com.example.zaitoneh.itemtracker
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -31,6 +32,11 @@ import kotlinx.coroutines.*
 class ItemTrackerViewModel(
     val database: ItemDatabaseDao,
     application: Application) : AndroidViewModel(application) {
+
+    private val _navigateToEditItem = MutableLiveData<Long>()
+    val navigateToEditItem
+        get() = _navigateToEditItem
+
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -164,4 +170,12 @@ class ItemTrackerViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
+
+    fun onItemClicked(itemId: Long) {
+        Log.i("onclick","onItemClicked")
+         _navigateToEditItem.value=itemId
+    }
+
+
+
 }

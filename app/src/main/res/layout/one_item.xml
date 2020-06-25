@@ -9,6 +9,13 @@
         <variable
             name="item"
             type="com.example.zaitoneh.database.Item" />
+
+        <variable
+            name="clickListener"
+            type="com.example.zaitoneh.itemtracker.ItemListener"/>
+
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,13 +37,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
+            android:onClick="@{() -> clickListener.onClick(item)}"
             tools:srcCompat="@drawable/ic_boxdropboxicon" />
 
         <TextView
             android:id="@+id/item_type_level1"
             android:layout_width="0dp"
             android:layout_height="20dp"
-
+            android:onClick="@{() -> clickListener.onClick(item)}"
             android:layout_marginTop="8dp"
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +55,7 @@
 
         <TextView
             android:id="@+id/item_type_level2"
+            android:onClick="@{() -> clickListener.onClick(item)}"
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginTop="8dp"

@@ -47,7 +47,7 @@ class ItemDetailViewModel(
     val itemValidation: LiveData<Boolean?>
         get() = _itemValidation
 
-    fun getItem() = item
+       fun getItem() = item
 
     init {
         _itemValidation.value=false
@@ -78,6 +78,42 @@ class ItemDetailViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
+
+
+
+
+
+    var tempItem :Item = Item()
+
+    fun getItemByIdForDisplay(item_id: Long) {
+        uiScope.launch {
+            // IO is a thread pool for running operations that access the disk, such as
+            // our Room database.
+
+            withContext(Dispatchers.IO) {
+                val item = database.get(item_id) ?: return@withContext
+                tempItem=item
+            }
+
+            // Setting this state variable to true will alert the observer and trigger navigation.
+
+        }
+
+    }
+
+
+
+    private suspend fun getItemById(item_id: Long) {
+        withContext(Dispatchers.IO) {
+
+            val item = database.get(item_id) ?: return@withContext
+
+        }
+    }
+
+
+
+
 
 
     /**

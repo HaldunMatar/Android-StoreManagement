@@ -16,14 +16,18 @@
 
 package com.example.zaitoneh.itemtracker
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.zaitoneh.R
 import com.example.zaitoneh.convertDurationToFormatted
 import com.example.zaitoneh.convertNumericQualityToString
 import com.example.zaitoneh.database.Item
+import com.jakewharton.rxbinding2.widget.checked
 import kotlinx.android.synthetic.main.one_item.view.*
 
 @BindingAdapter("itemImage")
@@ -32,8 +36,9 @@ fun ImageView.setItemImage(item: Item?) {
     item?.let {
         setImageResource(when (item.itemMain) {
 
-           "2131361929" -> R.drawable.ic_lamp
-            "2131361930"->R.drawable.ic_rocket
+           "2131361932" -> R.drawable.ic_lamp
+            "2131361930"->R.drawable.ic_rocket //box
+
             "2131361931"->R.drawable.ic_project
 
             else -> R.drawable.ic_boxdropboxicon
@@ -55,4 +60,32 @@ fun TextView.setlevel2Formatted(item: Item?) {
     item?.let {
         text = convertNumericQualityToString(item.itemLevel2, context.resources)
     }
+}
+
+@BindingAdapter("level3Formatted")
+fun TextView.setlevel3Formatted(item: Item?) {
+    item?.let {
+        text = convertNumericQualityToString(item.itemLevel3, context.resources)
+    }
+}
+
+@SuppressLint("ResourceType")
+@BindingAdapter("itemMain")
+fun RadioGroup.setItemMain(item: Item?) {
+    var radioButton1 = findViewById<RadioButton>(2131361932)
+    var radioButton2 = findViewById<RadioButton>(2131361930)
+    var radioButton3 = findViewById<RadioButton>(2131361931)
+
+    item?.let {
+        (when (item.itemMain) {
+
+
+            "2131361932" -> radioButton1.checked()
+          //  "2131361930"-> radioButton2.checked()////box
+            "2131361931"-> radioButton3.checked() //karaten
+
+            else ->{            }
+        })
+    }
+
 }

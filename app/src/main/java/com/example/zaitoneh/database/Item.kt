@@ -13,16 +13,16 @@ data class Item(
     var itemId: Long = 0L,
 
     @ColumnInfo(name = "item_name")
-    var itemMain: String = "",
+    var itemMain: String = "1111",
 
     @ColumnInfo(name="item_type_level1")
-    var itemLevel1: String = "",
+    var itemLevel1: String = "2222",
 
     @ColumnInfo(name = "item_type_level2")
-    var itemLevel2: String = "",
+    var itemLevel2: String = "3333",
 
     @ColumnInfo(name = "item_type_level3")
-    var itemLevel3: String = "",
+    var itemLevel3: String = "444",
 
     @ColumnInfo(name = "item_type_level4")
     var itemLevel4: String = "",

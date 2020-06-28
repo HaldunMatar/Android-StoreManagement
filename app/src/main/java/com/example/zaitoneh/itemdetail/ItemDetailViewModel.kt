@@ -12,11 +12,6 @@ import com.example.zaitoneh.database.Item
 import kotlinx.coroutines.*
 import java.lang.Exception
 
-/**
- * ViewModel for SleepQualityFragment.
- *
- * @param sleepNightKey The key of the current night we are working on.
- */
 class ItemDetailViewModel(
     private val itemKey: Long = 0L,
     dataSource: ItemDatabaseDao) : ViewModel() {
@@ -25,9 +20,10 @@ class ItemDetailViewModel(
      * Hold a reference to SleepDatabase via its ItemDatabaseDao.
      */
     val database = dataSource
-
+    private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
     lateinit var  listitems : List<Item>
 
+    //= MutableLiveData<Item?>()
     /** Coroutine setup variables */
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -39,6 +35,7 @@ class ItemDetailViewModel(
 
    val items = database.getItemWithId(111)
 
+
     private val _saveItemToDataBase = MutableLiveData<Boolean?>()
     val saveItemToDataBase: LiveData<Boolean?>
         get() = _saveItemToDataBase
@@ -49,11 +46,12 @@ class ItemDetailViewModel(
 
        fun getItem() = item
 
+
+
     init {
-        _itemValidation.value=false
-        _saveItemToDataBase.value=true
         item.addSource(database.getItemWithId(itemKey), item::setValue)
     }
+
 
     /**
      * Variable that tells the fragment whether it should navigate to [ItemTrackerFragment].
@@ -76,45 +74,9 @@ class ItemDetailViewModel(
      */
     override fun onCleared() {
         super.onCleared()
+        Log.i("itemdetails" ," onCleared v M " )
         viewModelJob.cancel()
     }
-
-
-
-
-
-    var tempItem :Item = Item()
-
-    fun getItemByIdForDisplay(item_id: Long) {
-        uiScope.launch {
-            // IO is a thread pool for running operations that access the disk, such as
-            // our Room database.
-
-            withContext(Dispatchers.IO) {
-                val item = database.get(item_id) ?: return@withContext
-                tempItem=item
-            }
-
-            // Setting this state variable to true will alert the observer and trigger navigation.
-
-        }
-
-    }
-
-
-
-    private suspend fun getItemById(item_id: Long) {
-        withContext(Dispatchers.IO) {
-
-            val item = database.get(item_id) ?: return@withContext
-
-        }
-    }
-
-
-
-
-
 
     /**
      * Call this immediately after navigating to [ItemTrackerFragment]
@@ -141,11 +103,13 @@ class ItemDetailViewModel(
             }
 
 
-        fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
-            val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
-            val   tempItem=newItem
-            tempItem.itemMain= radioButton.id.toString()
+     fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
+  //    fun onCreateItem() {
             Log.i("viewModelitem","create new item")
+          val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
+            val   tempItem=newItem
+                 tempItem.itemMain= radioButton.id.toString()
+            Log.i("viewModelitem",tempItem.itemMain)
             if (vaildateItem(tempItem)) {
                 uiScope.launch {
                     try {

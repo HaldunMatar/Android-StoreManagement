@@ -1,5 +1,6 @@
 package com.example.zaitoneh.itemdetail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,17 +11,22 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.loader.app.LoaderManager
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.databinding.FragmentItemDetailBinding
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 
 /**
  * A simple [Fragment] subclass.
  */
 class ItemDetailFragment : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,13 +38,24 @@ class ItemDetailFragment : Fragment() {
         var item:Item=Item()
         val application = requireNotNull(this.activity).application
         val dataSource = StoreDatabase.getInstance(application).itemDatabaseDao
-        val viewModelFactory = ItemDetailViewModelFactory(item.itemId,dataSource)
+        val args = ItemDetailFragmentArgs.fromBundle(requireArguments())
+        val viewModelFactory = ItemDetailViewModelFactory(args.itemId,dataSource)
         val itemDetailViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory).get(ItemDetailViewModel::class.java)
+
+
         binding.itemDetailViewModel = itemDetailViewModel
         binding.setLifecycleOwner(this)
-        binding.item=Item()
+
+
+
+
+
+
+
+
+
 
         itemDetailViewModel.saveItemToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
@@ -48,7 +65,7 @@ class ItemDetailFragment : Fragment() {
                 val toast =
                     Toast.makeText(activity!!.applicationContext, "This item is already exist",Toast.LENGTH_LONG
                     ).show()
-                //itemDetailViewModel.setSaveItemToDataBase()
+
             }
         })
 
@@ -61,21 +78,26 @@ class ItemDetailFragment : Fragment() {
             }
         })
 
-        binding.backBtn.setOnClickListener (
-            //view.findNavController().navigate(R.id.action_itemTrackerFragment_to_itemDetailFragment)
-            Navigation.createNavigateOnClickListener(R.id.action_itemDetailFragment_to_itemTrackerFragment))
+        binding.backBtn.setOnClickListener {
 
+            it.findNavController().navigate(R.id.action_itemDetailFragment_to_itemTrackerFragment)
 
+        }
 
-       val args = ItemDetailFragmentArgs.fromBundle(requireArguments())
-       itemDetailViewModel.getItemByIdForDisplay(args.itemId)
-        Log.i("getItemByIdForDisplay" ,itemDetailViewModel.tempItem.itemLevel1 )
-         //  binding.item=item1 as Item
-
-     //   itemDetailViewModel.itemtemp
-     //   Toast.makeText(context,itemDetailViewModel.itemtemp.itemLevel1.toString() , Toast.LENGTH_LONG).show()
-
+        binding.item=Item()
         return binding.root
     }
 
+
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("itemdetails" ," onDestroy" )
+    }
+
+
+
+
 }
+

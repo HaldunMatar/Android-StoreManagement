@@ -44,7 +44,7 @@ fun ImageView.setItemImage(item: Item?) {
     item?.let {
         setImageResource(when (item.itemMain) {
 
-           "Mterials" -> R.drawable.ic_lamp
+           "Materials" -> R.drawable.ic_lamp
             "Box"->R.drawable.ic_rocket //box
 
             "Kratin"->R.drawable.ic_project
@@ -88,7 +88,7 @@ fun RadioGroup.setItemMain(item: Item?) {
         (when (item.itemMain.toString()) {
 
 
-            "Mterials" -> radioButton3.setChecked(true);
+            "Materials" -> radioButton3.setChecked(true);
             "Kratin"-> radioButton2.setChecked(true); //karaten
             "Box"-> radioButton1.setChecked(true);////box
 

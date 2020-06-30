@@ -64,6 +64,7 @@ fun convertDurationToFormatted(startTimeMilli: String, endTimeMilli: String, res
             res.getString(R.string.hours_length, hours, weekdayString)
         }
     }*/
+
     return  startTimeMilli
 }
 

@@ -20,6 +20,7 @@ import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.databinding.FragmentItemDetailBinding
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
+import android.content.res.Resources
 
 
 /**
@@ -44,20 +45,39 @@ class ItemDetailFragment : Fragment() {
             ViewModelProviders.of(
                 this, viewModelFactory).get(ItemDetailViewModel::class.java)
 
+        if (args.itemId==0L) binding.saveBtn.text=this.context?.resources?.getString(R.string.save)
+        else{
+            binding.saveBtn.text=this.context?.resources?.getString(R.string.update)
 
+        }
         binding.itemDetailViewModel = itemDetailViewModel
         binding.setLifecycleOwner(this)
+
 
         itemDetailViewModel.updateItemToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
                 Toast.makeText(activity!!.applicationContext, "This item is updated",Toast.LENGTH_LONG
                 ).show()
+                view?.findNavController()?.navigate(R.id.action_itemDetailFragment_to_itemTrackerFragment)
             }
             else{
                 val toast =
                     Toast.makeText(activity!!.applicationContext, "Error This item is not  updated",Toast.LENGTH_LONG
                     ).show()
 
+            }
+        })
+
+        itemDetailViewModel.deleteItemFromDataBase.observe(this, Observer {
+            if (it == true) { // Observed state is true.
+                Toast.makeText(activity!!.applicationContext, "The item has been deleted",Toast.LENGTH_LONG
+                ).show()
+                view?.findNavController()?.navigate(R.id.action_itemDetailFragment_to_itemTrackerFragment)
+            }
+            else{
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, "Error, The item wasn't deleted",Toast.LENGTH_LONG
+                    ).show()
             }
         })
 

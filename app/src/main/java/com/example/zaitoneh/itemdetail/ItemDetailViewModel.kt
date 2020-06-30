@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.fragment_item_detail.view.*
 import kotlinx.coroutines.*
 import java.lang.Exception
 
+
+
 class ItemDetailViewModel(
     private val itemKey: Long = 0L,
     dataSource: ItemDatabaseDao) : ViewModel() {
@@ -35,12 +37,16 @@ class ItemDetailViewModel(
     private val item = MediatorLiveData<Item>()
 
 
-   val items = database.getItemWithId(111)
-
-
     private val _saveItemToDataBase = MutableLiveData<Boolean?>()
     val saveItemToDataBase: LiveData<Boolean?>
         get() = _saveItemToDataBase
+
+
+    private val _deleteItemFromDataBase = MutableLiveData<Boolean?>()
+    val deleteItemFromDataBase: LiveData<Boolean?>
+        get() = _deleteItemFromDataBase
+
+
 
     private val _updateItemToDataBase = MutableLiveData<Boolean?>()
     val updateItemToDataBase: LiveData<Boolean?>
@@ -128,7 +134,7 @@ class ItemDetailViewModel(
                when(radioButton.id){
                    R.id.itemMain_kratin_radio-> tempItem.itemMain="Kratin"
                    R.id.itemMain_box_radio-> tempItem.itemMain="Box"
-                   R.id.itemMain_materials_radio-> tempItem.itemMain="Mterials"
+                   R.id.itemMain_materials_radio-> tempItem.itemMain="Materials"
                }
 
             Log.i("viewModelitem",tempItem.itemMain)
@@ -159,11 +165,33 @@ class ItemDetailViewModel(
             }
     }
 
+fun OnDeleteItem() {
+
+    uiScope.launch {
+        try {
+            Log.i("delete",item.value!!.itemId.toString())
+            item!!.value?.itemId?.let { deleteItem(it) }
+            _deleteItemFromDataBase.value = true
+
+        } catch (E: Exception) {
+            Log.i("Exception", "The item was not deleted")
+            _deleteItemFromDataBase.value = false
+
+        }
+    }
+}
+
+    private suspend fun deleteItem(itemId: Long) {
+        withContext(Dispatchers.IO) {
+            database.delete(itemId)
+
+        }
+    }
+
 
  fun   setSaveItemToDataBase(){
      _saveItemToDataBase.value=true
  }
-
 
 
     fun   setupdateItemToDataBase(){

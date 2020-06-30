@@ -12,4 +12,5 @@
     <string name="itemLevel4">Describtion 4</string>
     <string name="materials">Materials</string>
     <string name="save">Save</string>
+    <string name="update" translatable="false">Update</string>
 </resources>

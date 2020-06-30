@@ -30,16 +30,24 @@ import com.example.zaitoneh.database.Item
 import com.jakewharton.rxbinding2.widget.checked
 import kotlinx.android.synthetic.main.one_item.view.*
 
+@BindingAdapter("itemId")
+fun TextView.setitemId(item: Item?) {
+    item?.let {
+        text = item.itemId.toString()
+    }
+}
+
+
 @BindingAdapter("itemImage")
 fun ImageView.setItemImage(item: Item?) {
     Log.i("bindingimage",item?.itemMain.toString())
     item?.let {
         setImageResource(when (item.itemMain) {
 
-           "2131361932" -> R.drawable.ic_lamp
-            "2131361930"->R.drawable.ic_rocket //box
+           "Mterials" -> R.drawable.ic_lamp
+            "Box"->R.drawable.ic_rocket //box
 
-            "2131361931"->R.drawable.ic_project
+            "Kratin"->R.drawable.ic_project
 
             else -> R.drawable.ic_boxdropboxicon
         })
@@ -72,20 +80,24 @@ fun TextView.setlevel3Formatted(item: Item?) {
 @SuppressLint("ResourceType")
 @BindingAdapter("itemMain")
 fun RadioGroup.setItemMain(item: Item?) {
-    var radioButton1 = findViewById<RadioButton>(2131361932)
-    var radioButton2 = findViewById<RadioButton>(2131361930)
-    var radioButton3 = findViewById<RadioButton>(2131361931)
+    var radioButton1 = findViewById<RadioButton>(R.id.itemMain_box_radio)
+    var radioButton2 = findViewById<RadioButton>(R.id.itemMain_kratin_radio)
+    var radioButton3 = findViewById<RadioButton>(R.id.itemMain_materials_radio)
 
     item?.let {
-        (when (item.itemMain) {
+        (when (item.itemMain.toString()) {
 
 
-            "2131361932" -> radioButton1.checked()
-          //  "2131361930"-> radioButton2.checked()////box
-            "2131361931"-> radioButton3.checked() //karaten
+            "Mterials" -> radioButton3.setChecked(true);
+            "Kratin"-> radioButton2.setChecked(true); //karaten
+            "Box"-> radioButton1.setChecked(true);////box
+
 
             else ->{            }
         })
+
+
     }
+
 
 }

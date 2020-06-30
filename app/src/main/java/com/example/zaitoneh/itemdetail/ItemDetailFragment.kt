@@ -48,7 +48,18 @@ class ItemDetailFragment : Fragment() {
         binding.itemDetailViewModel = itemDetailViewModel
         binding.setLifecycleOwner(this)
 
+        itemDetailViewModel.updateItemToDataBase.observe(this, Observer {
+            if (it == true) { // Observed state is true.
+                Toast.makeText(activity!!.applicationContext, "This item is updated",Toast.LENGTH_LONG
+                ).show()
+            }
+            else{
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, "Error This item is not  updated",Toast.LENGTH_LONG
+                    ).show()
 
+            }
+        })
 
 
 
@@ -84,7 +95,9 @@ class ItemDetailFragment : Fragment() {
 
         }
 
-        binding.item=Item()
+      binding.item=Item()
+
+      //  binding.item=  itemDetailViewModel.getItem().value as  Item
         return binding.root
     }
 

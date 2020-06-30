@@ -7,8 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.zaitoneh.R
 import com.example.zaitoneh.database.ItemDatabaseDao
 import com.example.zaitoneh.database.Item
+import kotlinx.android.synthetic.main.fragment_item_detail.view.*
 import kotlinx.coroutines.*
 import java.lang.Exception
 
@@ -39,6 +41,13 @@ class ItemDetailViewModel(
     private val _saveItemToDataBase = MutableLiveData<Boolean?>()
     val saveItemToDataBase: LiveData<Boolean?>
         get() = _saveItemToDataBase
+
+    private val _updateItemToDataBase = MutableLiveData<Boolean?>()
+    val updateItemToDataBase: LiveData<Boolean?>
+        get() = _updateItemToDataBase
+
+
+
 
     private val _itemValidation = MutableLiveData<Boolean?>()
     val itemValidation: LiveData<Boolean?>
@@ -95,6 +104,12 @@ class ItemDetailViewModel(
 
         }
     }
+    private suspend fun update(item: Item) {
+        withContext(Dispatchers.IO) {
+            database.update(item)
+            Log.i("update",item.itemId.toString())
+        }
+    }
 
 
      fun   vaildateItem(newItem: Item) : Boolean {
@@ -104,21 +119,38 @@ class ItemDetailViewModel(
 
 
      fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
-  //    fun onCreateItem() {
-            Log.i("viewModelitem","create new item")
+
           val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
             val   tempItem=newItem
-                 tempItem.itemMain= radioButton.id.toString()
+                 tempItem.itemId= itemKey
+
+
+               when(radioButton.id){
+                   R.id.itemMain_kratin_radio-> tempItem.itemMain="Kratin"
+                   R.id.itemMain_box_radio-> tempItem.itemMain="Box"
+                   R.id.itemMain_materials_radio-> tempItem.itemMain="Mterials"
+               }
+
             Log.i("viewModelitem",tempItem.itemMain)
             if (vaildateItem(tempItem)) {
                 uiScope.launch {
                     try {
-                        insert(tempItem)
-                        _saveItemToDataBase.value=true
+
+                        if (itemKey==0L) {
+                            insert(tempItem)
+                            _saveItemToDataBase.value=true
+                        }else{
+                            Log.i("update","update")
+                            update(tempItem)
+                            _updateItemToDataBase.value=true
+
+                        }
+
                     }
                     catch (E:Exception){
                         Log.i("Exception", "There is a problem in insert same item added")
                         _saveItemToDataBase.value = false
+                        _updateItemToDataBase.value = false
                     }
                 }
             }
@@ -132,6 +164,11 @@ class ItemDetailViewModel(
      _saveItemToDataBase.value=true
  }
 
+
+
+    fun   setupdateItemToDataBase(){
+        _updateItemToDataBase.value=true
+    }
 
 
 

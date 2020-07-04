@@ -14,4 +14,9 @@
     <string name="materials">Materials</string>
     <string name="save">Save</string>
     <string name="update" translatable="false">Update</string>
+    <string name="StoreName">Store Name</string>
+    <string name="StoreCode">Store Code </string>
+    <string name="back">Back</string>
+    <string name="delete">Delete</string>
+    <string name="storeAdress">Store Adress</string>
 </resources>

@@ -15,5 +15,9 @@
     <string name="materials">المواد</string>
     <string name="save">حفظ</string>
     <string name="update">تحديث</string>
+    <string name="StoreName">StoreName</string>
+    <string name="StoreCode" />
+    <string name="back">Back</string>
+    <string name="delete">Delete</string>
 </resources>
 

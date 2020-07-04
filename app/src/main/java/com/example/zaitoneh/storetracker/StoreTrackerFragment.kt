@@ -1,6 +1,7 @@
 package com.example.zaitoneh.storetracker
 
 import android.os.Bundle
+import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -59,7 +60,7 @@ class StoreTrackerFragment : Fragment() {
         })
 
 
-/*
+
 
         storeTrackerViewModel.navigateToEditStore.observe(this, Observer { store ->
             store?.let {
@@ -68,7 +69,7 @@ class StoreTrackerFragment : Fragment() {
             }
         })
 
-*/
+
         binding.storeList.adapter = adapter
 
 
@@ -81,9 +82,13 @@ class StoreTrackerFragment : Fragment() {
             }
         })
 
+        binding.addStoreButton.setOnClickListener {
 
+            it.findNavController().navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment(0))
 
-       val store_search= binding.storeSearch
+        }
+
+        val store_search= binding.storeSearch
         store_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
 
             override fun onQueryTextSubmit(query: String?): Boolean {

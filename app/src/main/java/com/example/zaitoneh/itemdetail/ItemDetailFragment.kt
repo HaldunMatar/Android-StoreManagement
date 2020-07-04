@@ -21,6 +21,9 @@ import com.example.zaitoneh.databinding.FragmentItemDetailBinding
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import android.content.res.Resources
+import android.view.MenuItem
+import androidx.navigation.fragment.findNavController
+import java.lang.Exception
 
 
 /**
@@ -45,11 +48,11 @@ class ItemDetailFragment : Fragment() {
             ViewModelProviders.of(
                 this, viewModelFactory).get(ItemDetailViewModel::class.java)
 
-        if (args.itemId==0L) binding.saveBtn.text=this.context?.resources?.getString(R.string.save)
+        /*if (args.itemId==0L) binding.saveBtn.text=this.context?.resources?.getString(R.string.save)
         else{
             binding.saveBtn.text=this.context?.resources?.getString(R.string.update)
 
-        }
+        }*/
         binding.itemDetailViewModel = itemDetailViewModel
         binding.setLifecycleOwner(this)
 
@@ -80,14 +83,6 @@ class ItemDetailFragment : Fragment() {
                     ).show()
             }
         })
-
-
-
-
-
-
-
-
         itemDetailViewModel.saveItemToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
                 binding.item=Item()

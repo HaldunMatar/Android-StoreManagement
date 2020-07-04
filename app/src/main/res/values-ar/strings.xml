@@ -19,5 +19,6 @@
     <string name="StoreCode" />
     <string name="back">Back</string>
     <string name="delete">Delete</string>
+    <string name="items">Items</string>
 </resources>
 

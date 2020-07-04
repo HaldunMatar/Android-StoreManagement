@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemDetailFragment"
+        android:actionLayout="@layout/fragment_item_detail"
+        android:title="@string/add_button" />
+    <item android:title="@string/add_store_button" />
+    <item
+        android:id="@+id/itemTrackerFragment"
+        android:title="@string/items" />
+    <item android:title="@string/stores" />
+    <item android:title="Item" />
+    <item android:title="Item" />
+</menu>

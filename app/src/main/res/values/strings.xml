@@ -19,4 +19,6 @@
     <string name="back">Back</string>
     <string name="delete">Delete</string>
     <string name="storeAdress">Store Adress</string>
+    <string name="items">Items</string>
+    <string name="stores">Stores</string>
 </resources>

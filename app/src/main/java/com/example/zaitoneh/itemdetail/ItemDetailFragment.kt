@@ -67,7 +67,6 @@ class ItemDetailFragment : Fragment() {
                 val toast =
                     Toast.makeText(activity!!.applicationContext, "Error This item is not  updated",Toast.LENGTH_LONG
                     ).show()
-
             }
         })
 
@@ -91,7 +90,6 @@ class ItemDetailFragment : Fragment() {
                 val toast =
                     Toast.makeText(activity!!.applicationContext, "This item is already exist",Toast.LENGTH_LONG
                     ).show()
-
             }
         })
 
@@ -107,7 +105,6 @@ class ItemDetailFragment : Fragment() {
         binding.backBtn.setOnClickListener {
 
             it.findNavController().navigate(R.id.action_itemDetailFragment_to_itemTrackerFragment)
-
         }
 
       binding.item=Item()

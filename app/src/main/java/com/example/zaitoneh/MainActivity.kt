@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {nav_host_fragment
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
@@ -32,18 +32,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment)
         return NavigationUI.navigateUp(navController,drawerLayout )
-    }
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        Log.i("test","test")
-        when (item?.itemId) {
-            R.id.navView-> {
-                /*val songBundle = Bundle()
-                songBundle.putString("nameArg", first_name.text.toString())*/
-                //NavHostFragment.findNavController(nav_host_fragment).navigate(R.id.goto_songedit, songBundle)
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
     }
 
 

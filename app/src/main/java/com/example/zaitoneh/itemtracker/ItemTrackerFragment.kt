@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.zaitoneh.database.Item
 
 import com.example.zaitoneh.database.StoreDatabase
@@ -29,9 +28,12 @@ class ItemTrackerFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentItemTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_item_tracker, container, false)
-           binding.addButton.setOnClickListener { view: View ->
-          view.findNavController().navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment(0))
-        }
+           /*binding.addButton.setOnClickListener { view: View ->
+          view.findNavController().navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment(
+              it
+          )
+          )
+        }*/
 
 
 
@@ -64,7 +66,7 @@ class ItemTrackerFragment : Fragment() {
         itemTrackerViewModel.navigateToEditItem.observe(this, Observer { item ->
             item?.let {
 
-                view?.findNavController()?.navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment(it))
+                view?.findNavController()?.navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment().setItemId(it))
             }
         })
 

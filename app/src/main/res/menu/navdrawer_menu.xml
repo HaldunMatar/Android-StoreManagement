@@ -3,7 +3,6 @@
 
     <item
         android:id="@+id/itemDetailFragment"
-        android:actionLayout="@layout/fragment_item_detail"
         android:title="@string/add_button" />
     <item android:title="@string/add_store_button" />
     <item

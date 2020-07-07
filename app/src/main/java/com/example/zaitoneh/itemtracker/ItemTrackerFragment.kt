@@ -28,12 +28,10 @@ class ItemTrackerFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentItemTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_item_tracker, container, false)
-           /*binding.addButton.setOnClickListener { view: View ->
-          view.findNavController().navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment(
-              it
+           binding.addButton.setOnClickListener { view: View ->
+          view.findNavController().navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment()
           )
-          )
-        }*/
+        }
 
 
 

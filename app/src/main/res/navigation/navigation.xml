@@ -38,6 +38,7 @@
             android:id="@+id/action_storeDetailFragment_to_storeTrackerFragment"
             app:destination="@id/storeTrackerFragment" />
         <argument android:name="store_id"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 </navigation>

@@ -4,7 +4,9 @@
     <item
         android:id="@+id/itemDetailFragment"
         android:title="@string/add_button" />
-    <item android:title="@string/add_store_button" />
+    <item
+        android:id="@+id/storeDetailFragment"
+        android:title="@string/add_store_button" />
     <item
         android:id="@+id/itemTrackerFragment"
         android:title="@string/items" />

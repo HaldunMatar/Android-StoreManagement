@@ -65,7 +65,7 @@ class StoreTrackerFragment : Fragment() {
         storeTrackerViewModel.navigateToEditStore.observe(this, Observer { store ->
             store?.let {
 
-                view?.findNavController()?.navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment(it))
+                view?.findNavController()?.navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it))
             }
         })
 
@@ -84,7 +84,7 @@ class StoreTrackerFragment : Fragment() {
 
         binding.addStoreButton.setOnClickListener {
 
-            it.findNavController().navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment(0))
+            it.findNavController().navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment())
 
         }
 

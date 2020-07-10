@@ -16,6 +16,10 @@
     <string name="save">حفظ</string>
     <string name="update">تحديث</string>
     <string name="StoreName">StoreName</string>
+    <string name="SupplierName">اسم المورّد</string>
+    <string name="SupplierAddress">عنوان المورّد</string>
+    <string name="SupplierMobile1">رقم موبايل المورّد 1</string>
+    <string name="SupplierMobile2">رقم موبايل المورّد 2</string>
     <string name="StoreCode" />
     <string name="back">Back</string>
     <string name="delete">Delete</string>

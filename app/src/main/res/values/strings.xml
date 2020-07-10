@@ -21,4 +21,13 @@
     <string name="storeAdress">Store Adress</string>
     <string name="items">Items</string>
     <string name="stores">Stores</string>
+    <string name="add_employee">add employee</string>
+    <string name="full_name">Full Name</string>
+    <string name="code_label">Code</string>
+    <string name="mobile1">"Mobile 1 "</string>
+    <string name="mobile2">Mobile2</string>
+    <string name="address">Address</string>
+    <string name="note">Notes</string>
+    <string name="add_employee_button">Add employee</string>
+    <string name="employees">Employees</string>
 </resources>

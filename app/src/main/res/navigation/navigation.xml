@@ -41,4 +41,24 @@
             app:argType="long"
             android:defaultValue="0L" />
     </fragment>
+    <fragment
+        android:id="@+id/employeeDetailFragment"
+        android:name="com.example.zaitoneh.employeedetail.EmployeeDetailFragment"
+        android:label="EmployeeDetailFragment" >
+        <argument
+            android:name="employee_id"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_employeeDetailFragment_to_employeeTrackerFragment"
+            app:destination="@id/employeeTrackerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeeTrackerFragment"
+        android:name="com.example.zaitoneh.employeetracker.EmployeeTrackerFragment"
+        android:label="EmployeeTrackerFragment" >
+        <action
+            android:id="@+id/action_employeeTrackerFragment_to_employeeDetailFragment"
+            app:destination="@id/employeeDetailFragment" />
+    </fragment>
 </navigation>

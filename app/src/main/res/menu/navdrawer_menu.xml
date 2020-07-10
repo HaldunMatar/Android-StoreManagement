@@ -11,6 +11,10 @@
         android:id="@+id/itemTrackerFragment"
         android:title="@string/items" />
     <item android:title="@string/stores" />
-    <item android:title="Item" />
-    <item android:title="Item" />
+    <item
+        android:id="@+id/employeeDetailFragment"
+        android:title="@string/add_employee" />
+    <item
+        android:id="@+id/employeeTrackerFragment"
+        android:title="@string/employees" />
 </menu>

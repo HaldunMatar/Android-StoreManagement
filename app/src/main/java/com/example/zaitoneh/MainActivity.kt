@@ -34,5 +34,15 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController,drawerLayout )
     }
 
+    // @Override
+  /*  override fun onBackPressed() {
+        val navController = this.findNavController(R.id.nav_host_fragment)
 
+        if (navController.currentDestination?.id == R.id.storeDetailFragment) {
+
+            navController.navigate(R.id.action_storeDetailFragment_to_storeTrackerFragment)
+        }
+
+        else navController.popBackStack();
+    }*/
 }

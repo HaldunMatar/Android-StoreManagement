@@ -5,6 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_button">add item</string>
     <string name="add_store_button">add store</string>
+    <string name="add_supplier_button">add supplier</string>
     <string name="box">Box</string>
     <string name="kratin">Kratin</string>
     <string name="itemLevel1">Describtion 1 </string>
@@ -15,10 +16,14 @@
     <string name="save">Save</string>
     <string name="update" translatable="false">Update</string>
     <string name="StoreName">Store Name</string>
+    <string name="SupplierName">Supplier First Name</string>
     <string name="StoreCode">Store Code </string>
     <string name="back">Back</string>
     <string name="delete">Delete</string>
     <string name="storeAdress">Store Adress</string>
+    <string name="SupplierAddress">Supplier Adress</string>supplierMobıle1
+    <string name="SupplierMobile1">Supplier First Mobile</string>
+    <string name="SupplierMobile2">Supplier Second Mobile</string>
     <string name="items">Items</string>
     <string name="stores">Stores</string>
 </resources>

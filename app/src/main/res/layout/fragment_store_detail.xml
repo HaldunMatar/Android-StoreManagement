@@ -31,7 +31,6 @@
             android:text="@string/StoreName"
             app:layout_constraintBottom_toTopOf="@+id/storeCode_lable"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -67,7 +66,6 @@
             android:inputType="textPersonName"
             android:text="@={store.storeName}"
             app:storeNameFormatted="@{storeDetailViewModel.store}"
-
             app:layout_constraintBaseline_toBaselineOf="@+id/storeName_lable"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -101,8 +99,6 @@
             android:text="@string/back"
             app:layout_constraintEnd_toStartOf="@+id/delete_store_button"
             app:layout_constraintHorizontal_bias="0.5"
-
-
             app:layout_constraintStart_toEndOf="@+id/save_store_button"
             app:layout_constraintTop_toTopOf="@+id/save_store_button" />
 

@@ -31,7 +31,7 @@ class StoreTrackerFragment : Fragment() {
         val binding: FragmentStoreTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_store_tracker, container, false)
            binding.addStoreButton.setOnClickListener { view: View ->
-         // view.findNavController().navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment(0))
+          //view.findNavController().navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it))
         }
 
 
@@ -77,8 +77,6 @@ class StoreTrackerFragment : Fragment() {
             it?.let {
                 adapter.updateList(it as MutableList<Store>)
                 adapter.submitList(it)
-
-
             }
         })
 

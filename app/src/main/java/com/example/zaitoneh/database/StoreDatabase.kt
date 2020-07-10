@@ -12,7 +12,9 @@ import androidx.room.RoomDatabase
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities = [Item::class,Store::class,Employee::class], version = 14, exportSchema = true)
+
+@Database(entities = [Item::class,Store::class,Employee::class,Supplier::class], version = 14, exportSchema = true)
+
 
 abstract class StoreDatabase : RoomDatabase() {
 
@@ -21,7 +23,11 @@ abstract class StoreDatabase : RoomDatabase() {
      */
     abstract val itemDatabaseDao: ItemDatabaseDao
     abstract val storeDatabaseDao: StoreDatabaseDao
+
     abstract val employeeDatabaseDao: EmployeeDatabaseDao
+
+    abstract val supplierDatabaseDao: SupplierDatabaseDao
+
 
     /**
      * Define a companion object, this allows us to add functions on the StoreDatabase class.

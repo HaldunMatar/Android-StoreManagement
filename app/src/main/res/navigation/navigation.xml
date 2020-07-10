@@ -42,6 +42,7 @@
             android:defaultValue="0L" />
     </fragment>
     <fragment
+
         android:id="@+id/employeeDetailFragment"
         android:name="com.example.zaitoneh.employeedetail.EmployeeDetailFragment"
         android:label="EmployeeDetailFragment" >
@@ -60,5 +61,25 @@
         <action
             android:id="@+id/action_employeeTrackerFragment_to_employeeDetailFragment"
             app:destination="@id/employeeDetailFragment" />
+
+        android:id="@+id/supplierTrackerFragment"
+        android:name="com.example.zaitoneh.suppliertracker.SupplierTrackerFragment"
+        android:label="SupplierTrackerFragment" >
+        <action
+            android:id="@+id/action_supplierTrackerFragment_to_supplierDetailFragment"
+            app:destination="@id/supplierDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/supplierDetailFragment"
+        android:name="com.example.zaitoneh.supplierdetail.SupplierDetailFragment"
+        android:label="SupplierDetailFragment" >
+        <argument
+            android:name="supplierId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_supplierDetailFragment_to_supplierTrackerFragment"
+            app:destination="@id/supplierTrackerFragment" />
+
     </fragment>
 </navigation>

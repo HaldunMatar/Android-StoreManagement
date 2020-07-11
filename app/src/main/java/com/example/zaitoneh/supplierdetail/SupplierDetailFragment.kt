@@ -1,5 +1,6 @@
 package com.example.zaitoneh.supplierdetail
 
+import android.app.Dialog
 import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.supplierdetail.SupplierDetailFragmentArgs
 
@@ -14,6 +15,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
 import com.example.zaitoneh.R
@@ -141,46 +143,17 @@ class SupplierDetailFragment : Fragment() {
 
         }
 
-
-
-
-
-
         binding.supplier=Supplier()
-
-
-
 
         /* binding.saveSupplierButton.setOnClickListener {
  
             supplierDetailViewModel.onCreateSupplier(Supplier(11,"GOP1","01541","adress1"))
          }*/
 
-
-
-
-
-
-
-
-
         //******************************************
-
-
-
-
 
         return binding.root
     }
-
-
-
-
-
-
-
-
-
 
 }
 

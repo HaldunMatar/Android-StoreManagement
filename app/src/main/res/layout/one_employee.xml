@@ -28,7 +28,7 @@
             android:id="@+id/employee_name"
             style="@style/Label_Style"
 
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="20dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
@@ -49,8 +49,8 @@
             style="@style/Label_Style"
             android:layout_width="0dp"
             android:layout_height="20dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:fontFamily="@font/droid_sans"
@@ -71,6 +71,8 @@
 
             android:layout_width="0dp"
             android:layout_height="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
             android:onClick="@{() -> clickListener.onClick(employee)}"
             android:scrollbarSize="10dp"
             android:textColor="@android:color/background_dark"
@@ -79,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/employee_code"
-            tools:text="Employee Address"  />
+            tools:text="Employee Address" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

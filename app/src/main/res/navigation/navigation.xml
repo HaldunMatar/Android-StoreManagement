@@ -60,14 +60,12 @@
         android:label="EmployeeTrackerFragment" >
         <action
             android:id="@+id/action_employeeTrackerFragment_to_employeeDetailFragment"
-            app:destination="@id/employeeDetailFragment" />
+            app:destination="@id/employeeDetailFragment" /><![CDATA[
 
         android:id="@+id/supplierTrackerFragment"
         android:name="com.example.zaitoneh.suppliertracker.SupplierTrackerFragment"
         android:label="SupplierTrackerFragment" >
-        <action
-            android:id="@+id/action_supplierTrackerFragment_to_supplierDetailFragment"
-            app:destination="@id/supplierDetailFragment" />
+        ]]>
     </fragment>
     <fragment
         android:id="@+id/supplierDetailFragment"
@@ -81,5 +79,13 @@
             android:id="@+id/action_supplierDetailFragment_to_supplierTrackerFragment"
             app:destination="@id/supplierTrackerFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/supplierTrackerFragment"
+        android:name="com.example.zaitoneh.suppliertracker.SupplierTrackerFragment"
+        android:label="SupplierTrackerFragment" >
+        <action
+            android:id="@+id/action_supplierTrackerFragment_to_supplierDetailFragment"
+            app:destination="@id/supplierDetailFragment" />
     </fragment>
 </navigation>

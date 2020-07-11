@@ -109,6 +109,8 @@ class ItemDetailFragment : Fragment() {
 
       binding.item=Item()
 
+
+
       //  binding.item=  itemDetailViewModel.getItem().value as  Item
         return binding.root
     }

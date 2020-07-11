@@ -2,27 +2,30 @@ package com.example.zaitoneh.storetracker
 
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.appcompat.widget.SearchView
 import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.zaitoneh.MyDialog
 import com.example.zaitoneh.database.Store
 import com.example.zaitoneh.storetracker.StoreTrackerViewModel
 import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.databinding.FragmentStoreTrackerBinding
+import kotlinx.android.synthetic.main.fragment_store_tracker.*
 
 
-
-
-class StoreTrackerFragment : Fragment() {
-
+class StoreTrackerFragment : Fragment(), View.OnClickListener, MyDialog.DialogListener{
+    internal lateinit var btnEmbedDialogFragment: Button
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,8 +36,7 @@ class StoreTrackerFragment : Fragment() {
            binding.addStoreButton.setOnClickListener { view: View ->
           //view.findNavController().navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it))
         }
-
-
+        binding.btnEmbedDialogFragment.setOnClickListener(this)
 
         /****************************************************************************/
        val application = requireNotNull(this.activity).application
@@ -104,8 +106,37 @@ class StoreTrackerFragment : Fragment() {
 
         return binding.root
     }
+    override fun onClick(view:View) {
+                val myActivity= getActivity()
+                val dialogFragment = MyDialog(this)
+                val bundle = Bundle()
+                bundle.putBoolean("notAlertDialog", true)
+                dialogFragment.arguments = bundle
+                val ft = myActivity?.supportFragmentManager?.beginTransaction()
+                val prev = myActivity?.supportFragmentManager?.findFragmentByTag("dialog")
+                if (prev != null)
+                {
+                    if (ft != null) {
+                        ft.remove(prev)
+                    }
+                }
+        if (ft != null) {
+            ft.addToBackStack(null)
+        }
+        if (ft != null) {
+            dialogFragment.show(ft, "dialog")
+        }
 
+    }
 
+    override fun onFinishEditDialog(inputText:String) {
+        if (TextUtils.isEmpty(inputText))
+        {
+            textView.text = "Please enter Mobile Number"
+        }
+        else
+            textView.text = "Number entered: " + inputText
+    }
 }
 
 

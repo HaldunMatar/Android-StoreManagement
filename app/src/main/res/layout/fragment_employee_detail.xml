@@ -13,8 +13,185 @@
             name="employee"
             type="com.example.zaitoneh.database.Employee" />
     </data>
+   <!-- <androidx.constraintlayout.widget.ConstraintLayout
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+
+        <Button
+            android:id="@+id/back_employee_button"
+            style="@style/button_store_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            app:layout_constraintEnd_toStartOf="@+id/delete_employee_button"
+            app:layout_constraintHorizontal_bias="0.5"
+
+
+            app:layout_constraintStart_toEndOf="@+id/save_employee_button"
+            app:layout_constraintTop_toTopOf="@+id/save_employee_button" />
+
+        <Button
+            android:id="@+id/save_employee_button"
+            style="@style/button_store_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="72dp"
+            android:onClick="@{() -> employeeDetailViewModel.onCreateEmployee(employee)}"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/back_employee_button"
+            app:layout_constraintHorizontal_bias="0.5"
+
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/delete_employee_button"
+            style="@style/button_store_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> employeeDetailViewModel.OnDeleteEmployee()}"
+            android:text="@string/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/back_employee_button"
+            app:layout_constraintTop_toTopOf="@+id/back_employee_button" />
+
+        <TextView
+            android:id="@+id/full_name_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/full_name"
+            app:layout_constraintBottom_toTopOf="@+id/code_label"
+            app:layout_constraintEnd_toStartOf="@+id/full_name_emp_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/code_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/code_label"
+            app:layout_constraintBottom_toTopOf="@+id/mobile1_label"
+            app:layout_constraintStart_toStartOf="@+id/full_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/full_name_label" />
+
+        <TextView
+            android:id="@+id/mobile1_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile1"
+            app:layout_constraintBottom_toTopOf="@+id/mobile2_label"
+            app:layout_constraintStart_toStartOf="@+id/code_label"
+            app:layout_constraintTop_toBottomOf="@+id/code_label" />
+
+        <TextView
+            android:id="@+id/mobile2_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile2"
+            app:layout_constraintBottom_toTopOf="@+id/address_label"
+            app:layout_constraintStart_toStartOf="@+id/mobile1_label"
+            app:layout_constraintTop_toBottomOf="@+id/mobile1_label" />
+
+        <TextView
+            android:id="@+id/address_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            app:layout_constraintBottom_toTopOf="@+id/note_label"
+            app:layout_constraintStart_toStartOf="@+id/mobile2_label"
+            app:layout_constraintTop_toBottomOf="@+id/mobile2_label" />
+
+        <TextView
+            android:id="@+id/note_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/note"
+            app:layout_constraintBottom_toTopOf="@+id/save_employee_button"
+            app:layout_constraintStart_toStartOf="@+id/address_label"
+            app:layout_constraintTop_toBottomOf="@+id/address_label" />
+
+        <EditText
+            android:id="@+id/full_name_emp_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={employee.employeeName}"
+
+
+            app:layout_constraintBaseline_toBaselineOf="@+id/full_name_label"
+            app:layout_constraintStart_toStartOf="@+id/code_emp_input" />
+
+        <EditText
+            android:id="@+id/code_emp_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={employee.employeeCode}"
+
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/code_label"
+            app:layout_constraintStart_toStartOf="@+id/mobile1_emp_input" />
+
+        <EditText
+            android:id="@+id/mobile1_emp_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={employee.employeeMobile1}"
+
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/mobile1_label"
+            app:layout_constraintStart_toStartOf="@+id/mobile2_emp_input" />
+
+        <EditText
+            android:id="@+id/mobile2_emp_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={employee.employeeMobile2}"
+
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/mobile2_label"
+            app:layout_constraintStart_toStartOf="@+id/address_emp_input" />
+
+        <EditText
+            android:id="@+id/address_emp_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={employee.employeeAddress}"
+
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/address_label"
+            app:layout_constraintStart_toStartOf="@+id/note_emp_input" />
+
+        <EditText
+            android:id="@+id/note_emp_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={employee.employeeNote}"
+
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/note_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/note_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+ <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
 

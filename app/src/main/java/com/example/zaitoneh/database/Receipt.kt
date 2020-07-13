@@ -37,4 +37,13 @@ data class Receipt(
 @ColumnInfo(name = "receipt_dep_id")
 var receiptDepId: Long
 )
+{
+
+   fun getEmpString():String {
+       return receiptEmpId.toString()
+   }
+
+
+
+}
 

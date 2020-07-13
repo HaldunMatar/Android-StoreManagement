@@ -36,7 +36,7 @@ class EmployeeDetailViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val employee = MediatorLiveData<Employee>()
 
-
+     var  employee1 = Employee()
     private val _saveEmployeeToDataBase = MutableLiveData<Boolean?>()
     val saveEmployeeToDataBase: LiveData<Boolean?>
         get() = _saveEmployeeToDataBase
@@ -188,13 +188,33 @@ fun OnDeleteEmployee() {
 
  fun   setSaveEmployeeToDataBase(){
      _saveEmployeeToDataBase.value=true
+
  }
 
 
     fun   setupdateEmployeeToDataBase(){
         _updateEmployeeToDataBase.value=true
     }
+    fun  getEmployee(id:Long) {
+        println("Gone to calculate sum of a & b")
 
+        GlobalScope.launch {
+            val result = async {
+                getEmployeeFromDB(id)
+            }
+            println("Sum of a & b is: ${result.await()}")
+        }
+        runBlocking {
+            delay(1) // keeping jvm alive till calculateSum is finished
+        }
+    }
+
+    suspend fun getEmployeeFromDB(id:Long): Employee {
+        // simulate long running task
+        var employee= database.get(id)!!
+        this.employee1=employee;
+        return employee
+    }
 
 
 }

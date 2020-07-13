@@ -198,7 +198,28 @@ fun OnDeleteItem() {
         _updateItemToDataBase.value=true
     }
 
+/*
+   fun main() {
+        println("Gone to calculate sum of a & b")
 
+        GlobalScope.launch {
+            val result = async {
+                calculateSum()
+            }
+            println("Sum of a & b is: ${result.await()}")
+        }
+        runBlocking {
+            delay(1) // keeping jvm alive till calculateSum is finished
+        }
+    }
+
+    suspend fun calculateSum(): Item {
+         // simulate long running task
+        item1= database.get(1)!!
+        return item1
+    }
+
+ */
 
 }
 

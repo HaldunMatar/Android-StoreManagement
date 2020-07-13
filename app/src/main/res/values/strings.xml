@@ -35,4 +35,11 @@
     <string name="note">Notes</string>
     <string name="add_employee_button">Add employee</string>
     <string name="employees">Employees</string>
+    <string name="receipt_type">Receipt Type</string>
+    <string name="receipt_sup">Suppliers</string>
+    <string name="receipt_emp">Employee</string>
+    <string name="receipt_source">Source City</string>
+    <string name="receipt_note">Receipt Note</string>
+    <string name="share_btk">Receipt Share</string>
+    <string name="receipt_dep">" Department"</string>
 </resources>

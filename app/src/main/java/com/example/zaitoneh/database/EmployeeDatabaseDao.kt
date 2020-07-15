@@ -40,5 +40,6 @@ interface EmployeeDatabaseDao{
     @Query("SELECT * FROM employee_table ORDER BY employeeId DESC LIMIT 1")
     fun getlatestEmployee(): Employee?
 
-
+    @Query("SELECT * FROM employee_table ORDER BY employeeId DESC")
+    fun getEmployees(): List<Employee>
 }

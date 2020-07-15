@@ -24,7 +24,6 @@ class EmployeeDetailViewModel(
      * Hold a reference to SleepDatabase via its EmployeeDatabaseDao.
      */
     val database = dataSource
-  
 
 
     //= MutableLiveData<Employee?>()
@@ -36,7 +35,7 @@ class EmployeeDetailViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val employee = MediatorLiveData<Employee>()
 
-     var  employee1 = Employee()
+    var employee1 = Employee()
     private val _saveEmployeeToDataBase = MutableLiveData<Boolean?>()
     val saveEmployeeToDataBase: LiveData<Boolean?>
         get() = _saveEmployeeToDataBase
@@ -47,25 +46,21 @@ class EmployeeDetailViewModel(
         get() = _deleteEmployeeFromDataBase
 
 
-
     private val _updateEmployeeToDataBase = MutableLiveData<Boolean?>()
     val updateEmployeeToDataBase: LiveData<Boolean?>
         get() = _updateEmployeeToDataBase
-
-
 
 
     private val _employeeValidation = MutableLiveData<Boolean?>()
     val employeeValidation: LiveData<Boolean?>
         get() = _employeeValidation
 
-       fun getEmployee() = employee
-
+    fun getEmployee() = employee
 
 
     init {
         employee.addSource(database.getEmployeeWithId(employeeKey), employee::setValue)
-      //  _employeeValidation.value=false
+        //  _employeeValidation.value=false
     }
 
 
@@ -90,7 +85,7 @@ class EmployeeDetailViewModel(
      */
     override fun onCleared() {
         super.onCleared()
-        Log.i("employeedetails" ," onCleared v M " )
+        Log.i("employeedetails", " onCleared v M ")
         viewModelJob.cancel()
     }
 
@@ -111,72 +106,71 @@ class EmployeeDetailViewModel(
 
         }
     }
+
     private suspend fun update(employee: Employee) {
         withContext(Dispatchers.IO) {
             database.update(employee)
-            Log.i("update",employee.employeeId.toString())
+            Log.i("update", employee.employeeId.toString())
         }
     }
 
 
-     fun   vaildateEmployee(newEmployee: Employee) : Boolean {
-         return !false
-         Log.i("vaildateEmployee", " inside vaildateEmployee")
-            }
+    fun vaildateEmployee(newEmployee: Employee): Boolean {
+        return !false
+        Log.i("vaildateEmployee", " inside vaildateEmployee")
+    }
 
 
-     fun onCreateEmployee(newEmployee: Employee) {
-         Log.i("vaildateEmployee", " onCreateEmployee")
-         Log.i("viewModelemployee",newEmployee.toString())
+    fun onCreateEmployee(newEmployee: Employee) {
+        Log.i("vaildateEmployee", " onCreateEmployee")
+        Log.i("viewModelemployee", newEmployee.toString())
 
-             newEmployee.employeeId= this.employeeKey
+        newEmployee.employeeId = this.employeeKey
 
-            if (vaildateEmployee(newEmployee)) {
-                Log.i("vaildateEmployee", " if  onCreateEmployee")
-                uiScope.launch {
-                    try {
+        if (vaildateEmployee(newEmployee)) {
+            Log.i("vaildateEmployee", " if  onCreateEmployee")
+            uiScope.launch {
+                try {
 
-                        if (employeeKey==0L) {
-                            insert(newEmployee)
-                            _saveEmployeeToDataBase.value=true
-                        }else{
-                            Log.i("update","update")
-                            update(newEmployee)
-                            _updateEmployeeToDataBase.value=true
-
-                        }
+                    if (employeeKey == 0L) {
+                        insert(newEmployee)
+                        _saveEmployeeToDataBase.value = true
+                    } else {
+                        Log.i("update", "update")
+                        update(newEmployee)
+                        _updateEmployeeToDataBase.value = true
 
                     }
-                    catch (E:Exception){
-                        Log.i("Exception", "There is a problem in insert same employee added")
-                        if(newEmployee.employeeId==0L)
-                           _saveEmployeeToDataBase.value = false
-                        else
+
+                } catch (E: Exception) {
+                    Log.i("Exception", "There is a problem in insert same employee added")
+                    if (newEmployee.employeeId == 0L)
+                        _saveEmployeeToDataBase.value = false
+                    else
                         _updateEmployeeToDataBase.value = false
-                    }
                 }
             }
-            else{
-                _employeeValidation.value=false
-            }
-    }
-
-fun OnDeleteEmployee() {
-
-    uiScope.launch {
-
-        try {
-            Log.i("delete",employee.value!!.employeeId.toString())
-            employee!!.value?.employeeId?.let { deleteEmployee(it) }
-            _deleteEmployeeFromDataBase.value = true
-
-        } catch (E: Exception) {
-            Log.i("Exception", "The employee was not deleted")
-            _deleteEmployeeFromDataBase.value = false
-
+        } else {
+            _employeeValidation.value = false
         }
     }
-}
+
+    fun OnDeleteEmployee() {
+
+        uiScope.launch {
+
+            try {
+                Log.i("delete", employee.value!!.employeeId.toString())
+                employee!!.value?.employeeId?.let { deleteEmployee(it) }
+                _deleteEmployeeFromDataBase.value = true
+
+            } catch (E: Exception) {
+                Log.i("Exception", "The employee was not deleted")
+                _deleteEmployeeFromDataBase.value = false
+
+            }
+        }
+    }
 
     private suspend fun deleteEmployee(employeeId: Long) {
         withContext(Dispatchers.IO) {
@@ -186,16 +180,17 @@ fun OnDeleteEmployee() {
     }
 
 
- fun   setSaveEmployeeToDataBase(){
-     _saveEmployeeToDataBase.value=true
+    fun setSaveEmployeeToDataBase() {
+        _saveEmployeeToDataBase.value = true
 
- }
-
-
-    fun   setupdateEmployeeToDataBase(){
-        _updateEmployeeToDataBase.value=true
     }
-    fun  getEmployee(id:Long) {
+
+
+    fun setupdateEmployeeToDataBase() {
+        _updateEmployeeToDataBase.value = true
+    }
+
+    fun getEmployee(id: Long) {
         println("Gone to calculate sum of a & b")
 
         GlobalScope.launch {
@@ -209,11 +204,32 @@ fun OnDeleteEmployee() {
         }
     }
 
-    suspend fun getEmployeeFromDB(id:Long): Employee {
+    suspend fun getEmployeeFromDB(id: Long): Employee {
         // simulate long running task
-        var employee= database.get(id)!!
-        this.employee1=employee;
+        var employee = database.get(id)!!
+        this.employee1 = employee;
         return employee
+    }
+
+ lateinit  var emps :List<Employee>
+
+    suspend fun getEmployeesDB(): List<Employee> {
+
+        return database.getEmployees()
+    }
+
+    fun getEmployees() {
+        println("Gone to calculate sum of a & b")
+
+        GlobalScope.launch {
+            val result = async {
+                 emps=  getEmployeesDB()
+            }
+            println("Sum of a & b is: ${result.await()}")
+        }
+        runBlocking {
+            delay(2000) // keeping jvm alive till calculateSum is finished
+        }
     }
 
 

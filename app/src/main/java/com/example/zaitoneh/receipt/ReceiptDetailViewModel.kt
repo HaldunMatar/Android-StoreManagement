@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.zaitoneh.R
+import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.ReceiptDatabaseDao
 import com.example.zaitoneh.database.Receipt
 import kotlinx.coroutines.*
@@ -70,7 +71,6 @@ class ReceiptDetailViewModel(
     }
  
 
-    
 
 
      fun onCreateReceipt(newReceipt: Receipt) {

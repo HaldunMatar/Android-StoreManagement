@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/receipt_list"
             android:layout_width="411dp"
@@ -95,11 +94,12 @@
             style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="56dp"
             android:text="@string/share_btk"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button"
-            tools:layout_editor_absoluteY="619dp" />
+            app:layout_constraintStart_toEndOf="@+id/button" />
 
         <Button
             android:id="@+id/item_add_btn"
@@ -126,18 +126,21 @@
             app:layout_constraintStart_toStartOf="@+id/receipt_emp_input"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <Spinner
             android:id="@+id/receipt_emp_input"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginRight="17dp"
+            android:layout_width="195dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginRight="108dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name"
-            app:layout_constraintBottom_toTopOf="@+id/item_add_btn"
-            app:layout_constraintEnd_toStartOf="@+id/item_add_btn"
-            app:layout_constraintTop_toTopOf="@+id/receipt_emp" />
+
+            app:layout_constraintEnd_toEndOf="parent"
+
+
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/receipt_sup_input"
@@ -169,11 +172,15 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="56dp"
             android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/share_btk"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="619dp" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
 
         <TextView
             android:id="@+id/receipt_dep"
@@ -184,6 +191,8 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_sup"
             app:layout_constraintStart_toStartOf="@+id/receipt_emp"
             app:layout_constraintTop_toBottomOf="@+id/receipt_emp" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

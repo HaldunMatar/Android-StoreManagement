@@ -42,4 +42,21 @@
     <string name="receipt_note">Receipt Note</string>
     <string name="share_btk">Receipt Share</string>
     <string name="receipt_dep">" Department"</string>
+
+
+    <string name="selected_item">Selected item:</string>
+
+    <string-array name="Languages">
+        <item>jwad noor </item>
+        <item>haldun matar </item>
+        <item>anas bakleh </item>
+        <item>hasan hasn</item>
+        <item>saed sood</item>
+        <item>jamal kamel</item>
+    </string-array>
+
+
 </resources>
+
+
+

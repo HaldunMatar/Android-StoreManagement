@@ -58,7 +58,6 @@ class StoreDetailFragment : Fragment() {
         if (args.storeId==0L) binding.saveStoreButton.text=this.context?.resources?.getString(R.string.save)
         else{
             binding.saveStoreButton.text=this.context?.resources?.getString(R.string.update)
-
         }
 
         val viewModelFactory = StoreDetailViewModelFactory(args.storeId, dataSource)

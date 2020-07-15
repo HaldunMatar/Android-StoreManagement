@@ -29,4 +29,12 @@ data class Employee(
     @ColumnInfo(name = "employee_address")
     var employeeAddress: String = ""
 
-)
+){
+    override fun toString():String{
+
+        return employeeName  + " "+ employeeCode
+    }
+
+
+}
+

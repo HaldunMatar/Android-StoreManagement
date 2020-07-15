@@ -10,7 +10,9 @@
     <item
         android:id="@+id/itemTrackerFragment"
         android:title="@string/items" />
-    <item android:title="@string/stores" />
+    <item
+        android:id="@+id/storeTrackerFragment"
+        android:title="@string/stores" />
     <item
 
         android:id="@+id/employeeDetailFragment"

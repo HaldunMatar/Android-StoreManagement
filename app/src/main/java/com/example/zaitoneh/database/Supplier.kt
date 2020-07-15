@@ -27,4 +27,10 @@ data class Supplier(
     @ColumnInfo(name = "sup_note")
     var supNote: String = ""
 
-)
+) {
+    override fun toString(): String {
+
+        return supFullName
+    }
+
+}

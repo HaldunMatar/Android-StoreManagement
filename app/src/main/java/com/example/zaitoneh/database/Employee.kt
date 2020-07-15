@@ -32,7 +32,7 @@ data class Employee(
 ){
     override fun toString():String{
 
-        return employeeName  + " "+ employeeCode
+        return employeeName
     }
 
 

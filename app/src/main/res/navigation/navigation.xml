@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
-    app:startDestination="@id/receiptTrackerFragment">
+    app:startDestination="@id/receiptDetailFragment">
 
     <fragment
         android:id="@+id/itemTrackerFragment"
@@ -92,4 +92,8 @@
         android:id="@+id/receiptTrackerFragment"
         android:name="com.example.zaitoneh.receipt.ReceiptTrackerFragment"
         android:label="ReceiptTrackerFragment" />
+    <fragment
+        android:id="@+id/receiptDetailFragment"
+        android:name="com.example.zaitoneh.receipt.ReceiptDetailFragment"
+        android:label="ReceiptDetailFragment" />
 </navigation>

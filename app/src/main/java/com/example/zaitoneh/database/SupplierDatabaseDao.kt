@@ -38,5 +38,6 @@ interface SupplierDatabaseDao{
      */
     @Query("SELECT * FROM supplier_table ORDER BY supId DESC LIMIT 1")
     fun getlatestSupplier(): Supplier?
-
+    @Query("SELECT * FROM supplier_table ORDER BY supId DESC")
+    fun getSuppliers(): List<Supplier>
 }

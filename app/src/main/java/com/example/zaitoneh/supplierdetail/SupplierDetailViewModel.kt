@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.zaitoneh.R
+import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.SupplierDatabaseDao
 import com.example.zaitoneh.database.Supplier
 import kotlinx.android.synthetic.main.fragment_supplier_detail.view.*
@@ -24,7 +25,7 @@ class SupplierDetailViewModel(
      * Hold a reference to SleepDatabase via its SupplierDatabaseDao.
      */
     val database = dataSource
-
+    lateinit  var sups :List<Supplier>
 
 
     //= MutableLiveData<Supplier?>()
@@ -183,6 +184,25 @@ class SupplierDetailViewModel(
 
     fun   setupdateSupplierToDataBase(){
         _updateSupplierToDataBase.value=true
+    }
+
+    fun getSuppliers() {
+        println("Gone to calculate sum of a & b")
+
+        GlobalScope.launch {
+            val result = async {
+                sups=  getSuppliersDB()
+            }
+            println("Sum of a & b is: ${result.await()}")
+        }
+        runBlocking {
+            delay(2000) // keeping jvm alive till calculateSum is finished
+        }
+    }
+
+    suspend fun getSuppliersDB(): List<Supplier> {
+
+        return database.getSuppliers()
     }
 
 }

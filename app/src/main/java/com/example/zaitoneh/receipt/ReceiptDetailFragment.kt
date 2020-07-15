@@ -15,22 +15,18 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
-import androidx.navigation.findNavController
-
-import com.example.zaitoneh.database.Item
-
-
-import com.example.zaitoneh.databinding.FragmentReceiptTrackerBindingImpl
-
-import com.example.zaitoneh.databinding.FragmentReceiptTrackerBinding
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.Store
 import com.example.zaitoneh.database.StoreDatabase
+import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
+import com.example.zaitoneh.databinding.FragmentReceiptDetailBindingImpl
+import com.example.zaitoneh.databinding.FragmentReceiptTrackerBindingImpl
 import com.example.zaitoneh.databinding.FragmentStoreDetailBinding
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
 import com.example.zaitoneh.storedetail.StoreDetailViewModelFactory
+import com.example.zaitoneh.supplierdetail.SupplierDetailViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,10 +36,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ReceiptTrackerFragment.newInstance] factory method to
+ * Use the [ReceiptDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ReceiptTrackerFragment : Fragment() {
+class ReceiptDetailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -55,8 +51,8 @@ class ReceiptTrackerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentReceiptTrackerBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_receipt_tracker, container, false
+        val binding: FragmentReceiptDetailBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_receipt_detail, container, false
         )
 
 
@@ -66,32 +62,35 @@ class ReceiptTrackerFragment : Fragment() {
         val dataSource = StoreDatabase.getInstance(application).receiptDatabaseDao
         val viewModelFactory = ReceiptDetailViewModelFactory(0, dataSource)
         val receiptDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptDetailViewModel::class.java)
-
         val dataSourceEmp = StoreDatabase.getInstance(application).employeeDatabaseDao
+        val  employeeDetailViewModel : EmployeeDetailViewModel  =EmployeeDetailViewModel(0,dataSourceEmp)
 
-      val   employeeDetailViewModel : EmployeeDetailViewModel  =EmployeeDetailViewModel(0,dataSourceEmp)
-
-        /*
-          val application = requireNotNull(this.activity).application
-        val dataSource = StoreDatabase.getInstance(application).receiptDatabaseDao
-        val viewModelFactory = ReceiptDetailViewModelFactory(0, dataSource)
+        val dataSourceSup = StoreDatabase.getInstance(application).supplierDatabaseDao
+        val   supplierDetailViewModel : SupplierDetailViewModel  =SupplierDetailViewModel(0,dataSourceSup)
 
 
-         */
-
-
-     val employees = employeeDetailViewModel.getEmployees()
-        Log.i("ArrayAdapter",employeeDetailViewModel.emps.toString())
-
+        val supplier = supplierDetailViewModel.getSuppliers()
+        Log.i("ArrayAdapter",supplierDetailViewModel.sups.toString())
+        val employees = employeeDetailViewModel.getEmployees()
         val languages  = resources.getStringArray(R.array.Languages)
-        val spinner = binding.receiptEmpInput
+        val empspinner = binding.receiptEmpInput
 
-        if (spinner != null) {
+        if (empspinner != null) {
           val adapter =
                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,employeeDetailViewModel.emps.toTypedArray())
 
-           spinner.adapter = adapter
+            empspinner.adapter = adapter
         }
+
+        val supspinner = binding.receiptSupInput
+
+        if (supspinner != null) {
+            val adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,supplierDetailViewModel.sups.toTypedArray())
+
+            supspinner.adapter = adapter
+        }
+
         return binding.root
     }
 

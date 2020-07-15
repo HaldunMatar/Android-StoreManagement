@@ -3,9 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable
-            name="storeTrackerViewModel"
-            type="com.example.zaitoneh.itemtracker.ItemTrackerViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,15 +13,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/receipt_list"
             android:layout_width="411dp"
-            android:layout_height="200dp"
-
-
-            android:layout_marginTop="213dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="328dp"
             android:background="@color/colorPrimary"
             android:padding="20dp"
             android:paddingLeft="20dp"
             android:paddingTop="5dp"
             android:paddingRight="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/share_btk"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,50 +53,21 @@
             style="@style/Label_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/receipt_source"
+            android:text="@string/receipt_note"
             app:layout_constraintBottom_toTopOf="@+id/receipt_list"
             app:layout_constraintStart_toStartOf="@+id/receipt_sup"
             app:layout_constraintTop_toBottomOf="@+id/receipt_sup" />
-
-        <TextView
-            android:id="@+id/receipt_note"
-            style="@style/Label_Style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/receipt_note"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/receipt_list"
-            app:layout_constraintVertical_bias="0.16000003" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName3"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="148dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:lines="8"
-            android:maxLines="10"
-            android:minLines="6"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/receipt_note" />
 
         <Button
             android:id="@+id/share_btk"
             style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="60dp"
             android:text="@string/share_btk"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/item_add_btn"
@@ -117,14 +85,11 @@
             android:id="@+id/receipt_dep_input"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginTop="71dp"
-            android:layout_marginBottom="71dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name"
-            app:layout_constraintBottom_toTopOf="@+id/receipt_note_input"
-            app:layout_constraintStart_toStartOf="@+id/receipt_emp_input"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/receipt_dep"
+            app:layout_constraintStart_toStartOf="@+id/receipt_emp_input" />
 
         <Spinner
             android:id="@+id/receipt_emp_input"
@@ -142,12 +107,13 @@
 
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <Spinner
             android:id="@+id/receipt_sup_input"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginTop="29dp"
-            android:layout_marginBottom="28dp"
+            android:layout_width="195dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginRight="108dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Name"
@@ -168,19 +134,6 @@
             app:layout_constraintStart_toStartOf="@+id/receipt_sup_input"
             app:layout_constraintTop_toBottomOf="@+id/receipt_sup" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/share_btk"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-
 
         <TextView
             android:id="@+id/receipt_dep"
@@ -191,8 +144,6 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_sup"
             app:layout_constraintStart_toStartOf="@+id/receipt_emp"
             app:layout_constraintTop_toBottomOf="@+id/receipt_emp" />
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

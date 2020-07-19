@@ -3,6 +3,7 @@ package com.example.zaitoneh.receipt
 import android.util.Log
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Spinner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -66,31 +67,27 @@ class ReceiptDetailViewModel(
     private suspend fun insert(receipt: Receipt) {
         withContext(Dispatchers.IO) {
             database.insert(receipt)
-
         }
     }
- 
 
+    // fun onCreateReceipt(newReceipt: Receipt,empSpinner: Spinner) {
+    fun onCreateReceipt(newReceipt: Receipt) {
+      //  val employee:Employee =empSpinner.selectedItem as Employee
+        // newReceipt.receiptEmpId=employee.employeeId
+         Log.i("vaildateEmployeeID: ", newReceipt.receiptEmpId.toString())
+        Log.i("vaildateEmployeeID: ", newReceipt.receiptDate.toString())
+        Log.i("vaildateEmployeeID: ", newReceipt.receiptId.toString())
+        Log.i("vaildateEmployeeID: ", newReceipt.receiptStoreId.toString())
+        Log.i("vaildateEmployeeID: ", newReceipt.receiptSupId.toString())
+        Log.i("vaildateEmployeeID: ", newReceipt.receiptNote.toString())
 
-
-     fun onCreateReceipt(newReceipt: Receipt) {
-         Log.i("vaildateReceipt", " onCreateReceipt")
-         Log.i("viewModelreceipt",newReceipt.receiptDepId.toString())
-
+         //Log.i("viewModelreceipt",newReceipt.receiptDepId.toString())
              newReceipt.receiptId= this.receiptKey
-
-        
-
                 uiScope.launch {
-                 
-
                         if (receiptKey==0L) {
                             insert(newReceipt)
                             _saveReceiptToDataBase.value=true
-                        
-
                     }
-                 
                 }
          
          

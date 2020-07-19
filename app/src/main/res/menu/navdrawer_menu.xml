@@ -20,11 +20,11 @@
     <item
         android:id="@+id/employeeTrackerFragment"
         android:title="@string/employees" />
-
-        android:id="@+id/supplierTrackerFragment"
-        android:title="Suppliers" />
     <item
         android:id="@+id/supplierTrackerFragment"
         android:title="Suppliers" />
+    <item
+        android:id="@+id/receiptDetailFragment"
+        android:title="@string/Receipts" />
 
 </menu>

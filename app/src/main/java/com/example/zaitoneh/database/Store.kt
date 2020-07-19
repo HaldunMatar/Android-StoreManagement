@@ -21,4 +21,11 @@ data class Store(
     @ColumnInfo(name = "store_address")
     var storeAddress: String = ""
 
-)
+
+
+) {
+    override fun toString(): String {
+
+        return storeName
+    }
+}

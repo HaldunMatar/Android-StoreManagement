@@ -45,6 +45,7 @@
 
 
     <string name="selected_item">Selected item:</string>
+    <string name="Receipts">receipts</string>
 
     <string-array name="Languages">
         <item>jwad noor </item>

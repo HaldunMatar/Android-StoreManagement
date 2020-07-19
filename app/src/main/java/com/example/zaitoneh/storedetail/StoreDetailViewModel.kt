@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.StoreDatabaseDao
 import com.example.zaitoneh.database.Store
+import com.example.zaitoneh.database.Supplier
 import kotlinx.android.synthetic.main.fragment_store_detail.view.*
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -24,7 +25,7 @@ class StoreDetailViewModel(
      * Hold a reference to SleepDatabase via its StoreDatabaseDao.
      */
     val database = dataSource
-  
+    lateinit  var stores :List<Store>
 
 
     //= MutableLiveData<Store?>()
@@ -194,7 +195,25 @@ fun OnDeleteStore() {
         _updateStoreToDataBase.value=true
     }
 
+    fun getStores() {
+        println("Gone to calculate sum of a & b")
 
+        GlobalScope.launch {
+            val result = async {
+
+                stores=  getStoreDB()
+            }
+            println("Sum of a & b is: ${result.await()}")
+        }
+        runBlocking {
+            delay(100) // keeping jvm alive till calculateSum is finished
+        }
+    }
+
+    suspend fun getStoreDB(): List<Store> {
+
+        return database.getStores()
+    }
 
 }
 

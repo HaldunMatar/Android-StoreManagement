@@ -39,4 +39,8 @@ interface StoreDatabaseDao{
     @Query("SELECT * FROM store_table ORDER BY storeId DESC LIMIT 1")
     fun getlatestStore(): Store?
 
+
+    @Query("SELECT * FROM store_table ORDER BY storeId DESC")
+    fun getStores(): List<Store>
+
 }

@@ -6,21 +6,15 @@
 
     <data>
         <variable
-
             name="storeDetailViewModel"
             type="com.example.zaitoneh.storedetail.StoreDetailViewModel" />
         <variable
             name="store"
             type="com.example.zaitoneh.database.Store" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
-
         android:layout_height="match_parent">
-
-
         <TextView
             android:id="@+id/storeName_lable"
             style="@style/Label_Style"
@@ -32,7 +26,6 @@
             app:layout_constraintBottom_toTopOf="@+id/storeCode_lable"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/storeCode_lable"
             style="@style/Label_Style"

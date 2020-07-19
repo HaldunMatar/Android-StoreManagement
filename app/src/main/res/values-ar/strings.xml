@@ -38,5 +38,6 @@
     <string name="receipt_note">Receipt Note</string>
     <string name="share_btk">Receipt Share</string>
     <string name="receipt_dep">" Department"</string>
+    <string name="Receipts">receipts</string>
 </resources>
 

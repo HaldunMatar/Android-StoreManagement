@@ -196,7 +196,7 @@ class SupplierDetailViewModel(
             println("Sum of a & b is: ${result.await()}")
         }
         runBlocking {
-            delay(2000) // keeping jvm alive till calculateSum is finished
+            delay(6000) // keeping jvm alive till calculateSum is finished
         }
     }
 

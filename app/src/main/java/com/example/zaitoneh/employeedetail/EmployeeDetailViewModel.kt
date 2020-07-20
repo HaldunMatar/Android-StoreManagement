@@ -228,7 +228,7 @@ class EmployeeDetailViewModel(
             println("Sum of a & b is: ${result.await()}")
         }
         runBlocking {
-            delay(100) // keeping jvm alive till calculateSum is finished
+            delay(200) // keeping jvm alive till calculateSum is finished
         }
     }
 

@@ -122,7 +122,7 @@ class ReceiptDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
 
-        Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
+       // Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
 
 
     }

@@ -82,3 +82,5 @@ fun TextView.setreceiptDateFormatted(receipt: Receipt?) {
         Log.i("date", convertLongToDateString(1595355165))
     }
 }
+
+

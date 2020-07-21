@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="department"
+            type="com.example.zaitoneh.database.Department" />
+
+        <variable
+            name="clickListener"
+            type="com.example.zaitoneh.departmenttracker.DepartmentListener"/>
+
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/department_code"
+            style="@style/Label_Style"
+            android:layout_width="185dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:fontFamily="@font/droid_sans"
+            android:onClick="@{() -> clickListener.onClick(department)}"
+            android:scrollbarSize="10dp"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp"
+            app:departmentCodeFormatted="@{department}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.466"
+            tools:text="Department Code" />
+
+        <TextView
+            android:id="@+id/department_name"
+            style="@style/Label_Style"
+
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:fontFamily="@font/droid_sans"
+            android:onClick="@{() -> clickListener.onClick(department)}"
+            android:scrollbarSize="10dp"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp"
+            app:departmentNameFormatted="@{department}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/department_code"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Department Name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -13,6 +13,7 @@ import androidx.room.RoomDatabase
  * so you can reuse it.
  */
 
+
 @Database(entities = [Item::class,Store::class,Employee::class,Supplier::class,Receipt::class,Department::class], version = 21, exportSchema = true)
 
 

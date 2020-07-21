@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="receipt"
+            type="com.example.zaitoneh.database.Receipt" />
+
+        <variable
+            name="clickListener"
+            type="com.example.zaitoneh.receipttracker.ReceiptListener"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/receipt_date"
+            style="@style/text_style"
+            android:layout_width="83dp"
+            android:layout_height="20dp"
+            android:onClick="@{() -> clickListener.onClick(receipt)}"
+            android:scrollbarSize="10dp"
+            app:setreceiptDateFormatted="@{receipt}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/receipt_store"
+            app:layout_constraintTop_toBottomOf="@+id/receipt_store"
+            tools:text="Receipt date" />
+
+        <TextView
+            android:id="@+id/receipt_supplier_code"
+            style="@style/text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Receipt Supplier code"
+            app:setreceiptSupplierFormatted="@{receipt}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/receipt_code"
+            app:layout_constraintTop_toBottomOf="@+id/receipt_code" />
+
+        <TextView
+            android:id="@+id/receipt_store"
+            style="@style/text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="76dp"
+            android:layout_marginLeft="76dp"
+            android:text="Receipt Store"
+            app:setreceiptStoreFormatted="@{receipt}"
+            app:layout_constraintBottom_toTopOf="@+id/receipt_date"
+            app:layout_constraintStart_toEndOf="@+id/receipt_code"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/receipt_code"
+            style="@style/text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            app:setreceiptCodeFormatted="@{receipt}"
+            android:text="Receipt Code"
+            app:layout_constraintBaseline_toBaselineOf="@+id/receipt_store"
+            app:layout_constraintEnd_toStartOf="@+id/receipt_store"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

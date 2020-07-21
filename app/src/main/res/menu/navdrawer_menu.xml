@@ -25,7 +25,7 @@
         android:id="@+id/supplierTrackerFragment"
         android:title="Suppliers" />
     <item
-        android:id="@+id/receiptDetailFragment"
+        android:id="@+id/receiptTrackerFragment2"
         android:title="@string/Receipts" />
     <item
         android:id="@+id/departmentTrackerFragment"

@@ -1,9 +1,11 @@
 package com.example.zaitoneh.receipt
 
+import android.os.Build
 import android.util.Log
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +17,8 @@ import com.example.zaitoneh.database.Receipt
 import kotlinx.coroutines.*
 import java.lang.Error
 import java.lang.Exception
-
+import java.time.LocalDate
+import java.util.*
 
 
 class ReceiptDetailViewModel(
@@ -38,11 +41,15 @@ class ReceiptDetailViewModel(
         Log.i("receiptdetails" ," onCleared v M " )
         viewModelJob.cancel()
     }
-
+    fun fromDate(date: Date):Long{
+        return date.time;
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onCreateReceipt(newReceipt: Receipt) {
                 uiScope.launch {
                     try {
                         if (receiptKey == 0L) {
+                            newReceipt.receiptDate= fromDate(Date())
                             insert(newReceipt)
                             Log.i("Insert: ","Done!")
                             _saveReceiptToDataBase.value = true

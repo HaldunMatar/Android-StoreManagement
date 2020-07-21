@@ -18,85 +18,67 @@ package com.example.zaitoneh.employeetracker
 
 import android.annotation.SuppressLint
 import android.util.Log
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.example.zaitoneh.R
-import com.example.zaitoneh.convertDurationToFormatted
-import com.example.zaitoneh.convertNumericQualityToString
-import com.example.zaitoneh.database.Employee
-import com.jakewharton.rxbinding2.widget.checked
-import kotlinx.android.synthetic.main.one_employee.view.*
-import kotlinx.android.synthetic.main.fragment_employee_detail.view.*
+import androidx.room.TypeConverter
+import com.example.zaitoneh.database.Receipt
+import java.text.SimpleDateFormat
+import java.util.*
 
-@BindingAdapter("employeeId")
-fun TextView.setemployeeId(employee: Employee?) {
-    employee?.let {
-        text = employee.employeeId.toString()
+@BindingAdapter("setreceiptStoreFormatted")
+fun TextView.setreceiptStoreFormatted(receipt: Receipt?) {
+    receipt?.let {
+        text = receipt.receiptStoreId.toString()
     }
 }
 
 
 
-@BindingAdapter("employeeMobile1Formatted")
-fun TextView.setemployeeMobile1Formatted(employee: Employee?) {
-    employee?.let {
-        text =  employee.employeeMobile1
+@BindingAdapter("setreceiptCodeFormatted")
+fun TextView.setreceiptCodeFormatted(receipt: Receipt?) {
+    receipt?.let {
+        text =  receipt.receiptId.toString()
 
 
     }
 }
 
-@BindingAdapter("employeeMobile2Formatted")
-fun TextView.setemployeeMobile2Formatted(employee: Employee?) {
-    employee?.let {
-        text = employee.employeeMobile2
+@BindingAdapter("setreceiptSupplierFormatted")
+fun TextView.setreceiptSupplierFormatted(receipt: Receipt?) {
+    receipt?.let {
+        text = receipt.receiptSupId.toString()
 
 
     }
 }
 
-
-@BindingAdapter("employeeAddressFormatted")
-fun TextView.setemployeeAddressFormatted(employee: Employee?) {
-    employee?.let {
-        text = employee.employeeAddress
-
-
-    }
+@TypeConverter
+fun toDate(dateLong:Long):Date {
+    return Date(dateLong)
 }
 
-@BindingAdapter("employeeNoteFormatted")
-fun TextView.setemployeeNoteFormatted(employee: Employee?) {
-    employee?.let {
-        text = employee.employeeNote
-
-
-    }
+@TypeConverter
+fun fromDate(date: Date):Long{
+    return date.time;
 }
 
+@SuppressLint("SimpleDateFormat")
+fun convertLongToTime(time: Long): String {
 
-@BindingAdapter("employeeNameFormatted")
-fun TextView.setemployeeNameFormatted(employee: Employee?) {
-    employee?.let {
-        text =  convertDurationToFormatted(employee.employeeName, employee.employeeName, context.resources)
-
-
-    }
+    val date = toDate(time)
+    val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+    return format.format(date)
 }
-
-@BindingAdapter("employeeCodeFormatted")
-fun TextView.setemployeeCodeFormatted(employee: Employee?) {
-    employee?.let {
-        text = convertNumericQualityToString(employee.employeeCode, context.resources)
-    }
+fun convertLongToDateString(systemTime: Long): String {
+    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
+        .format(1595355165)
 }
-
-@BindingAdapter("employeeAddressFormatted")
-fun TextView.setaddressFormatted(employee: Employee?) {
-    employee?.let {
-        text = convertNumericQualityToString(employee.employeeAddress, context.resources)
+@BindingAdapter("setreceiptDateFormatted")
+fun TextView.setreceiptDateFormatted(receipt: Receipt?) {
+    receipt?.let {
+        val pattern = "yyyy-MM-dd"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        text =receipt.receiptDate.toString()
+        Log.i("date", convertLongToDateString(1595355165))
     }
 }

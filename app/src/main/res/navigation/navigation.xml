@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
-    app:startDestination="@id/receiptDetailFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/receiptTrackerFragment2">
 
     <fragment
         android:id="@+id/itemTrackerFragment"
@@ -89,11 +91,16 @@
             app:destination="@id/supplierDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/receiptTrackerFragment"
-        android:name="com.example.zaitoneh.receipt.ReceiptTrackerFragment"
-        android:label="ReceiptTrackerFragment" />
-    <fragment
         android:id="@+id/receiptDetailFragment"
         android:name="com.example.zaitoneh.receipt.ReceiptDetailFragment"
         android:label="ReceiptDetailFragment" />
+    <fragment
+        android:id="@+id/receiptTrackerFragment2"
+        android:name="com.example.zaitoneh.receipttracker.ReceiptTrackerFragment"
+        android:label="fragment_receipt_tracker"
+        tools:layout="@layout/fragment_receipt_tracker" >
+        <action
+            android:id="@+id/action_receiptTrackerFragment2_to_receiptDetailFragment"
+            app:destination="@id/receiptDetailFragment" />
+    </fragment>
 </navigation>

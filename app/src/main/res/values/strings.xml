@@ -44,8 +44,9 @@
     <string name="receipt_dep">" Department"</string>
 
 
-    <string name="selected_item">Selected item:</string>
+    <string name="selected_item" translatable="false">Selected item:</string>
     <string name="Receipts">receipts</string>
+    <string name="add_reciept_button">Add Receipt</string>
 
     <string-array name="Languages">
         <item>jwad noor </item>

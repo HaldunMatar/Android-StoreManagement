@@ -4,6 +4,7 @@ package com.example.zaitoneh.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
+import java.time.LocalDate
 
 //@Entity(tableName="receipts_table")
 @Entity(tableName="receipt_table")
@@ -16,7 +17,7 @@ data class Receipt(
     var receiptNote: String = "",
 
     @ColumnInfo(name = "receipt_date")
-    var receiptDate: Long = System.currentTimeMillis(),
+    var receiptDate: Long,
 
 
     @ColumnInfo(name = "receipt_sup_id")

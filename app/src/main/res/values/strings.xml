@@ -46,6 +46,8 @@
 
     <string name="selected_item">Selected item:</string>
     <string name="Receipts">receipts</string>
+    <string name="add_department_button">add Department</string>
+    <string name="department">Department</string>
 
     <string-array name="Languages">
         <item>jwad noor </item>

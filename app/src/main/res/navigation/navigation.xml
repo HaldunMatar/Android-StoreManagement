@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
-    app:startDestination="@id/receiptDetailFragment">
+    app:startDestination="@id/departmentDetailFragment">
 
     <fragment
         android:id="@+id/itemTrackerFragment"
@@ -96,4 +96,24 @@
         android:id="@+id/receiptDetailFragment"
         android:name="com.example.zaitoneh.receipt.ReceiptDetailFragment"
         android:label="ReceiptDetailFragment" />
+    <fragment
+        android:id="@+id/departmentDetailFragment"
+        android:name="com.example.zaitoneh.departmentdetail.DepartmentDetailFragment"
+        android:label="DepartmentDetailFragment" >
+        <action
+            android:id="@+id/action_departmentDetailFragment_to_departmentTrackerFragment"
+            app:destination="@id/departmentTrackerFragment" />
+        <argument
+            android:name="department_id"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
+    <fragment
+        android:id="@+id/departmentTrackerFragment"
+        android:name="com.example.zaitoneh.departmenttracker.DepartmentTrackerFragment"
+        android:label="DepartmentTrackerFragment" >
+        <action
+            android:id="@+id/action_departmentTrackerFragment_to_departmentDetailFragment"
+            app:destination="@id/departmentDetailFragment" />
+    </fragment>
 </navigation>

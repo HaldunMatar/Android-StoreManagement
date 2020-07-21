@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+
+            name="departmentDetailViewModel"
+            type="com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel" />
+        <variable
+            name="department"
+            type="com.example.zaitoneh.database.Department" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+
+        <Button
+            android:id="@+id/back_department_button"
+            style="@style/button_store_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            app:layout_constraintEnd_toStartOf="@+id/delete_department_button"
+            app:layout_constraintHorizontal_bias="0.5"
+
+
+            app:layout_constraintStart_toEndOf="@+id/save_department_button"
+            app:layout_constraintTop_toTopOf="@+id/save_department_button" />
+
+        <Button
+            android:id="@+id/save_department_button"
+            style="@style/button_store_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="72dp"
+            android:onClick="@{() -> departmentDetailViewModel.onCreateDepartment(department)}"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/back_department_button"
+            app:layout_constraintHorizontal_bias="0.5"
+
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/delete_department_button"
+            style="@style/button_store_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> departmentDetailViewModel.OnDeleteDepartment()}"
+            android:text="@string/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/back_department_button"
+            app:layout_constraintTop_toTopOf="@+id/back_department_button" />
+
+        <TextView
+            android:id="@+id/full_name_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:text="@string/full_name"
+            app:layout_constraintBottom_toTopOf="@+id/code_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/code_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/code_label"
+            app:layout_constraintBottom_toTopOf="@+id/note_label"
+            app:layout_constraintStart_toStartOf="@+id/full_name_label"
+            app:layout_constraintTop_toBottomOf="@+id/full_name_label" />
+
+        <TextView
+            android:id="@+id/note_label"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/note"
+            app:layout_constraintBottom_toTopOf="@+id/save_department_button"
+            app:layout_constraintStart_toStartOf="@+id/code_label"
+            app:layout_constraintTop_toBottomOf="@+id/code_label" />
+
+        <EditText
+            android:id="@+id/full_name_dep_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={department.departmentName}"
+            app:departmentNameFormatted="@{departmentDetailViewModel.department}"
+
+            app:layout_constraintBottom_toTopOf="@+id/code_dep_input"
+            app:layout_constraintStart_toStartOf="@+id/code_dep_input"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/code_dep_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:departmentCodeFormatted="@{departmentDetailViewModel.department}"
+
+            android:text="@={department.departmentCode}"
+            app:layout_constraintBottom_toTopOf="@+id/note_dep_input"
+            app:layout_constraintStart_toStartOf="@+id/note_dep_input"
+            app:layout_constraintTop_toBottomOf="@+id/full_name_dep_input" />
+
+        <EditText
+            android:id="@+id/note_dep_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:layout_marginLeft="68dp"
+            app:departmentNotFormatted="@{departmentDetailViewModel.department}"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={department.departmentNote}"
+            app:layout_constraintBottom_toTopOf="@+id/back_department_button"
+            app:layout_constraintStart_toEndOf="@+id/note_label"
+            app:layout_constraintTop_toBottomOf="@+id/code_dep_input" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

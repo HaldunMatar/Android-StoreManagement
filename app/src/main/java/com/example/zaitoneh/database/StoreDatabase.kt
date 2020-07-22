@@ -14,7 +14,7 @@ import androidx.room.RoomDatabase
  */
 
 
-@Database(entities = [Item::class,Store::class,Employee::class,Supplier::class,Receipt::class,Department::class], version = 21, exportSchema = true)
+@Database(entities = [Item::class,Store::class,Employee::class,Supplier::class,Receipt::class,Department::class], version = 23, exportSchema = true)
 
 
 abstract class StoreDatabase : RoomDatabase() {

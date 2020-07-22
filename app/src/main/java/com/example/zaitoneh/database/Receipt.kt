@@ -4,9 +4,10 @@ package com.example.zaitoneh.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
+import androidx.room.Index
 import java.time.LocalDate
 
-//@Entity(tableName="receipts_table")
+
 @Entity(tableName="receipt_table")
 
 data class Receipt(
@@ -17,28 +18,31 @@ data class Receipt(
     var receiptNote: String = "",
 
     @ColumnInfo(name = "receipt_date")
-    var receiptDate: Long,
+    var receiptDate: Long = System.currentTimeMillis(),
 
 
     @ColumnInfo(name = "receipt_sup_id")
-    var receiptSupId: Long,
+    var receiptSupId: Long=0L,
 
     @ColumnInfo(name = "receipt_city")
     var receiptCity: String = "",
 
     @ColumnInfo(name = "receipt_emp_id")
-    var receiptEmpId: Long,
+    var receiptEmpId: Long=0L,
+
+    @ColumnInfo(name = "receipt_dep_id")
+    var receiptDepId: Long=0L,
 
     @ColumnInfo(name = "receipt_store_id")
-    var receiptStoreId: Long
+    var receiptStoreId: Long=0L
 )
 {
+    override fun toString():String{
 
-   fun getEmpString():String {
-       return receiptEmpId.toString()
-   }
-
+        return toString()
+    }
 
 
 }
+
 

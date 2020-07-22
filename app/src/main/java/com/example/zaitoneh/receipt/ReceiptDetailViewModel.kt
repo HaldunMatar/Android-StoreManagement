@@ -69,6 +69,8 @@ class ReceiptDetailViewModel(
 
 
  fun   setSaveReceiptToDataBase(){
+
+
      _saveReceiptToDataBase.value=true
  }
 

@@ -83,6 +83,8 @@ class ReceiptAdapter(val clickListener: ReceiptListener) : ListAdapter <Receipt,
 
              }
 
+
+
              val filterResults = Filter.FilterResults()
              filterResults.values = mFilteredList
              return filterResults

@@ -66,20 +66,22 @@ fun fromDate(date: Date):Long{
 fun convertLongToTime(time: Long): String {
 
     val date = toDate(time)
-    val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+
+  // val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+    val format = SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss")
     return format.format(date)
 }
 fun convertLongToDateString(systemTime: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-        .format(1595355165)
+        .format(systemTime)
 }
 @BindingAdapter("setreceiptDateFormatted")
 fun TextView.setreceiptDateFormatted(receipt: Receipt?) {
     receipt?.let {
         val pattern = "yyyy-MM-dd"
         val simpleDateFormat = SimpleDateFormat(pattern)
-        text =receipt.receiptDate.toString()
-        Log.i("date", convertLongToDateString(1595355165))
+        text =convertLongToTime(receipt.receiptDate).toString()
+
     }
 }
 

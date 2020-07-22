@@ -12,12 +12,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.zaitoneh.R
-import com.example.zaitoneh.database.Receipt
+
 import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
+import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
 import com.example.zaitoneh.supplierdetail.SupplierDetailViewModel
+import kotlinx.android.synthetic.main.one_department.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -100,7 +102,20 @@ class ReceiptDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
 
-       val receipt= Receipt(0,"", 12555585,0,"",0,0)
+        val dataSourceDep = StoreDatabase.getInstance(application).departmentDatabaseDao
+        val   departmentDetailViewModel : DepartmentDetailViewModel =DepartmentDetailViewModel(0,dataSourceDep)
+        val departments = departmentDetailViewModel.getDepartments()
+        val departmentspinner = binding.receiptDepInput
+
+        if (departmentspinner != null) {
+            val adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,departmentDetailViewModel.deps.toTypedArray())
+            departmentspinner.adapter = adapter
+        }
+
+        var receipt:Receipt = Receipt()
+
+     //   val receipt= Receipt(0,"", 12555585,0,"",0,0,0)
         binding.receipt=receipt
         return binding.root
     }
@@ -119,6 +134,7 @@ class ReceiptDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 binding?.receipt?.receiptSupId=spinnerobj.supId
             }
             is Store -> binding?.receipt?.receiptStoreId=spinnerobj.storeId
+            is Department -> binding?.receipt?.receiptDepId =spinnerobj.departmentId
         }
 
 

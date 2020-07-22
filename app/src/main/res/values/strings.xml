@@ -49,8 +49,12 @@
 
     <string name="add_reciept_button">Add Receipt</string>
 
-    <string name="add_department_button">add Department</string>
+    <string name="add_department_button" translatable="false">add Department</string>
     <string name="department">Department</string>
+    <string name="code">Code</string>
+    <string name="sup_code" translatable="false">Supplier</string>
+    <string name="store" translatable="false">Store</string>
+    <string name="date">Date</string>
 
 
     <string-array name="Languages">

@@ -211,7 +211,7 @@ class DepartmentDetailViewModel(
         return department
     }
 
- lateinit  var emps :List<Department>
+ lateinit  var deps :List<Department>
 
     suspend fun getDepartmentsDB(): List<Department> {
 
@@ -223,7 +223,7 @@ class DepartmentDetailViewModel(
 
         GlobalScope.launch {
             val result = async {
-                 emps=  getDepartmentsDB()
+                 deps=  getDepartmentsDB()
             }
             println("Sum of a & b is: ${result.await()}")
         }

@@ -103,14 +103,12 @@
         tools:layout="@layout/fragment_receipt_tracker" >
         <action
             android:id="@+id/action_receiptTrackerFragment2_to_receiptDetailFragment"
-            app:destination="@id/receiptDetailFragment" />
+            app:destination="@id/receiptDetailFragment" /><![CDATA[
 
         android:id="@+id/departmentDetailFragment"
         android:name="com.example.zaitoneh.departmentdetail.DepartmentDetailFragment"
         android:label="DepartmentDetailFragment" >
-        <action
-            android:id="@+id/action_departmentDetailFragment_to_departmentTrackerFragment"
-            app:destination="@id/departmentTrackerFragment" />
+        ]]>
         <argument
             android:name="department_id"
             app:argType="long"
@@ -123,6 +121,24 @@
         <action
             android:id="@+id/action_departmentTrackerFragment_to_departmentDetailFragment"
             app:destination="@id/departmentDetailFragment" />
+        <action
+            android:id="@+id/action_departmentTrackerFragment_to_departmentDetailFragment2"
+            app:destination="@id/departmentDetailFragment" />
+        <action
+            android:id="@+id/action_departmentTrackerFragment_to_departmentDetailFragment3"
+            app:destination="@id/departmentDetailFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/departmentDetailFragment"
+        android:name="com.example.zaitoneh.departmentdetail.DepartmentDetailFragment"
+        android:label="DepartmentDetailFragment" >
+        <action
+            android:id="@+id/action_departmentDetailFragment_to_departmentTrackerFragment"
+            app:destination="@id/departmentTrackerFragment" />
+        <argument
+            android:name="department_id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 </navigation>

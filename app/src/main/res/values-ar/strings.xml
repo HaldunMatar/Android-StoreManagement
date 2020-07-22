@@ -43,6 +43,8 @@
     <string name="add_reciept_button">Add receipt</string>
 
     <string name="department">Department</string>
+    <string name="code">Code</string>
+    <string name="date">Date</string>
 
 </resources>
 

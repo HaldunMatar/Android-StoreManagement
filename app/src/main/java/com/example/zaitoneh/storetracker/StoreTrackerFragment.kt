@@ -24,7 +24,7 @@ import com.example.zaitoneh.databinding.FragmentStoreTrackerBinding
 import kotlinx.android.synthetic.main.fragment_store_tracker.*
 
 
-class StoreTrackerFragment : Fragment(), View.OnClickListener, MyDialog.DialogListener{
+class StoreTrackerFragment : Fragment(){
     internal lateinit var btnEmbedDialogFragment: Button
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +36,7 @@ class StoreTrackerFragment : Fragment(), View.OnClickListener, MyDialog.DialogLi
            binding.addStoreButton.setOnClickListener { view: View ->
           //view.findNavController().navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it))
         }
-        binding.btnEmbedDialogFragment.setOnClickListener(this)
+
 
         /****************************************************************************/
        val application = requireNotNull(this.activity).application
@@ -106,37 +106,8 @@ class StoreTrackerFragment : Fragment(), View.OnClickListener, MyDialog.DialogLi
 
         return binding.root
     }
-    override fun onClick(view:View) {
-                val myActivity= getActivity()
-                val dialogFragment = MyDialog(this)
-                val bundle = Bundle()
-                bundle.putBoolean("notAlertDialog", true)
-                dialogFragment.arguments = bundle
-                val ft = myActivity?.supportFragmentManager?.beginTransaction()
-                val prev = myActivity?.supportFragmentManager?.findFragmentByTag("dialog")
-                if (prev != null)
-                {
-                    if (ft != null) {
-                        ft.remove(prev)
-                    }
-                }
-        if (ft != null) {
-            ft.addToBackStack(null)
-        }
-        if (ft != null) {
-            dialogFragment.show(ft, "dialog")
-        }
 
-    }
 
-    override fun onFinishEditDialog(inputText:String) {
-        if (TextUtils.isEmpty(inputText))
-        {
-            textView.text = "Please enter Mobile Number"
-        }
-        else
-            textView.text = "Number entered: " + inputText
-    }
 }
 
 

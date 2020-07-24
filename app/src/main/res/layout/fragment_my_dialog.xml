@@ -1,36 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools">
 
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Enter your Mobile and Password" />
+    <androidx.constraintlayout.widget.ConstraintLayout
 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:minWidth="300dp"
+        android:minHeight="400dp"
+        android:background="@color/white_color">
 
-    <EditText
-        android:id="@+id/inMobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mobile Number"
-        android:inputType="numberDecimal" />
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spinnerItem"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
 
-    <EditText
-        android:id="@+id/inPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword" />
+            android:layout_marginEnd="87dp"
+            android:layout_weight="1"
+            android:background="@color/white_color"
+            app:BoarderColor="@color/colorMainBar"
+            app:BordersSize="@dimen/triple_margin"
+            app:ShowBorders="?android:attr/windowActionBar"
+            app:layout_constraintBottom_toTopOf="@+id/input_amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/input_amount"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnDone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Done" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView_lable_item"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="@string/items"
+            app:layout_constraintBottom_toTopOf="@+id/textView_lable_amount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView_lable_price"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView_lable_amount"
+            app:layout_constraintTop_toBottomOf="@+id/textView_lable_amount" />
+
+        <EditText
+            android:id="@+id/input_amount"
+            style="@style/text_style"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="87dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="0"
+            app:layout_constraintBottom_toTopOf="@+id/input_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/input_price"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerItem" />
+
+        <EditText
+            android:id="@+id/input_price"
+            style="@style/text_style"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginEnd="87dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView_lable_price"
+            app:layout_constraintTop_toBottomOf="@+id/input_amount" />
+
+        <TextView
+            android:id="@+id/textView_lable_amount"
+            style="@style/Label_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            app:layout_constraintBottom_toTopOf="@+id/textView_lable_price"
+            app:layout_constraintStart_toStartOf="@+id/textView_lable_item"
+            app:layout_constraintTop_toBottomOf="@+id/textView_lable_item" />
+
+        <Button
+            android:id="@+id/save_btk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.929" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

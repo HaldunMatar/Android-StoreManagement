@@ -38,4 +38,8 @@ interface ItemDatabaseDao{
     @Query("SELECT * FROM items_table ORDER BY itemId DESC LIMIT 1")
     fun getlatestItem(): Item?
 
+
+    @Query("SELECT * FROM items_table ORDER BY itemId DESC")
+    fun getItems(): List<Item>
+
 }

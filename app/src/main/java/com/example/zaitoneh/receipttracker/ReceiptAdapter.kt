@@ -16,6 +16,7 @@
 
 
 package com.example.zaitoneh.receipttracker
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -25,6 +26,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zaitoneh.database.Receipt
 import com.example.zaitoneh.databinding.OneReceiptBinding
+import com.example.zaitoneh.employeetracker.toDate
+import java.text.SimpleDateFormat
 
 class ReceiptAdapter(val clickListener: ReceiptListener) : ListAdapter <Receipt,ReceiptAdapter.ViewHolder> (ReceiptDiffCallback()) , Filterable {
     lateinit var mLstReceipt: MutableList<Receipt>
@@ -76,10 +79,9 @@ class ReceiptAdapter(val clickListener: ReceiptListener) : ListAdapter <Receipt,
                  mFilteredList = mLstReceipt
              } else {
 
-                 val filteredList = mLstReceipt.filter { (it.receiptCity+" "+it.receiptStoreId+" "+it.receiptSupId+" "+it.receiptDate).toLowerCase().contains(charString.toLowerCase()) }
+                 val filteredList = mLstReceipt.filter {  ( it.receiptId.toString() + " " + it.receiptSupId.toString() + it.receiptStoreId.toString() +"  " + convertLongToTime(it.receiptDate) ).toLowerCase().contains(charString.toLowerCase()) }
                      .toMutableList()
                      mFilteredList = filteredList
-
 
              }
 
@@ -91,14 +93,24 @@ class ReceiptAdapter(val clickListener: ReceiptListener) : ListAdapter <Receipt,
          }
 
         override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
-            //submitList(filterResults.values as MutableList<Receipt>)
-           // notifyDataSetChanged()
+            submitList(filterResults.values as MutableList<Receipt>)
+            notifyDataSetChanged()
         }
     }
 
 
     }
     /*********************************************/
+
+    @SuppressLint("SimpleDateFormat")
+    fun convertLongToTime(time: Long): String {
+
+        val date = toDate(time)
+
+        // val format = SimpleDateFormat("yyyy.MM.dd HH:mm")
+        val format = SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss")
+        return format.format(date)
+    }
 
 
 }

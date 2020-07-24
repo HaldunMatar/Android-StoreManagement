@@ -55,6 +55,8 @@
     <string name="sup_code" translatable="false">Supplier</string>
     <string name="store" translatable="false">Store</string>
     <string name="date">Date</string>
+    <string name="amount">Amount</string>
+    <string name="price">Price</string>
 
 
     <string-array name="Languages">

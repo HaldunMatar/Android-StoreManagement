@@ -10,9 +10,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import com.example.zaitoneh.database.StoreDatabase
+import com.example.zaitoneh.databinding.FragmentMyDialogBinding
+import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
+import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
+import com.example.zaitoneh.itemdetail.ItemDetailViewModel
+import com.example.zaitoneh.receipt.ReceiptDetailFragment
+import com.example.zaitoneh.receipttracker.ReceiptTrackerFragment
 import com.example.zaitoneh.storetracker.StoreTrackerFragment
 
     // TODO: Rename parameter arguments, choose names that match
@@ -25,11 +34,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MyDialog.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MyDialog(storeTrackerFragment: StoreTrackerFragment) : DialogFragment() {
-    lateinit var storeFragment:StoreTrackerFragment
-
+class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() {
+    lateinit var receiptFragment:ReceiptDetailFragment
+    lateinit var binding: FragmentMyDialogBinding
     init {
-        storeFragment=storeTrackerFragment
+        receiptFragment=receiptDetailFragment
     }
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         if (arguments != null)
@@ -53,22 +62,56 @@ class MyDialog(storeTrackerFragment: StoreTrackerFragment) : DialogFragment() {
         })
         return builder.create()
     }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+   /* override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_dialog, container, false)
+
+        val empspinner = binding.receiptEmpInp*/
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        binding= DataBindingUtil.inflate(
+            inflater, R.layout.fragment_my_dialog, container, false
+        )
+        val application = requireNotNull(this.activity).application
+
+
+        val dataSourceItem = StoreDatabase.getInstance(application).itemDatabaseDao
+        val   itemDetailViewModel : ItemDetailViewModel =
+            ItemDetailViewModel(0,dataSourceItem)
+
+        val items = itemDetailViewModel.getItems()
+
+
+          val spinnerItem =      binding.spinnerItem
+        if (spinnerItem != null) {
+            val adapter =
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,itemDetailViewModel.items.toTypedArray())
+            spinnerItem.adapter = adapter
+        }
+
+
+        return binding.root
     }
     override fun onViewCreated(view:View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val editText = view.findViewById<EditText>(R.id.inMobile)
+      /*  val editText = view.findViewById<EditText>(R.id.inMobile)
         if (arguments != null && !TextUtils.isEmpty(arguments?.getString("mobile")))
             editText.setText(arguments?.getString("mobile"))
-        val btnDone = view.findViewById<Button>(R.id.btnDone)
-        btnDone.setOnClickListener(object: View.OnClickListener {
+        val btnDone = view.findViewById<Button>(R.id.btnDone)*/
+     /*   btnDone.setOnClickListener(object: View.OnClickListener {
             override fun onClick(view:View) {
-                val dialogListener = storeFragment as DialogListener
+
+                val dialogListener = receiptFragment as DialogListener
                 dialogListener.onFinishEditDialog(editText.text.toString())
                 dismiss()
+
             }
-        })
+        })*/
+
+
     }
     override fun onResume() {
         super.onResume()

@@ -1,6 +1,7 @@
 package com.example.zaitoneh.receipt
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import com.example.zaitoneh.MyDialog
 import com.example.zaitoneh.R
 
 import com.example.zaitoneh.database.*
@@ -19,6 +22,7 @@ import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
 import com.example.zaitoneh.supplierdetail.SupplierDetailViewModel
+import kotlinx.android.synthetic.main.fragment_store_tracker.*
 import kotlinx.android.synthetic.main.one_department.*
 
 
@@ -32,7 +36,8 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ReceiptDetailFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ReceiptDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class ReceiptDetailFragment
+    : Fragment(), AdapterView.OnItemSelectedListener , View.OnClickListener, MyDialog.DialogListener{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -102,6 +107,15 @@ class ReceiptDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
 
+        binding.backBtn.setOnClickListener {
+
+            it.findNavController().navigate(R.id.action_receiptDetailFragment_to_receiptTrackerFragment2)
+
+        }
+
+
+
+
         val dataSourceDep = StoreDatabase.getInstance(application).departmentDatabaseDao
         val   departmentDetailViewModel : DepartmentDetailViewModel =DepartmentDetailViewModel(0,dataSourceDep)
         val departments = departmentDetailViewModel.getDepartments()
@@ -113,10 +127,14 @@ class ReceiptDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
             departmentspinner.adapter = adapter
         }
 
+
+        binding.itemAddBtn.setOnClickListener(this)
+
         var receipt:Receipt = Receipt()
 
      //   val receipt= Receipt(0,"", 12555585,0,"",0,0,0)
         binding.receipt=receipt
+
         return binding.root
     }
 
@@ -142,6 +160,48 @@ class ReceiptDetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
     }
+
+
+    override fun onClick(view:View) {
+        val myActivity= getActivity()
+        val dialogFragment = MyDialog(this)
+        val bundle = Bundle()
+        bundle.putBoolean("notAlertDialog", true)
+        dialogFragment.arguments = bundle
+        val ft = myActivity?.supportFragmentManager?.beginTransaction()
+        val prev = myActivity?.supportFragmentManager?.findFragmentByTag("dialog")
+        if (prev != null)
+        {
+            if (ft != null) {
+                ft.remove(prev)
+            }
+        }
+        if (ft != null) {
+            ft.addToBackStack(null)
+        }
+        if (ft != null) {
+            dialogFragment.show(ft, "dialog")
+        }
+
+    }
+//  android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
+    override fun onFinishEditDialog(inputText:String) {
+        if (TextUtils.isEmpty(inputText))
+        {
+            binding.receiptNoteInput.setText("Please eneter the number: " )
+
+            Toast.makeText(activity!!.applicationContext, "Please eneter the number: ",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+        else
+
+        Toast.makeText(activity!!.applicationContext, inputText.toString(),
+            Toast.LENGTH_LONG
+        ).show()
+            binding.receiptNoteInput.setText(inputText.toString() )
+    }
+
 
 
 }

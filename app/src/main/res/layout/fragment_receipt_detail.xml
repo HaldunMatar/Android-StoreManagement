@@ -11,7 +11,7 @@
             type="com.example.zaitoneh.database.Receipt" />
     </data>
 
-       <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -64,30 +64,16 @@
             app:layout_constraintStart_toStartOf="@+id/receipt_sup"
             app:layout_constraintTop_toBottomOf="@+id/receipt_sup" />
 
-        <Button
-            android:id="@+id/item_add_btn"
-            style="@style/button_Style"
-            android:layout_width="79dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/add_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/receipt_list"
-            android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
-            app:layout_constraintVertical_bias="0.215" />
-
-           <Spinner
-               android:id="@+id/receipt_dep_input"
-               android:layout_width="195dp"
-               android:layout_height="32dp"
-               android:ems="10"
-               android:inputType="textPersonName"
-               android:text="Name"
-               app:layout_constraintBottom_toTopOf="@+id/receipt_sup_input"
-               app:layout_constraintStart_toStartOf="@+id/receipt_emp_input"
-               app:layout_constraintTop_toBottomOf="@+id/receipt_emp_input" />
+        <Spinner
+            android:id="@+id/receipt_dep_input"
+            android:layout_width="195dp"
+            android:layout_height="32dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            app:layout_constraintBottom_toTopOf="@+id/receipt_sup_input"
+            app:layout_constraintStart_toStartOf="@+id/receipt_emp_input"
+            app:layout_constraintTop_toBottomOf="@+id/receipt_emp_input" />
 
         <Spinner
             android:id="@+id/receipt_emp_input"
@@ -161,6 +147,31 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_emp_input"
             app:layout_constraintStart_toEndOf="@+id/receipt_store_lab"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/button_Style"
+            android:layout_width="75dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="72dp"
+            android:text="@string/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_add_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/item_add_btn"
+            style="@style/button_Style"
+            android:layout_width="79dp"
+            android:layout_height="31dp"
+            android:layout_marginBottom="72dp"
+
+            android:text="@string/add_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/back_btn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

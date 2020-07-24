@@ -79,6 +79,7 @@ class EmployeeAdapter(val clickListener: EmployeeListener) : ListAdapter <Employ
 
                  val filteredList = mLstEmployee.filter { (it.employeeName+" " +it.employeeCode).toLowerCase().contains(charString.toLowerCase()) }
                      .toMutableList()
+
                      mFilteredList = filteredList
 
 

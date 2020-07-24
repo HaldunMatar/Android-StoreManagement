@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.zaitoneh.R
+import com.example.zaitoneh.database.Department
 import com.example.zaitoneh.database.ItemDatabaseDao
 import com.example.zaitoneh.database.Item
 import kotlinx.android.synthetic.main.fragment_item_detail.view.*
@@ -198,28 +199,26 @@ fun OnDeleteItem() {
         _updateItemToDataBase.value=true
     }
 
-/*
-   fun main() {
-        println("Gone to calculate sum of a & b")
+    lateinit  var items :List<Item>
+
+    suspend fun getItemDB(): List<Item> {
+
+        return database.getItems()
+    }
+
+    fun getItems() {
+
 
         GlobalScope.launch {
             val result = async {
-                calculateSum()
+                items=  getItemDB()
             }
             println("Sum of a & b is: ${result.await()}")
         }
         runBlocking {
-            delay(1) // keeping jvm alive till calculateSum is finished
+            delay(200) // keeping jvm alive till calculateSum is finished
         }
     }
-
-    suspend fun calculateSum(): Item {
-         // simulate long running task
-        item1= database.get(1)!!
-        return item1
-    }
-
- */
 
 }
 

@@ -34,7 +34,7 @@ data class Item(
 
 {
     override fun toString(): String {
-        return "id = " + itemId + "  main name = " + itemMain + "  level 1 = " + itemLevel1 + "  level 2 = " + itemLevel2  + "  level 3 = " + itemLevel3
+        return itemId.toString()  + "   " + itemMain + "   " + itemLevel1 + "  " + itemLevel2  + "  " + itemLevel3
     }
 
 

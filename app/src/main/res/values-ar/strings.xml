@@ -45,6 +45,8 @@
     <string name="department">Department</string>
     <string name="code">Code</string>
     <string name="date">Date</string>
+    <string name="amount">Amount</string>
+    <string name="price">Price</string>
 
 </resources>
 

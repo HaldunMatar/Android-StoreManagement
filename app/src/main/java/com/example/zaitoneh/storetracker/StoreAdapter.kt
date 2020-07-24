@@ -32,8 +32,8 @@ class StoreAdapter(val clickListener: StoreListener) : ListAdapter <Store,StoreA
     lateinit var mFilteredList: MutableList<Store>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val store = getItem(position)
-
         holder.bind(clickListener,store)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

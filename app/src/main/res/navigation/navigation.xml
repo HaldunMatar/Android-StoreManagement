@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/receiptTrackerFragment2">
+    app:startDestination="@id/receiptDetailFragment">
 
     <fragment
         android:id="@+id/itemTrackerFragment"
@@ -94,7 +94,11 @@
     <fragment
         android:id="@+id/receiptDetailFragment"
         android:name="com.example.zaitoneh.receipt.ReceiptDetailFragment"
-        android:label="ReceiptDetailFragment" />
+        android:label="ReceiptDetailFragment" >
+        <action
+            android:id="@+id/action_receiptDetailFragment_to_receiptTrackerFragment2"
+            app:destination="@id/receiptTrackerFragment2" />
+    </fragment>
     <fragment
 
         android:id="@+id/receiptTrackerFragment2"

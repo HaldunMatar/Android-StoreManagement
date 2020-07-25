@@ -10,14 +10,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.example.zaitoneh.database.StoreDatabase
+import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentMyDialogBinding
-import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
+
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
 import com.example.zaitoneh.itemdetail.ItemDetailViewModel
 import com.example.zaitoneh.receipt.ReceiptDetailFragment
@@ -37,6 +38,8 @@ private const val ARG_PARAM2 = "param2"
 class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() {
     lateinit var receiptFragment:ReceiptDetailFragment
     lateinit var binding: FragmentMyDialogBinding
+
+    lateinit var   spinnerobj : Item
     init {
         receiptFragment=receiptDetailFragment
     }
@@ -77,7 +80,7 @@ class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() 
         )
         val application = requireNotNull(this.activity).application
 
-
+// add searchable spinner  for all items
         val dataSourceItem = StoreDatabase.getInstance(application).itemDatabaseDao
         val   itemDetailViewModel : ItemDetailViewModel =
             ItemDetailViewModel(0,dataSourceItem)
@@ -86,6 +89,9 @@ class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() 
 
 
           val spinnerItem =      binding.spinnerItem
+      //    spinnerItem.setOnItemSelectedListener(this)
+
+
         if (spinnerItem != null) {
             val adapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,itemDetailViewModel.items.toTypedArray())
@@ -93,26 +99,47 @@ class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() 
         }
 
 
+
+
+
+        //***************************************************************
+         binding.saveBtk.setOnClickListener {
+
+
+
+            }
+
         return binding.root
     }
     override fun onViewCreated(view:View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      /*  val editText = view.findViewById<EditText>(R.id.inMobile)
-        if (arguments != null && !TextUtils.isEmpty(arguments?.getString("mobile")))
-            editText.setText(arguments?.getString("mobile"))
-        val btnDone = view.findViewById<Button>(R.id.btnDone)*/
-     /*   btnDone.setOnClickListener(object: View.OnClickListener {
+
+        binding.saveBtk.setOnClickListener(object: View.OnClickListener {
             override fun onClick(view:View) {
 
                 val dialogListener = receiptFragment as DialogListener
-                dialogListener.onFinishEditDialog(editText.text.toString())
+                var receiptDetail :ReceiptDetail = ReceiptDetail()
+
+                receiptDetail.amount=   binding.inputAmount.text.toString().toFloat()
+                receiptDetail.itemPrice=   binding.inputPrice.text.toString().toFloat()
+                receiptDetail.receiptId=1
+                receiptDetail.itemId=   (binding.spinnerItem.selectedItem as Item).itemId
+
+
+
+
+                dialogListener.onFinishEditDialog(receiptDetail)
                 dismiss()
 
             }
-        })*/
+        })
 
 
     }
+
+
+
+
     override fun onResume() {
         super.onResume()
     }
@@ -130,6 +157,8 @@ class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() 
         super.onDestroyView()
     }
     interface DialogListener {
-        fun onFinishEditDialog(inputText:String)
+        fun onFinishEditDialog(receiptDetail: ReceiptDetail)
     }
+
+
 }

@@ -185,22 +185,15 @@ class ReceiptDetailFragment
 
     }
 //  android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
-    override fun onFinishEditDialog(inputText:String) {
-        if (TextUtils.isEmpty(inputText))
-        {
-            binding.receiptNoteInput.setText("Please eneter the number: " )
+    override fun onFinishEditDialog(receiptDetail:ReceiptDetail) {
 
-            Toast.makeText(activity!!.applicationContext, "Please eneter the number: ",
-                Toast.LENGTH_LONG
-            ).show()
-        }
-        else
 
-        Toast.makeText(activity!!.applicationContext, inputText.toString(),
+        Toast.makeText(activity!!.applicationContext, receiptDetail.toString(),
             Toast.LENGTH_LONG
         ).show()
-            binding.receiptNoteInput.setText(inputText.toString() )
+
     }
+
 
 
 

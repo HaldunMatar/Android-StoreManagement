@@ -14,15 +14,15 @@ import java.util.*
 data class ReceiptDetail(
 
     @ColumnInfo(name = "item_id")
-    var itemId: Long ,
+    var itemId: Long=0 ,
 
     @ColumnInfo(name = "receipt_id")
-    var receiptId: Long ,
+    var receiptId: Long=0 ,
     @ColumnInfo(name = "item_price")
-    var itemPrice: Float ,
+    var itemPrice: Float =0F,
 
     @ColumnInfo(name = "amount")
-    var amount : Float
+    var amount : Float=0F
 
 )
 

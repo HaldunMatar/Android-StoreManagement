@@ -1,5 +1,6 @@
 package com.example.zaitoneh.employeedetail
 
+import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
@@ -9,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
@@ -156,7 +160,23 @@ class EmployeeDetailFragment : Fragment() {
 
 
 
+    lateinit var dispatcher : OnBackPressedDispatcher
+    lateinit var callback: OnBackPressedCallback
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dispatcher = requireActivity().onBackPressedDispatcher
+        callback = dispatcher.addCallback(
+            //Lifecycle owner
+            this
+        ) {
+           // fragmentService.fragmentsCount--
+
+            //Called when user should be navigated back
+            callback.isEnabled = false
+            dispatcher.onBackPressed()
+        }
+    }
 
 
 }

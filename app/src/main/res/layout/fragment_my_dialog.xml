@@ -3,7 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <!--   <variable
 
+             name="receiptDetailDetailViewModel"
+              type="com.example.zaitoneh.receipt.ReceiptDetailDetailViewModel" />-->
+        <variable
+            name="receiptDetail"
+            type="com.example.zaitoneh.database.ReceiptDetail" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -57,8 +65,10 @@
             android:layout_height="35dp"
             android:layout_marginEnd="87dp"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="0"
+            android:inputType="numberDecimal"
+
+
+
             app:layout_constraintBottom_toTopOf="@+id/input_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/input_price"
@@ -73,7 +83,8 @@
             android:layout_marginEnd="87dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="0"
+
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_lable_price"
@@ -85,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/amount"
+
             app:layout_constraintBottom_toTopOf="@+id/textView_lable_price"
             app:layout_constraintStart_toStartOf="@+id/textView_lable_item"
             app:layout_constraintTop_toBottomOf="@+id/textView_lable_item" />

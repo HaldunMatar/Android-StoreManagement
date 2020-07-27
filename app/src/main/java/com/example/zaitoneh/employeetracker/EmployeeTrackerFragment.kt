@@ -1,11 +1,15 @@
 package com.example.zaitoneh.employeetracker
 
+import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
 import androidx.appcompat.widget.SearchView
 import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
@@ -108,7 +112,23 @@ class EmployeeTrackerFragment : Fragment() {
         return binding.root
     }
 
+    lateinit var dispatcher : OnBackPressedDispatcher
+    lateinit var callback: OnBackPressedCallback
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dispatcher = requireActivity().onBackPressedDispatcher
+        callback = dispatcher.addCallback(
+            //Lifecycle owner
+            this
+        ) {
+
+
+            //Called when user should be navigated back
+            callback.isEnabled = false
+            dispatcher.onBackPressed()
+        }
+    }
 }
 
 

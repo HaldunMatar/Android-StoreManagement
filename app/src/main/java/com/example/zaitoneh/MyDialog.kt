@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.InverseMethod
 import androidx.fragment.app.DialogFragment
 import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentMyDialogBinding
@@ -120,9 +121,12 @@ class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() 
                 val dialogListener = receiptFragment as DialogListener
                 var receiptDetail :ReceiptDetail = ReceiptDetail()
 
+                Log.i("receiptDetail", binding.receiptDetail.toString())
+              //  binding.receiptDetail = receiptDetail
                 receiptDetail.amount=   binding.inputAmount.text.toString().toFloat()
                 receiptDetail.itemPrice=   binding.inputPrice.text.toString().toFloat()
                 receiptDetail.receiptId=1
+
                 receiptDetail.itemId=   (binding.spinnerItem.selectedItem as Item).itemId
 
 
@@ -162,3 +166,19 @@ class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() 
 
 
 }
+    object Converter {
+        @InverseMethod("floatToString")
+        @JvmStatic fun floatToString(
+            view: EditText, oldValue: Float,
+            value: Float
+        ): String {
+           return  oldValue.toString()
+        }
+
+        @JvmStatic fun stringToFloat(
+            view: EditText, oldValue: String,
+            value: String
+        ): Float {
+            return 525F
+        }
+    }

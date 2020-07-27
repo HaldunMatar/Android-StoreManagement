@@ -16,6 +16,7 @@
 
 
 package com.example.zaitoneh.employeetracker
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -27,25 +28,26 @@ import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.databinding.OneEmployeeBinding
 
-class EmployeeAdapter(val clickListener: EmployeeListener) : ListAdapter <Employee,EmployeeAdapter.ViewHolder> (EmployeeDiffCallback()) , Filterable {
+class EmployeeAdapter(val clickListener: EmployeeListener) :
+    ListAdapter<Employee, EmployeeAdapter.ViewHolder>(EmployeeDiffCallback()), Filterable {
     lateinit var mLstEmployee: MutableList<Employee>
     lateinit var mFilteredList: MutableList<Employee>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val employee = getItem(position)
 
-        holder.bind(clickListener,employee)
+        holder.bind(clickListener, employee)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: OneEmployeeBinding)
-        : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(val binding: OneEmployeeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: EmployeeListener,employee: Employee) {
+        fun bind(clickListener: EmployeeListener, employee: Employee) {
             binding.employee = employee
-           binding.clickListener=clickListener
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -58,9 +60,10 @@ class EmployeeAdapter(val clickListener: EmployeeListener) : ListAdapter <Employ
             }
         }
     }
+
     fun updateList(lstEmployee: MutableList<Employee>) {
         mLstEmployee = lstEmployee
-        mFilteredList=lstEmployee
+        mFilteredList = lstEmployee
 
     }
 
@@ -69,32 +72,38 @@ class EmployeeAdapter(val clickListener: EmployeeListener) : ListAdapter <Employ
     override fun getFilter(): Filter {
 
         return object : Filter() {
-         override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
+            override fun performFiltering(charSequence: CharSequence): Filter.FilterResults {
 
-             val charString = charSequence.toString()
+                val charString = charSequence.toString()
 
-             if (charString.isEmpty()) {
-                 mFilteredList = mLstEmployee
-             } else {
+                if (charString.isEmpty()) {
+                    mFilteredList = mLstEmployee
+                } else {
 
-                 val filteredList = mLstEmployee.filter { (it.employeeName+" " +it.employeeCode).toLowerCase().contains(charString.toLowerCase()) }
-                     .toMutableList()
+                    val filteredList = mLstEmployee.filter {
+                        (it.employeeName + " " + it.employeeCode).toLowerCase()
+                            .contains(charString.toLowerCase())
+                    }
+                        .toMutableList()
 
-                     mFilteredList = filteredList
+                    mFilteredList = filteredList
 
 
-             }
+                }
 
-             val filterResults = Filter.FilterResults()
-             filterResults.values = mFilteredList
-             return filterResults
-         }
+                val filterResults = Filter.FilterResults()
+                filterResults.values = mFilteredList
+                return filterResults
+            }
 
-        override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
-            submitList(filterResults.values as MutableList<Employee>)
-           notifyDataSetChanged()
+            override fun publishResults(
+                charSequence: CharSequence,
+                filterResults: Filter.FilterResults
+            ) {
+                submitList(filterResults.values as MutableList<Employee>)
+                notifyDataSetChanged()
+            }
         }
-    }
 
 
     }
@@ -120,6 +129,7 @@ class EmployeeDiffCallback : DiffUtil.ItemCallback<Employee>() {
 
 
 }
+
 class EmployeeListener(val clickListener: (sleepId: Long) -> Unit) {
 
     fun onClick(employee: Employee) = clickListener(employee.employeeId)

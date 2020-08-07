@@ -28,6 +28,9 @@ data class Item(
     var itemLevel4: String = "",
     @ColumnInfo(name = "item_type_level5")
     var itemLevel5: String = "",
+/*
+    @ColumnInfo(name = "last_update")
+    var last_update: String = "",*/
     @ColumnInfo(name = "item_type_level6")
     var itemLevel6: String = ""
 )

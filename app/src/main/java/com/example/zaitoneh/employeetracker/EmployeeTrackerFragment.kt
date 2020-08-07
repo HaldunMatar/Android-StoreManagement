@@ -67,8 +67,14 @@ class EmployeeTrackerFragment : Fragment() {
 
       employeeTrackerViewModel.navigateToEditEmployee.observe(this, Observer { employee ->
             employee?.let {
+            if(it!=0L) {
+                   view?.findNavController()?.navigate(
+                       EmployeeTrackerFragmentDirections.actionEmployeeTrackerFragmentToEmployeeDetailFragment()
+                           .setEmployeeId(it)
+                   )
+                  employeeTrackerViewModel.onEmployeeClicked(0)
+            }
 
-                view?.findNavController()?.navigate(EmployeeTrackerFragmentDirections.actionEmployeeTrackerFragmentToEmployeeDetailFragment().setEmployeeId(it))
             }
         })
 

@@ -37,10 +37,7 @@ data class Receipt(
     var receiptStoreId: Long=0L
 )
 {
-    override fun toString():String{
 
-        return toString()
-    }
 
 
 }

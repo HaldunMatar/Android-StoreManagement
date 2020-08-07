@@ -68,7 +68,7 @@
             android:inputType="numberDecimal"
 
 
-
+            android:text="50"
             app:layout_constraintBottom_toTopOf="@+id/input_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/input_price"
@@ -85,6 +85,7 @@
             android:inputType="textPersonName"
 
 
+            android:text="60"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView_lable_price"

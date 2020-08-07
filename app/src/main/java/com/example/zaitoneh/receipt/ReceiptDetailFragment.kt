@@ -1,5 +1,6 @@
 package com.example.zaitoneh.receipt
 
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -42,7 +44,7 @@ class ReceiptDetailFragment
     private var param1: String? = null
     private var param2: String? = null
     lateinit var binding: FragmentReceiptDetailBinding
-
+    lateinit var receiptDetailViewModel : ReceiptDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,8 +60,9 @@ class ReceiptDetailFragment
 
         val application = requireNotNull(this.activity).application
         val dataSource = StoreDatabase.getInstance(application).receiptDatabaseDao
+
         val viewModelFactory = ReceiptDetailViewModelFactory(0, dataSource)
-        val receiptDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptDetailViewModel::class.java)
+         receiptDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptDetailViewModel::class.java)
        binding.receiptDetailViewModel= receiptDetailViewModel
 
         val dataSourceEmp = StoreDatabase.getInstance(application).employeeDatabaseDao
@@ -81,6 +84,7 @@ class ReceiptDetailFragment
         empspinner.setOnItemSelectedListener(this)
         supspinner.setOnItemSelectedListener(this)
         storspinner.setOnItemSelectedListener(this)
+
 
         if (empspinner != null) {
           val adapter =
@@ -120,7 +124,7 @@ class ReceiptDetailFragment
         val   departmentDetailViewModel : DepartmentDetailViewModel =DepartmentDetailViewModel(0,dataSourceDep)
         val departments = departmentDetailViewModel.getDepartments()
         val departmentspinner = binding.receiptDepInput
-
+            departmentspinner.setOnItemSelectedListener(this)
         if (departmentspinner != null) {
             val adapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,departmentDetailViewModel.deps.toTypedArray())
@@ -185,12 +189,23 @@ class ReceiptDetailFragment
 
     }
 //  android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onFinishEditDialog(receiptDetail:ReceiptDetail) {
 
 
-        Toast.makeText(activity!!.applicationContext, receiptDetail.toString(),
+    receiptDetailViewModel.onCreateReceipt(binding.receipt as Receipt )
+
+   /* Toast.makeText(activity!!.applicationContext, binding.receipt?.receiptDepId.toString(),
+        Toast.LENGTH_LONG
+    ).show()*/
+
+
+       /* Toast.makeText(activity!!.applicationContext, receiptDetail.toString(),
             Toast.LENGTH_LONG
-        ).show()
+        ).show()*/
+
+
+
 
     }
 

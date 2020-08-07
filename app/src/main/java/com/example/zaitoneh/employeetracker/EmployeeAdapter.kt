@@ -100,7 +100,9 @@ class EmployeeAdapter(val clickListener: EmployeeListener) :
                 charSequence: CharSequence,
                 filterResults: Filter.FilterResults
             ) {
-                submitList(filterResults.values as MutableList<Employee>)
+               // val x: String? = y as String?
+                if (filterResults?.values  != null)
+                submitList(   filterResults?.values  as MutableList<Employee>?  )
                 notifyDataSetChanged()
             }
         }

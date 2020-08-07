@@ -64,8 +64,14 @@ class SupplierTrackerFragment : Fragment() {
         })
         supplierTrackerViewModel.navigateToEditSupplier.observe(this, Observer { supplier ->
             supplier?.let {
+                if(it!=0L) {
+                    view?.findNavController()?.navigate(
+                        SupplierTrackerFragmentDirections.actionSupplierTrackerFragmentToSupplierDetailFragment()
+                            .setSupplierId(it)
+                    )
+                    supplierTrackerViewModel.onSupplierClicked(0L)
+                }
 
-                view?.findNavController()?.navigate(SupplierTrackerFragmentDirections.actionSupplierTrackerFragmentToSupplierDetailFragment().setSupplierId(it))
             }
         })
 

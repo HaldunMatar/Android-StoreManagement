@@ -90,6 +90,7 @@ class SupplierAdapter(val clickListener: SupplierListener) : ListAdapter <Suppli
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
+                if (filterResults?.values  != null)
                 submitList(filterResults.values as MutableList<Supplier>)
                  notifyDataSetChanged()
             }

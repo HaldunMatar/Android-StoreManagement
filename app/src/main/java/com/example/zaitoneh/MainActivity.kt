@@ -32,12 +32,14 @@ class MainActivity: AppCompatActivity() {
 
 
         NavigationUI.setupActionBarWithNavController(this, navController)
-
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment)
-        return NavigationUI.navigateUp(navController,drawerLayout )
+      //  onBackPressed()
+     return NavigationUI.navigateUp(navController,drawerLayout )
+
 
 
 
@@ -49,15 +51,9 @@ class MainActivity: AppCompatActivity() {
 
 
     // @Override
- override fun onBackPressed() {
-        val navController = this.findNavController(R.id.nav_host_fragment)
-
-        if (navController.currentDestination?.id == R.id.storeDetailFragment) {
-
-            navController.navigate(R.id.action_storeDetailFragment_to_storeTrackerFragment)
-        }
-
-        else navController.popBackStack();
+override fun onBackPressed() {
+       val navController = this.findNavController(R.id.nav_host_fragment)
+              navController.popBackStack();
     }
 
 

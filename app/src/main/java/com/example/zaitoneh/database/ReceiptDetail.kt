@@ -9,7 +9,7 @@ import androidx.room.Index
 import java.util.*
 
 //@Entity(tableName="receipts_table")
-@Entity(tableName="receipt_table" , primaryKeys = arrayOf("item_id", "receipt_id"))
+@Entity(tableName="receipt_detail_table" , primaryKeys = arrayOf("item_id", "receipt_id"))
 
 data class ReceiptDetail(
 

@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+
 
 /**
  * A database that stores SleepNight information.
@@ -14,7 +17,7 @@ import androidx.room.RoomDatabase
  */
 
 
-@Database(entities = [Item::class,Store::class,Employee::class,Supplier::class,Receipt::class,Department::class], version = 23, exportSchema = true)
+@Database(entities = [Item::class,Store::class,Employee::class,Supplier::class,Receipt::class,Department::class,ReceiptDetail::class], version = 24, exportSchema = true)
 
 
 abstract class StoreDatabase : RoomDatabase() {
@@ -30,6 +33,8 @@ abstract class StoreDatabase : RoomDatabase() {
     abstract val supplierDatabaseDao: SupplierDatabaseDao
     abstract val receiptDatabaseDao : ReceiptDatabaseDao
     abstract val departmentDatabaseDao : DepartmentDatabaseDao
+    abstract val receiptDetailDatabaseDao : ReceiptDetailDatabaseDao
+
 
     /**
      * Define a companion object, this allows us to add functions on the StoreDatabase class.
@@ -86,7 +91,9 @@ abstract class StoreDatabase : RoomDatabase() {
                         // Migration is not part of this lesson. You can learn more about
                         // migration with Room in this blog post:
                         // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
-                        .fallbackToDestructiveMigration()
+                       .fallbackToDestructiveMigration()
+                       // .addMigrations(MIGRATION_23_24, MIGRATION_24_25)
+                        //.addMigrations(MIGRATION_23_24)
                         .build()
                     // Assign INSTANCE to the newly created database.
                     INSTANCE = instance
@@ -97,3 +104,18 @@ abstract class StoreDatabase : RoomDatabase() {
         }
     }
 }
+
+/*val MIGRATION_24_25: Migration = object : Migration(24, 25) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL(
+            "ALTER TABLE items_table "
+                    + " ADD COLUMN last_update String"
+        )
+    }
+}*/
+
+/*val MIGRATION_23_24: Migration = object : Migration(23, 24) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        // Since we didn't alter the table, there's nothing else to do here.
+    }
+}*/

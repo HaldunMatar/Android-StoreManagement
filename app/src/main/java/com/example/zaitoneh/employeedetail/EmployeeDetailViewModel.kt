@@ -219,13 +219,11 @@ class EmployeeDetailViewModel(
     }
 
     fun getEmployees() {
-        println("Gone to calculate sum of a & b")
 
         GlobalScope.launch {
             val result = async {
                  emps=  getEmployeesDB()
             }
-            println("Sum of a & b is: ${result.await()}")
         }
         runBlocking {
             delay(200) // keeping jvm alive till calculateSum is finished

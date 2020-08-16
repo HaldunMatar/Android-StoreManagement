@@ -66,7 +66,7 @@ class ReceiptTrackerFragment : Fragment() {
         })
 
 
-        binding.receiptList.adapter = adapter
+        binding.receiptDetailList.adapter = adapter
 
 
         receiptTrackerViewModel.receipts.observe(viewLifecycleOwner, Observer {

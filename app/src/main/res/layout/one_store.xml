@@ -13,9 +13,6 @@
         <variable
             name="clickListener"
             type="com.example.zaitoneh.storetracker.StoreListener"/>
-
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/receipt_list"
+            android:id="@+id/receipt_detail_list"
             android:layout_width="0dp"
             android:layout_height="250dp"
             android:layout_marginStart="16dp"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/receipt_note"
-            app:layout_constraintBottom_toTopOf="@+id/receipt_list"
+            app:layout_constraintBottom_toTopOf="@+id/receipt_detail_list"
             app:layout_constraintStart_toStartOf="@+id/receipt_sup"
             app:layout_constraintTop_toBottomOf="@+id/receipt_sup" />
 
@@ -108,7 +108,7 @@
 
 
             android:text="@={receipt.receiptNote}"
-            app:layout_constraintBottom_toTopOf="@+id/receipt_list"
+            app:layout_constraintBottom_toTopOf="@+id/receipt_detail_list"
             app:layout_constraintStart_toStartOf="@+id/receipt_sup_input"
             app:layout_constraintTop_toBottomOf="@+id/receipt_sup_input" />
 

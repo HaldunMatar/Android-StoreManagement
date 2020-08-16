@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.example.zaitoneh.MyDialog
@@ -21,7 +22,12 @@ import com.example.zaitoneh.R
 import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
+import com.example.zaitoneh.receipt.ReceiptDialogViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
+import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
+import com.example.zaitoneh.receiptDetail.ReceiptDetailListener
+import com.example.zaitoneh.receipttracker.ReceiptAdapter
+import com.example.zaitoneh.receipttracker.ReceiptListener
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
 import com.example.zaitoneh.supplierdetail.SupplierDetailViewModel
 import kotlinx.android.synthetic.main.fragment_store_tracker.*
@@ -45,7 +51,7 @@ class ReceiptDetailFragment
     private var param2: String? = null
     lateinit var binding: FragmentReceiptDetailBinding
     lateinit var receiptDetailViewModel : ReceiptDetailViewModel
-
+    lateinit var recieptDialogViewModel: ReceiptDialogViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,8 +66,9 @@ class ReceiptDetailFragment
 
         val application = requireNotNull(this.activity).application
         val dataSource = StoreDatabase.getInstance(application).receiptDatabaseDao
+        val receiptDetailDataSource = StoreDatabase.getInstance(application).receiptDetailDatabaseDao
 
-        val viewModelFactory = ReceiptDetailViewModelFactory(0, dataSource)
+        val viewModelFactory = ReceiptDetailViewModelFactory(0, dataSource,receiptDetailDataSource)
          receiptDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptDetailViewModel::class.java)
        binding.receiptDetailViewModel= receiptDetailViewModel
 
@@ -139,6 +146,23 @@ class ReceiptDetailFragment
      //   val receipt= Receipt(0,"", 12555585,0,"",0,0,0)
         binding.receipt=receipt
 
+
+        val receiptdetailadapter = ReceiptDetailAdapter(ReceiptDetailListener { receiptId ->
+            receiptDetailViewModel.onReceiptDetailClicked(receiptId)
+            //  Toast.makeText(context, "${nightId}", Toast.LENGTH_LONG).show()
+        })
+        binding.receiptDetailList.adapter = receiptdetailadapter
+
+
+        receiptDetailViewModel.receiptdetails.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
+                receiptdetailadapter.submitList(it)
+
+
+            }
+        })
+
         return binding.root
     }
 
@@ -191,9 +215,20 @@ class ReceiptDetailFragment
 //  android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFinishEditDialog(receiptDetail:ReceiptDetail) {
+    val application = requireNotNull(this.activity).application
 
+    val dataSourceReciptDetailDao = StoreDatabase.getInstance(application).receiptDetailDatabaseDao
+     var receiptDaialogViewModel:ReceiptDialogViewModel=ReceiptDialogViewModel(dataSourceReciptDetailDao)
+    Log.i("Insert: latestreciept",receiptDetailViewModel.latestreciept.toString())
+    if(receiptDetailViewModel.latestreciept==0L){
+        receiptDetailViewModel.onCreateReceipt(binding.receipt as Receipt )
+        receiptDetailViewModel.getLatestReciept()
+    }
 
-    receiptDetailViewModel.onCreateReceipt(binding.receipt as Receipt )
+    receiptDetail.receiptId=  receiptDetailViewModel.latestreciept
+    Log.i("Insert:",receiptDetail.toString())
+    receiptDaialogViewModel.onCreateReceiptDetail(receiptDetail)
+
 
    /* Toast.makeText(activity!!.applicationContext, binding.receipt?.receiptDepId.toString(),
         Toast.LENGTH_LONG

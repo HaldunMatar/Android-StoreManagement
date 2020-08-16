@@ -11,9 +11,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.zaitoneh.R
-import com.example.zaitoneh.database.Employee
-import com.example.zaitoneh.database.ReceiptDatabaseDao
-import com.example.zaitoneh.database.Receipt
+import com.example.zaitoneh.database.*
 import kotlinx.coroutines.*
 import java.lang.Error
 import java.lang.Exception
@@ -23,14 +21,19 @@ import java.util.*
 
 class ReceiptDetailViewModel(
     private val receiptKey: Long = 0L,
-    dataSource: ReceiptDatabaseDao) : ViewModel() {
+    dataSource: ReceiptDatabaseDao,receiptDetailDataSource:ReceiptDetailDatabaseDao) : ViewModel() {
+     var  latestreciept:Long=0L
     val database = dataSource
+    val receiptdetailDatabase=receiptDetailDataSource
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val receipt = MediatorLiveData<Receipt>()
     private val _saveReceiptToDataBase = MutableLiveData<Boolean?>()
     val saveReceiptToDataBase: LiveData<Boolean?>
         get() = _saveReceiptToDataBase
+
+    val receiptdetails = receiptDetailDataSource.getAllReceiptDetails()
+
     init {
         receipt.addSource(database.getReceiptWithId(receiptKey), receipt::setValue)
       //  _receiptValidation.value=false
@@ -51,13 +54,12 @@ class ReceiptDetailViewModel(
                         if (receiptKey == 0L) {
                             newReceipt.receiptDate= fromDate(Date())
                             insert(newReceipt)
-                            Log.i("Insert: ","Done!")
+                            Log.i("Insert: ","1- Done! Reciept Master")
                             _saveReceiptToDataBase.value = true
                         }
                     }
                     catch (E:Exception){
-                        Log.i("Insert: ","Error")
-
+                        Log.i("Insert: ","Error Reciept Master!!!")
                     }
                 }
     }
@@ -67,15 +69,29 @@ class ReceiptDetailViewModel(
         }
     }
 
+    fun getLatestReciept() {
 
+        GlobalScope.launch {
+            val result = async {
+                 latestreciept=getLatestRecieptDB().receiptId
+            }
+        }
+        runBlocking {
+            delay(100) // keeping jvm alive till calculateSum is finished
+        }
+    }
+
+    suspend fun getLatestRecieptDB(): Receipt {
+
+        return database.getlatestReceipt() as Receipt
+    }
  fun   setSaveReceiptToDataBase(){
-
-
      _saveReceiptToDataBase.value=true
  }
-
-
-
+    fun onReceiptDetailClicked(receiptId: Long) {
+        Log.i("onclick","onReceiptClicked")
+        //_navigateToEditReceipt.value=receiptId
+    }
 
 
 }

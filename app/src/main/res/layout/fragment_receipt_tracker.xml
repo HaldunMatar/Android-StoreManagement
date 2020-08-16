@@ -16,6 +16,8 @@
         <Button
             android:id="@+id/add_reciept_button"
             style="@style/button_Style"
+            android:layout_width="122dp"
+            android:layout_height="30dp"
             android:text="@string/add_reciept_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"

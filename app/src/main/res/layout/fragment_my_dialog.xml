@@ -104,8 +104,9 @@
 
         <Button
             android:id="@+id/save_btk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/button_Style"
+            android:layout_width="135dp"
+            android:layout_height="34dp"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

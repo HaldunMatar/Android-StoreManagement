@@ -156,6 +156,7 @@ class ReceiptDetailFragment
 
         receiptDetailViewModel.receiptdetails.observe(viewLifecycleOwner, Observer {
             it?.let {
+                Log.i("adapter","receiptdetails "+ it.size )
                 receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
                 receiptdetailadapter.submitList(it)
 

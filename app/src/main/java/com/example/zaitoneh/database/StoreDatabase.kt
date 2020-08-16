@@ -91,8 +91,8 @@ abstract class StoreDatabase : RoomDatabase() {
                         // Migration is not part of this lesson. You can learn more about
                         // migration with Room in this blog post:
                         // https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
-                       .fallbackToDestructiveMigration()
-                       // .addMigrations(MIGRATION_23_24, MIGRATION_24_25)
+                        .fallbackToDestructiveMigration()
+                        //.addMigrations(MIGRATION_27_28, MIGRATION_28_29)
                         //.addMigrations(MIGRATION_23_24)
                         .build()
                     // Assign INSTANCE to the newly created database.
@@ -105,17 +105,28 @@ abstract class StoreDatabase : RoomDatabase() {
     }
 }
 
-/*val MIGRATION_24_25: Migration = object : Migration(24, 25) {
+
+val MIGRATION_28_29: Migration = object : Migration(28, 29) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL(
             "ALTER TABLE items_table "
-                    + " ADD COLUMN last_update String"
+                    + " ADD COLUMN test TEXT  NOT NULL DEFAULT 's' "
         )
     }
-}*/
+}
 
-/*val MIGRATION_23_24: Migration = object : Migration(23, 24) {
+
+val MIGRATION_27_28: Migration = object : Migration(27, 28) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL(
+            "ALTER TABLE items_table "
+                    + " ADD COLUMN test INTEGER NOT NULL DEFAULT 's' "
+        )
+    }
+}
+
+val MIGRATION_23_24: Migration = object : Migration(26, 27) {
     override fun migrate(database: SupportSQLiteDatabase) {
         // Since we didn't alter the table, there's nothing else to do here.
     }
-}*/
+}

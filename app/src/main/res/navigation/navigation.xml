@@ -98,6 +98,10 @@
         <action
             android:id="@+id/action_receiptDetailFragment_to_receiptTrackerFragment2"
             app:destination="@id/receiptTrackerFragment2" />
+        <argument
+            android:name="receipt_id"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
     <fragment
 

@@ -37,17 +37,20 @@ class ReceiptDialogViewModel(
     }
 
     fun onCreateReceiptDetail(newReceiptDetail: ReceiptDetail) {
-        Log.i("insert before ","2-Insert done Detail Reciept!")
+
         uiScope.launch {
+            Log.i("insert before ","2-Insert done Detail Reciept!" +newReceiptDetail.toString())
             insert(newReceiptDetail)
 
+            Log.i("insert","  Done!  Detail Reciept Added successfully"+newReceiptDetail.toString() )
         }
     }
     private suspend fun insert(receiptdetail: ReceiptDetail) {
         withContext(Dispatchers.IO) {
             try {
                 database.insert(receiptdetail)
-                Log.i("insert"," Detail Reciept Added successfully")
+
+
             }
             catch (e:Exception){
                 Log.i("Insert: ","Already Added!")

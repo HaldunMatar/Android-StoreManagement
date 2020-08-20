@@ -22,6 +22,7 @@ import com.example.zaitoneh.R
 import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
+import com.example.zaitoneh.employeedetail.EmployeeDetailFragmentArgs
 import com.example.zaitoneh.receipt.ReceiptDialogViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
 import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
@@ -77,9 +78,14 @@ class ReceiptDetailFragment
 
         val dataSourceSup = StoreDatabase.getInstance(application).supplierDatabaseDao
         val   supplierDetailViewModel : SupplierDetailViewModel  =SupplierDetailViewModel(0,dataSourceSup)
-
-
         val supplier = supplierDetailViewModel.getSuppliers()
+
+
+
+
+
+
+
 
 
         Log.i("ArrayAdapter",supplierDetailViewModel.sups.toString())
@@ -147,14 +153,22 @@ class ReceiptDetailFragment
         binding.receipt=receipt
 
 
+        val args = ReceiptDetailFragmentArgs.fromBundle(requireArguments())
+
         val receiptdetailadapter = ReceiptDetailAdapter(ReceiptDetailListener { receiptId ->
             receiptDetailViewModel.onReceiptDetailClicked(receiptId)
             //  Toast.makeText(context, "${nightId}", Toast.LENGTH_LONG).show()
         })
-        binding.receiptDetailList.adapter = receiptdetailadapter
+
+            binding.receiptDetailList.adapter = receiptdetailadapter
 
 
-        receiptDetailViewModel.receiptdetails.observe(viewLifecycleOwner, Observer {
+
+
+
+
+
+        receiptDetailViewModel.receiptdetails?.observe(viewLifecycleOwner, Observer {
             it?.let {
                 Log.i("adapter","receiptdetails "+ it.size )
                 receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
@@ -218,14 +232,25 @@ class ReceiptDetailFragment
     override fun onFinishEditDialog(receiptDetail:ReceiptDetail) {
     val application = requireNotNull(this.activity).application
 
-    val dataSourceReciptDetailDao = StoreDatabase.getInstance(application).receiptDetailDatabaseDao
-     var receiptDaialogViewModel:ReceiptDialogViewModel=ReceiptDialogViewModel(dataSourceReciptDetailDao)
-    Log.i("Insert: latestreciept",receiptDetailViewModel.latestreciept.toString())
     if(receiptDetailViewModel.latestreciept==0L){
         receiptDetailViewModel.onCreateReceipt(binding.receipt as Receipt )
         receiptDetailViewModel.getLatestReciept()
-    }
 
+    }
+    Log.i("Insert: latestreciept",receiptDetailViewModel.latestreciept.toString())
+
+    val dataSourceReciptDetailDao = StoreDatabase.getInstance(application).receiptDetailDatabaseDao
+     var receiptDaialogViewModel:ReceiptDialogViewModel=ReceiptDialogViewModel(dataSourceReciptDetailDao)
+
+
+
+
+
+
+  /*  if (){
+
+
+    }*/
     receiptDetail.receiptId=  receiptDetailViewModel.latestreciept
     Log.i("Insert:",receiptDetail.toString())
     receiptDaialogViewModel.onCreateReceiptDetail(receiptDetail)

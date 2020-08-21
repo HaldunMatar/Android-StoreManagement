@@ -27,8 +27,8 @@ interface ReceiptDetailDatabaseDao{
     @Query("DELETE FROM receipt_detail_table")
     fun clear()
 
-    @Query("SELECT * FROM receipt_detail_table  WHERE receipt_id = :Receipt_key     ORDER BY receipt_id,item_id DESC")
-    fun getAllReceiptDetails(Receipt_key: Long): LiveData<List<ReceiptDetail>>
+    @Query("SELECT * FROM receipt_detail_table       ORDER BY receipt_id,item_id DESC")
+    fun getAllReceiptDetails(): LiveData<List<ReceiptDetail>>
 
     /**
      * Selects and returns the receiptDetail with given receiptDetail Id.

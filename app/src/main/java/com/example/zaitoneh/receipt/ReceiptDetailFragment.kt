@@ -170,11 +170,12 @@ class ReceiptDetailFragment
 
         receiptDetailViewModel.receiptdetails?.observe(viewLifecycleOwner, Observer {
             it?.let {
-                Log.i("adapter","receiptdetails "+ it.size )
-                receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
-                receiptdetailadapter.submitList(it)
-
-
+                if(receiptDetailViewModel.latestreciept!=0L) {
+                    Log.i("adapter", "receiptdetails " + it.size)
+                    receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
+                //    receiptdetailadapter.submitList(it)
+                    receiptdetailadapter.filter.filter(receiptDetailViewModel.latestreciept.toString())
+                }
             }
         })
 

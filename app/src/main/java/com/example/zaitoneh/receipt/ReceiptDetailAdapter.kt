@@ -60,7 +60,7 @@ class ReceiptDetailAdapter(val clickListener: ReceiptDetailListener) : ListAdapt
                       mFilteredList = mLstReceiptDetail
                   } else {
 
-                      val filteredList = mLstReceiptDetail.filter {  ( it.receiptId.toString() + " " + it.receiptId.toString() + it.receiptId.toString() +"  " + convertLongToTime(it.receiptId) ).toLowerCase().contains(charString.toLowerCase()) }
+                      val filteredList = mLstReceiptDetail.filter {  ( it.receiptId.toString()  )==(charString.toLowerCase()) }
                           .toMutableList()
                       mFilteredList = filteredList
 

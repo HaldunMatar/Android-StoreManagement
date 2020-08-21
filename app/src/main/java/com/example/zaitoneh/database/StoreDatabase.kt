@@ -17,7 +17,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
  */
 
 
-@Database(entities = [Item::class,Store::class,Employee::class,Supplier::class,Receipt::class,Department::class,ReceiptDetail::class], version = 24, exportSchema = true)
+@Database(entities = [Item::class,Store::class,Employee::class,Supplier::class,Receipt::class,Department::class,ReceiptDetail::class], version = 25, exportSchema = true)
 
 
 abstract class StoreDatabase : RoomDatabase() {

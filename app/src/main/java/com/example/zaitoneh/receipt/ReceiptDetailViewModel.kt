@@ -24,19 +24,36 @@ class ReceiptDetailViewModel(
     dataSource: ReceiptDatabaseDao,receiptDetailDataSource:ReceiptDetailDatabaseDao) : ViewModel() {
      var  latestreciept:Long=0L
     val database = dataSource
+
+    var receiptEdite = Receipt()
+
+
     val receiptdetailDatabase=receiptDetailDataSource
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val receipt = MediatorLiveData<Receipt>()
+    private var receipt = MediatorLiveData<Receipt>()
+     var receiptTest = MutableLiveData<Receipt>()
+    fun getReceipt() = receipt
     private val _saveReceiptToDataBase = MutableLiveData<Boolean?>()
     val saveReceiptToDataBase: LiveData<Boolean?>
         get() = _saveReceiptToDataBase
 
+
+    private val _navigateToEditReceipt = MutableLiveData<Long>()
+    val  navigateToEditReceipt: LiveData<Long?>
+        get() = _navigateToEditReceipt
+
+
      var receiptdetails   : LiveData<List<ReceiptDetail>> = receiptDetailDataSource.getAllReceiptDetails()
 
     init {
-        receipt.addSource(database.getReceiptWithId(receiptKey), receipt::setValue)
-      //  _receiptValidation.value=false
+        receiptTest.value?.receiptStoreId=2
+       if(receiptKey!= 0L ) {
+           getReceipt(receiptKey)
+       }
+
+        //receipt.addSource(database.getReceiptWithId(receiptKey), receipt::setValue)
+
     }
 
     override fun onCleared() {
@@ -62,6 +79,7 @@ class ReceiptDetailViewModel(
                       Log.i("Insert: ","Error Reciept Master!!!")
                     }
                 }
+
     }
     private suspend fun insert(receipt: Receipt) {
         withContext(Dispatchers.IO) {
@@ -74,10 +92,12 @@ class ReceiptDetailViewModel(
         GlobalScope.launch {
             val result = async {
                  latestreciept=getLatestRecieptDB().receiptId
+
+                Log.i("getLatestRecieptDB",latestreciept.toString())
             }
         }
         runBlocking {
-            delay(100) // keeping jvm alive till calculateSum is finished
+            delay(50) // keeping jvm alive till calculateSum is finished
         }
     }
 
@@ -90,8 +110,33 @@ class ReceiptDetailViewModel(
  }
     fun onReceiptDetailClicked(receiptId: Long) {
         Log.i("onclick","onReceiptClicked")
-        //_navigateToEditReceipt.value=receiptId
+        _navigateToEditReceipt.value=receiptId
     }
+
+
+    fun getReceipt(id: Long) {
+        println("Gone to calculate sum of a & b")
+
+        GlobalScope.launch {
+            val result = async {
+                getReceiptFromDB(id)
+            }
+            println("Sum of a & b is: ${result.await()}")
+        }
+        runBlocking {
+            delay(200) // keeping jvm alive till calculateSum is finished
+        }
+    }
+
+    suspend fun getReceiptFromDB(id: Long): Receipt {
+        // simulate long running task
+        var receiptEdite = database.get(id)!!
+        this.receiptEdite = receiptEdite;
+        return receiptEdite
+    }
+
+
+
 
 
 }

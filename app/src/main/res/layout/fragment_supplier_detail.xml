@@ -115,39 +115,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplier_First_Mobile_input" />
 
-    <Button
-        android:id="@+id/back_supplier_button"
-        style="@style/button_store_Style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/delete_supplier_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/save_supplier_button" />
+        <Button
+            android:id="@+id/back_supplier_button"
+            style="@style/button_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/delete_supplier_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/save_supplier_button" />
 
-    <Button
-        android:id="@+id/save_supplier_button"
-        style="@style/button_store_Style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> supplierDetailViewModel.onCreateSupplier(supplier)}"
-        android:text="@string/save"
-        app:layout_constraintBaseline_toBaselineOf="@+id/back_supplier_button"
-        app:layout_constraintEnd_toStartOf="@+id/back_supplier_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/save_supplier_button"
+            style="@style/button_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> supplierDetailViewModel.onCreateSupplier(supplier)}"
+            android:text="@string/save"
+            app:layout_constraintBaseline_toBaselineOf="@+id/back_supplier_button"
+            app:layout_constraintEnd_toStartOf="@+id/back_supplier_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/delete_supplier_button"
-        style="@style/button_store_Style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> supplierDetailViewModel.OnDeleteSupplier()}"
-        android:text="@string/delete"
-        app:layout_constraintBaseline_toBaselineOf="@+id/back_supplier_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/back_supplier_button" />
+        <Button
+            android:id="@+id/delete_supplier_button"
+            style="@style/button_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> supplierDetailViewModel.OnDeleteSupplier()}"
+            android:text="@string/delete"
+            app:layout_constraintBaseline_toBaselineOf="@+id/back_supplier_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/back_supplier_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

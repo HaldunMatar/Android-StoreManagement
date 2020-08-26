@@ -75,6 +75,7 @@ class EmployeeDetailFragment : Fragment() {
 
 
         binding.employeeDetailViewModel = employeeDetailViewModel
+
         binding.setLifecycleOwner(this)
 
         binding.employee=Employee()

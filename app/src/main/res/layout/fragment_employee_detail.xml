@@ -198,46 +198,46 @@
         android:layout_height="match_parent">
 
 
-        <Button
-            android:id="@+id/back_employee_button"
-            style="@style/button_store_Style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            app:layout_constraintEnd_toStartOf="@+id/delete_employee_button"
-            app:layout_constraintHorizontal_bias="0.5"
+     <Button
+         android:id="@+id/back_employee_button"
+         style="@style/button_Style"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="@string/back"
+         app:layout_constraintBaseline_toBaselineOf="@+id/save_employee_button"
+         app:layout_constraintEnd_toStartOf="@+id/delete_employee_button"
 
 
-            app:layout_constraintStart_toEndOf="@+id/save_employee_button"
-            app:layout_constraintTop_toTopOf="@+id/save_employee_button" />
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toEndOf="@+id/save_employee_button" />
 
-        <Button
-            android:id="@+id/save_employee_button"
-            style="@style/button_store_Style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="72dp"
-            android:onClick="@{() -> employeeDetailViewModel.onCreateEmployee(employee)}"
-            android:text="@string/save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/back_employee_button"
-            app:layout_constraintHorizontal_bias="0.5"
+     <Button
+         android:id="@+id/save_employee_button"
+         style="@style/button_Style"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginBottom="72dp"
+         android:onClick="@{() -> employeeDetailViewModel.onCreateEmployee(employee)}"
+         android:text="@string/save"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@+id/back_employee_button"
+         app:layout_constraintHorizontal_bias="0.5"
 
-            app:layout_constraintStart_toStartOf="parent" />
+         app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/delete_employee_button"
-            style="@style/button_store_Style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> employeeDetailViewModel.OnDeleteEmployee()}"
-            android:text="@string/delete"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/back_employee_button"
-            app:layout_constraintTop_toTopOf="@+id/back_employee_button" />
+     <Button
+         android:id="@+id/delete_employee_button"
+         style="@style/button_Style"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:onClick="@{() -> employeeDetailViewModel.OnDeleteEmployee()}"
+         android:text="@string/delete"
+         app:layout_constraintBaseline_toBaselineOf="@+id/back_employee_button"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.5"
+         app:layout_constraintStart_toEndOf="@+id/back_employee_button" />
 
-        <TextView
+     <TextView
             android:id="@+id/full_name_label"
             style="@style/Label_Style"
             android:layout_width="wrap_content"

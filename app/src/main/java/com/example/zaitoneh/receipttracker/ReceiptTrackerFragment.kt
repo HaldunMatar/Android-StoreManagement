@@ -61,7 +61,7 @@ class ReceiptTrackerFragment : Fragment() {
         receiptTrackerViewModel.navigateToEditReceipt.observe(this, Observer { receipt ->
             receipt?.let {
 
-                view?.findNavController()?.navigate(ReceiptTrackerFragmentDirections.actionReceiptTrackerFragment2ToReceiptDetailFragment())
+                view?.findNavController()?.navigate(ReceiptTrackerFragmentDirections.actionReceiptTrackerFragment2ToReceiptDetailFragment().setReceiptId(it))
             }
         })
 

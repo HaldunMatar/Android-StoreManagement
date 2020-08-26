@@ -25,6 +25,7 @@ import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailFragmentArgs
 import com.example.zaitoneh.receipt.ReceiptDialogViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
+import com.example.zaitoneh.itemdetail.ItemDetailFragmentArgs
 import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
 import com.example.zaitoneh.receiptDetail.ReceiptDetailListener
 import com.example.zaitoneh.receipttracker.ReceiptAdapter
@@ -53,6 +54,7 @@ class ReceiptDetailFragment
     lateinit var binding: FragmentReceiptDetailBinding
     lateinit var receiptDetailViewModel : ReceiptDetailViewModel
     lateinit var recieptDialogViewModel: ReceiptDialogViewModel
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,16 +64,31 @@ class ReceiptDetailFragment
             inflater, R.layout.fragment_receipt_detail, container, false
         )
 
-
-        // access the items of the list
-
         val application = requireNotNull(this.activity).application
         val dataSource = StoreDatabase.getInstance(application).receiptDatabaseDao
         val receiptDetailDataSource = StoreDatabase.getInstance(application).receiptDetailDatabaseDao
 
-        val viewModelFactory = ReceiptDetailViewModelFactory(0, dataSource,receiptDetailDataSource)
-         receiptDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptDetailViewModel::class.java)
-       binding.receiptDetailViewModel= receiptDetailViewModel
+
+       val EditReceiptId =  ReceiptDetailFragmentArgs.fromBundle(requireArguments()).receiptId
+
+
+
+
+
+        val viewModelFactory = ReceiptDetailViewModelFactory(EditReceiptId, dataSource,receiptDetailDataSource)
+        receiptDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptDetailViewModel::class.java)
+
+        receiptDetailViewModel.latestreciept=EditReceiptId
+      //  receiptDetailViewModel.getReceipt(EditReceiptId)
+        Log.i("getReceipt","receiptDetailViewModel.getReceipt()=" +receiptDetailViewModel.receiptEdite.toString() )
+
+
+        binding.receiptDetailViewModel= receiptDetailViewModel
+
+
+
+
+
 
         val dataSourceEmp = StoreDatabase.getInstance(application).employeeDatabaseDao
         val  employeeDetailViewModel : EmployeeDetailViewModel  =EmployeeDetailViewModel(0,dataSourceEmp)
@@ -130,14 +147,12 @@ class ReceiptDetailFragment
 
         }
 
-
-
-
         val dataSourceDep = StoreDatabase.getInstance(application).departmentDatabaseDao
         val   departmentDetailViewModel : DepartmentDetailViewModel =DepartmentDetailViewModel(0,dataSourceDep)
         val departments = departmentDetailViewModel.getDepartments()
         val departmentspinner = binding.receiptDepInput
             departmentspinner.setOnItemSelectedListener(this)
+
         if (departmentspinner != null) {
             val adapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,departmentDetailViewModel.deps.toTypedArray())
@@ -153,12 +168,17 @@ class ReceiptDetailFragment
         binding.receipt=receipt
 
 
-        val args = ReceiptDetailFragmentArgs.fromBundle(requireArguments())
+
+
+
+
+
 
         val receiptdetailadapter = ReceiptDetailAdapter(ReceiptDetailListener { receiptId ->
             receiptDetailViewModel.onReceiptDetailClicked(receiptId)
             //  Toast.makeText(context, "${nightId}", Toast.LENGTH_LONG).show()
         })
+
 
             binding.receiptDetailList.adapter = receiptdetailadapter
 
@@ -170,14 +190,31 @@ class ReceiptDetailFragment
 
         receiptDetailViewModel.receiptdetails?.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if(receiptDetailViewModel.latestreciept!=0L) {
-                    Log.i("adapter", "receiptdetails " + it.size)
+
+
+               if(receiptDetailViewModel.receiptEdite.receiptId!=0L   ) {
                     receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
-                //    receiptdetailadapter.submitList(it)
-                    receiptdetailadapter.filter.filter(receiptDetailViewModel.latestreciept.toString())
-                }
+                    receiptdetailadapter.filter.filter(receiptDetailViewModel.receiptEdite.receiptId.toString())
+                }else if(receiptDetailViewModel.latestreciept!=0L ){
+                   receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
+                   receiptdetailadapter.filter.filter(receiptDetailViewModel.latestreciept.toString())
+               }
+
+
+
             }
         })
+
+        binding.addreceiptbtk.setOnClickListener {
+
+
+                receiptDetailViewModel.onCreateReceipt(binding.receipt as Receipt )
+                receiptDetailViewModel.getLatestReciept()
+
+
+
+
+        }
 
         return binding.root
     }
@@ -229,30 +266,31 @@ class ReceiptDetailFragment
 
     }
 //  android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFinishEditDialog(receiptDetail:ReceiptDetail) {
     val application = requireNotNull(this.activity).application
 
-    if(receiptDetailViewModel.latestreciept==0L){
-        receiptDetailViewModel.onCreateReceipt(binding.receipt as Receipt )
-        receiptDetailViewModel.getLatestReciept()
 
-    }
-    Log.i("Insert: latestreciept",receiptDetailViewModel.latestreciept.toString())
+       // receiptDetailViewModel.getLatestReciept()
+
+    Log.i("latestreciept",receiptDetailViewModel.receiptEdite.receiptId.toString())
 
     val dataSourceReciptDetailDao = StoreDatabase.getInstance(application).receiptDetailDatabaseDao
      var receiptDaialogViewModel:ReceiptDialogViewModel=ReceiptDialogViewModel(dataSourceReciptDetailDao)
 
 
+  if(receiptDetailViewModel.receiptEdite.receiptId!=0L) {
+      receiptDetail.receiptId = receiptDetailViewModel.receiptEdite.receiptId
+  }else{
+
+       receiptDetailViewModel.getLatestReciept()
+      receiptDetail.receiptId = receiptDetailViewModel.latestreciept
+  }
 
 
-
-
-  /*  if (){
-
-
-    }*/
-    receiptDetail.receiptId=  receiptDetailViewModel.latestreciept
+      //  receiptDetail.receiptId=   EditReceiptId
     Log.i("Insert:",receiptDetail.toString())
     receiptDaialogViewModel.onCreateReceiptDetail(receiptDetail)
 

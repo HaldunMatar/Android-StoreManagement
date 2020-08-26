@@ -58,6 +58,7 @@
     <string name="amount">Amount</string>
     <string name="price">Price</string>
     <string name="item">Item Name</string>
+    <string name="add">Add</string>
 
 
     <string-array name="Languages">

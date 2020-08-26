@@ -85,41 +85,43 @@
             app:layout_constraintStart_toStartOf="@+id/storeCode_input" />
 
         <Button
-            android:id="@+id/back_store_button"
-            style="@style/button_store_Style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            app:layout_constraintEnd_toStartOf="@+id/delete_store_button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/save_store_button"
-            app:layout_constraintTop_toTopOf="@+id/save_store_button" />
-
-        <Button
             android:id="@+id/save_store_button"
-            style="@style/button_store_Style"
+            style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> storeDetailViewModel.onCreateStore(store)}"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/back_store_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{() -> storeDetailViewModel.onCreateStore(store)}"
 
-            app:layout_constraintTop_toBottomOf="@+id/storeAddress_input" />
+            app:layout_constraintTop_toBottomOf="@+id/storeAddress_input"
+            app:layout_constraintVertical_bias="0.561" />
 
         <Button
             android:id="@+id/delete_store_button"
-            style="@style/button_store_Style"
+            style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> storeDetailViewModel.OnDeleteStore()}"
             android:text="@string/delete"
+            app:layout_constraintBaseline_toBaselineOf="@+id/back_store_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/back_store_button"
-            android:onClick="@{() -> storeDetailViewModel.OnDeleteStore()}"
-            app:layout_constraintTop_toTopOf="@+id/back_store_button" />
+            app:layout_constraintStart_toEndOf="@+id/back_store_button" />
+
+        <Button
+            android:id="@+id/back_store_button"
+            style="@style/button_Style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/back"
+            app:layout_constraintEnd_toStartOf="@+id/delete_store_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/save_store_button"
+            app:layout_constraintTop_toTopOf="@+id/save_store_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

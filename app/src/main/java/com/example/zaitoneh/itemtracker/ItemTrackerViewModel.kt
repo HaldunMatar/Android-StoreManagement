@@ -172,7 +172,7 @@ class ItemTrackerViewModel(
     }
 
     fun onItemClicked(itemId: Long) {
-        Log.i("onclick","onItemClicked")
+        Log.i("onclick","onItemClicked Receipt")
          _navigateToEditItem.value=itemId
     }
 

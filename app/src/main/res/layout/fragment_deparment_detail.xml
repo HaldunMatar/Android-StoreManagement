@@ -24,20 +24,20 @@
 
         <Button
             android:id="@+id/back_department_button"
-            style="@style/button_store_Style"
+            style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/back"
+            app:layout_constraintBaseline_toBaselineOf="@+id/save_department_button"
             app:layout_constraintEnd_toStartOf="@+id/delete_department_button"
+
+
             app:layout_constraintHorizontal_bias="0.5"
-
-
-            app:layout_constraintStart_toEndOf="@+id/save_department_button"
-            app:layout_constraintTop_toTopOf="@+id/save_department_button" />
+            app:layout_constraintStart_toEndOf="@+id/save_department_button" />
 
         <Button
             android:id="@+id/save_department_button"
-            style="@style/button_store_Style"
+            style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="72dp"
@@ -51,15 +51,15 @@
 
         <Button
             android:id="@+id/delete_department_button"
-            style="@style/button_store_Style"
+            style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{() -> departmentDetailViewModel.OnDeleteDepartment()}"
             android:text="@string/delete"
+            app:layout_constraintBaseline_toBaselineOf="@+id/back_department_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/back_department_button"
-            app:layout_constraintTop_toTopOf="@+id/back_department_button" />
+            app:layout_constraintStart_toEndOf="@+id/back_department_button" />
 
         <TextView
             android:id="@+id/full_name_label"

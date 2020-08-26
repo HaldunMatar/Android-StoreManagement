@@ -60,7 +60,7 @@ class EmployeeDetailViewModel(
 
     init {
         employee.addSource(database.getEmployeeWithId(employeeKey), employee::setValue)
-        //  _employeeValidation.value=false
+        Log.i("employeeInit","ReceiptDetailFragmentArgs=" + employee.value.toString() )
     }
 
 

@@ -60,11 +60,27 @@ class ReceiptTrackerFragment : Fragment() {
 
         receiptTrackerViewModel.navigateToEditReceipt.observe(this, Observer { receipt ->
             receipt?.let {
+                if(it!=null) {
+                    view?.findNavController()?.navigate(
+                        ReceiptTrackerFragmentDirections.actionReceiptTrackerFragment2ToReceiptDetailFragment()
+                            .setReceiptId(it)
+                    )
+                }
 
-                view?.findNavController()?.navigate(ReceiptTrackerFragmentDirections.actionReceiptTrackerFragment2ToReceiptDetailFragment().setReceiptId(it))
+                receiptTrackerViewModel.onReceiptClicked(null)
             }
         })
+/*
 
+  if(it!=null) {
+                    view?.findNavController()?.navigate(
+                        ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment()
+                            .setItemId(it)
+                    )
+                    itemTrackerViewModel.onItemClicked(null)
+
+
+ */
 
         binding.receiptDetailList.adapter = adapter
 

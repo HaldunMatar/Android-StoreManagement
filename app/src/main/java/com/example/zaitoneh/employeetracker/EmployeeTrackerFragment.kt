@@ -2,7 +2,6 @@ package com.example.zaitoneh.employeetracker
 
 import android.content.Context
 import android.os.Bundle
-import android.provider.ContactsContract
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.zaitoneh.database.Employee
 //import com.example.zaitoneh.employeetracker.EmployeeTrackerViewModel
 
@@ -67,12 +65,12 @@ class EmployeeTrackerFragment : Fragment() {
 
       employeeTrackerViewModel.navigateToEditEmployee.observe(this, Observer { employee ->
             employee?.let {
-            if(it!=0L) {
+            if(it!=null) {
                    view?.findNavController()?.navigate(
                        EmployeeTrackerFragmentDirections.actionEmployeeTrackerFragmentToEmployeeDetailFragment()
                            .setEmployeeId(it)
                    )
-                  employeeTrackerViewModel.onEmployeeClicked(0)
+                  employeeTrackerViewModel.onEmployeeClicked(null)
             }
 
             }

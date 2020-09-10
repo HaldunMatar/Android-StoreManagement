@@ -21,7 +21,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.ItemDatabaseDao
 import kotlinx.coroutines.*
@@ -107,6 +106,7 @@ class ItemTrackerViewModel(
 
     init {
         initializeLatestItem()
+        _navigateToEditItem.value=null
     }
 
     private fun initializeLatestItem() {
@@ -171,7 +171,7 @@ class ItemTrackerViewModel(
         viewModelJob.cancel()
     }
 
-    fun onItemClicked(itemId: Long) {
+    fun onItemClicked(itemId: Long?) {
         Log.i("onclick","onItemClicked Receipt")
          _navigateToEditItem.value=itemId
     }

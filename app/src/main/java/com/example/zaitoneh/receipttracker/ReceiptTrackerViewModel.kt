@@ -21,7 +21,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.example.zaitoneh.database.Receipt
 import com.example.zaitoneh.database.ReceiptDatabaseDao
 import kotlinx.coroutines.*
@@ -107,6 +106,8 @@ class ReceiptTrackerViewModel(
 
     init {
         initializeLatestReceipt()
+
+        _navigateToEditReceipt.value=null
     }
 
     private fun initializeLatestReceipt() {
@@ -171,7 +172,7 @@ class ReceiptTrackerViewModel(
         viewModelJob.cancel()
     }
 
-    fun onReceiptClicked(receiptId: Long) {
+    fun onReceiptClicked(receiptId: Long?) {
         Log.i("onclick","onReceiptClicked")
          _navigateToEditReceipt.value=receiptId
     }

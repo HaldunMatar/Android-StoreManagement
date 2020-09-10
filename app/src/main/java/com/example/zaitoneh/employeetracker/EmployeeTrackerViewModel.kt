@@ -21,11 +21,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.EmployeeDatabaseDao
-import com.example.zaitoneh.database.Store
-import com.example.zaitoneh.database.StoreDatabaseDao
 import kotlinx.coroutines.*
 
 /**
@@ -109,6 +106,7 @@ class EmployeeTrackerViewModel(
 
     init {
         initializeLatestEmployee()
+        _navigateToEditEmployee.value=null
     }
 
     private fun initializeLatestEmployee() {
@@ -173,7 +171,7 @@ class EmployeeTrackerViewModel(
         viewModelJob.cancel()
     }
 
-    fun onEmployeeClicked(employeeId: Long) {
+    fun onEmployeeClicked(employeeId: Long?) {
         Log.i("onclick","onEmployeeClicked")
          _navigateToEditEmployee.value=employeeId
     }

@@ -89,6 +89,7 @@ class ItemAdapter(val clickListener: ItemListener) : ListAdapter <Item,ItemAdapt
          }
 
         override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
+            if (filterResults?.values  != null)
             submitList(filterResults.values as MutableList<Item>)
             notifyDataSetChanged()
         }

@@ -93,6 +93,7 @@ class ReceiptAdapter(val clickListener: ReceiptListener) : ListAdapter <Receipt,
          }
 
         override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
+            if (filterResults?.values  != null)
             submitList(filterResults.values as MutableList<Receipt>)
             notifyDataSetChanged()
         }

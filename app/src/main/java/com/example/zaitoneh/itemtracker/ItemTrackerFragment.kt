@@ -63,8 +63,13 @@ class ItemTrackerFragment : Fragment() {
 
         itemTrackerViewModel.navigateToEditItem.observe(this, Observer { item ->
             item?.let {
-
-                view?.findNavController()?.navigate(ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment().setItemId(it))
+                if(it!=null) {
+                    view?.findNavController()?.navigate(
+                        ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment()
+                            .setItemId(it)
+                    )
+                    itemTrackerViewModel.onItemClicked(null)
+                }
             }
         })
 

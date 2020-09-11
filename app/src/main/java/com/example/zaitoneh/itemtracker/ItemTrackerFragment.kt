@@ -77,7 +77,7 @@ class ItemTrackerFragment : Fragment() {
         binding.itemList.adapter = adapter
 
 
-        itemTrackerViewModel.items.observe(viewLifecycleOwner, Observer {
+       itemTrackerViewModel.items.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.updateList(it as MutableList<Item>)
                 adapter.submitList(it)
@@ -86,7 +86,13 @@ class ItemTrackerFragment : Fragment() {
             }
         })
 
+      /*  itemTrackerViewModel.properties.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.updateList(it as MutableList<Item>)
+                adapter.submitList(it)
+            }
 
+        })*/
 
        val item_search= binding.itemSearch
         item_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{

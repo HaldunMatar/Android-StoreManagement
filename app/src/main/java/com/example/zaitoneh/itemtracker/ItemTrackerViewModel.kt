@@ -21,6 +21,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.android.marsrealestate.network.ItemApiFilter
+import com.example.android.marsrealestate.network.MarsApi
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.ItemDatabaseDao
 import kotlinx.coroutines.*
@@ -28,9 +30,36 @@ import kotlinx.coroutines.*
 /**
  * ViewModel for SleepTrackerFragment.
  */
+enum class ItemApiStatus { LOADING, ERROR, DONE }
+
 class ItemTrackerViewModel(
     val database: ItemDatabaseDao,
     application: Application) : AndroidViewModel(application) {
+    // The internal MutableLiveData that stores the status of the most recent request
+    private val _status = MutableLiveData<ItemApiStatus>()
+
+    // The external immutable LiveData for the request status
+    val status: LiveData<ItemApiStatus>
+        get() = _status
+
+    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+    // with new values
+    private val _properties = MutableLiveData<List<Item>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val properties: LiveData<List<Item>>
+        get() = _properties
+
+    // Internally, we use a MutableLiveData to handle navigation to the selected property
+    private val _navigateToSelectedProperty = MutableLiveData<Item>()
+
+    // The external immutable LiveData for the navigation property
+    val navigateToSelectedProperty: LiveData<Item>
+        get() = _navigateToSelectedProperty
+
+
+
+
 
     private val _navigateToEditItem = MutableLiveData<Long>()
     val navigateToEditItem
@@ -107,6 +136,7 @@ class ItemTrackerViewModel(
     init {
         initializeLatestItem()
         _navigateToEditItem.value=null
+        getItemsProperties(ItemApiFilter.SHOW_ALL)
     }
 
     private fun initializeLatestItem() {
@@ -175,7 +205,26 @@ class ItemTrackerViewModel(
         Log.i("onclick","onItemClicked Receipt")
          _navigateToEditItem.value=itemId
     }
+    private fun getItemsProperties(filter: ItemApiFilter) {
+         Log.i("getItemsProperties"," before ");
 
+        uiScope.launch {
+            // Get the Deferred object for our Retrofit request
+            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
+            try {
+                _status.value = ItemApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                val listResult = getPropertiesDeferred.await()
+                _status.value = ItemApiStatus.DONE
+                Log.i("getItemsProperties"," DONE " + listResult.size);
+                _properties.value = listResult
+            } catch (e: Exception) {
+                Log.i("getItemsProperties"," Exception " );
+                _status.value = ItemApiStatus.ERROR
+                _properties.value = ArrayList()
+            }
+        }
+    }
 
 
 }

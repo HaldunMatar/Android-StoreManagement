@@ -3,16 +3,26 @@ package com.example.zaitoneh.itemdetail
 import android.util.Log
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.marsrealestate.network.ItemApiService
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.Department
+import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.ItemDatabaseDao
 import com.example.zaitoneh.database.Item
+import com.example.zaitoneh.itemtracker.ItemApiStatus
+import com.smartherd.globofly.services.DestinationService
+import com.smartherd.globofly.services.ServiceBuilder
 import kotlinx.android.synthetic.main.fragment_item_detail.view.*
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
 
 
@@ -26,7 +36,7 @@ class ItemDetailViewModel(
      */
     val database = dataSource
     private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
-    lateinit var  listitems : List<Item>
+    lateinit var listitems: List<Item>
 
     //= MutableLiveData<Item?>()
     /** Coroutine setup variables */
@@ -35,8 +45,13 @@ class ItemDetailViewModel(
      */
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val item = MediatorLiveData<Item>()
 
+
+
+
+    private val _itemNet = MutableLiveData<Item?>()
+    val itemNet: LiveData<Item?>
+        get() = _itemNet
 
     private val _saveItemToDataBase = MutableLiveData<Boolean?>()
     val saveItemToDataBase: LiveData<Boolean?>
@@ -48,24 +63,44 @@ class ItemDetailViewModel(
         get() = _deleteItemFromDataBase
 
 
-
     private val _updateItemToDataBase = MutableLiveData<Boolean?>()
     val updateItemToDataBase: LiveData<Boolean?>
         get() = _updateItemToDataBase
 
 
-
-
     private val _itemValidation = MutableLiveData<Boolean?>()
     val itemValidation: LiveData<Boolean?>
         get() = _itemValidation
+    private val item = MediatorLiveData<Item>()
+    fun getItem() = item
 
-       fun getItem() = item
-
-
-
+    val text = MutableLiveData<String>("initial value")
+    val i = MutableLiveData<Int>(12)
+     var selectedItem = MutableLiveData<Item?>()
+  var itemNetOb : Item = Item()
     init {
-        item.addSource(database.getItemWithId(itemKey), item::setValue)
+
+        if(itemKey!=0L) {
+            initializeItemFromNet(itemKey)
+            item.addSource(selectedItem, item::setValue)
+
+        }
+    }
+
+
+    private fun initializeItemFromNet(itemId: Long) {
+        uiScope.launch {
+            selectedItem.value = getItemFromNet(itemId)
+            Log.i("selectedItem", " selectedItem in    = " + selectedItem.value);
+        }
+    }
+    private suspend fun getItemFromNet(itemId: Long):Item? {
+        return withContext(Dispatchers.IO) {
+           var itemDeferred = StoreApi.retrofitService.getItemById(itemId)
+
+            itemDeferred.await()
+        }
+
     }
 
 
@@ -91,7 +126,7 @@ class ItemDetailViewModel(
     override fun onCleared() {
         super.onCleared()
         Log.i("itemdetails" ," onCleared v M " )
-        viewModelJob.cancel()
+              viewModelJob.cancel()
     }
 
     /**
@@ -105,12 +140,41 @@ class ItemDetailViewModel(
         _navigateToItemTracker.value = true
     }
 
-    private suspend fun insert(item: Item) {
+    private suspend fun insertNet(item: Item) {
         withContext(Dispatchers.IO) {
-            database.insert(item)
+            val newDestination = item
+
+            var newItemDeferred = StoreApi.retrofitService.newItem(newDestination)
+            try {
+                newItemDeferred.await()
+            } catch (e: Exception) {
+                Log.i("insertNet"," Exception " +e.message);
+
+            }
 
         }
     }
+
+    private suspend fun insert(item: Item) {
+        withContext(Dispatchers.IO) {
+            database.insert(item)
+        }
+    }
+
+    private suspend fun updateNet(item: Item) {
+        withContext(Dispatchers.IO) {
+            val newDestination = item
+
+            var updateItemDeferred = StoreApi.retrofitService.newItem(newDestination)
+            try {
+                updateItemDeferred.await()
+            } catch (e: Exception) {
+                Log.i("updateNet"," Exception updateNet " +e.message);
+
+            }
+        }
+    }
+
     private suspend fun update(item: Item) {
         withContext(Dispatchers.IO) {
             database.update(item)
@@ -124,6 +188,46 @@ class ItemDetailViewModel(
 
             }
 
+    fun onCreateItemNet(newItem: Item,radioGroup: RadioGroup) {
+        val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
+        val   tempItem=newItem
+        tempItem.itemId= itemKey
+
+
+        when(radioButton.id){
+            R.id.itemMain_kratin_radio-> tempItem.itemMain="Kratin"
+            R.id.itemMain_box_radio-> tempItem.itemMain="Box"
+            R.id.itemMain_materials_radio-> tempItem.itemMain="Materials"
+        }
+
+        Log.i("viewModelitem",tempItem.itemMain)
+        if (vaildateItem(tempItem)) {
+            uiScope.launch {
+                try {
+
+                    if (itemKey==0L) {
+                        Log.i("insert","insertNet")
+                        insertNet(tempItem)
+                        _saveItemToDataBase.value=true
+                    }else{
+                        Log.i("update","update")
+                        updateNet(tempItem)
+                        _updateItemToDataBase.value=true
+
+                    }
+
+                }
+                catch (E:Exception){
+                    Log.i("Exception", "There is a problem in insert same item added")
+                    _saveItemToDataBase.value = false
+                    _updateItemToDataBase.value = false
+                }
+            }
+        }
+        else{
+            _itemValidation.value=false
+        }
+    }
 
      fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
 
@@ -219,6 +323,8 @@ fun OnDeleteItem() {
             delay(200) // keeping jvm alive till calculateSum is finished
         }
     }
+
+
 
 }
 

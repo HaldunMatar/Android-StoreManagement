@@ -22,6 +22,7 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import android.content.res.Resources
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import java.lang.Exception
 
@@ -36,6 +37,8 @@ class ItemDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.itemDetail)
         // Inflate the layout for this fragment
         val binding: FragmentItemDetailBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_item_detail, container, false)
@@ -53,6 +56,8 @@ class ItemDetailFragment : Fragment() {
             binding.saveBtn.text=this.context?.resources?.getString(R.string.update)
 
         }*/
+
+
         binding.itemDetailViewModel = itemDetailViewModel
         binding.setLifecycleOwner(this)
 

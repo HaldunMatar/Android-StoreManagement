@@ -22,12 +22,18 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
+import okhttp3.internal.Util
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
-private const val BASE_URL = "https://murmuring-forest-07493.herokuapp.com/"
+//private const val BASE_URL ="http://localhost:8080/"
+
+private const val BASE_URL ="http://10.0.2.2:8080/"
+
+//private const val BASE_URL = "https://murmuring-forest-07493.herokuapp.com/"
+
 enum class ItemApiFilter(val value: String) { SHOW_RENT("id"), SHOW_BUY("level1"), SHOW_ALL("all") }
 
 /**
@@ -59,15 +65,31 @@ interface ItemApiService {
      * HTTP method
      */
 
+
+
+
+    @GET("ItemId")
+    fun getItemById( @Query("ItemId") ItemId: Long):Deferred<Item>
+    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+
     @GET("listItemsREST")
     fun getProperties():
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<List<Item>>
+
+    @POST("newItem")
+    fun newItem(@Body newDestination: Item):Deferred<Util>
+
+    @POST("updateItem")
+    fun updateItem(@Body newDestination: Item):Deferred<Util>
+
+    @DELETE("deleteItem")
+        fun deleteItem( @Query("itemId") ItemId: Long):Deferred<Boolean>
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
-object MarsApi {
+object StoreApi {
     val retrofitService : ItemApiService by lazy { retrofit.create(ItemApiService::class.java) }
 }

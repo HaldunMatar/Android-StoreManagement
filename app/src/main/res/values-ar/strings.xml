@@ -41,7 +41,7 @@
     <string name="Receipts">receipts</string>
 
     <string name="add_reciept_button">Add receipt</string>
-
+    <string name="item_deleted"> تم حذف العنصر</string>
     <string name="department">Department</string>
     <string name="code">Code</string>
     <string name="date">Date</string>
@@ -49,6 +49,12 @@
     <string name="price">Price</string>
     <string name="item">Item Name</string>
     <string name="add">Aaa</string>
+    <string name="departmentTracker">department Tracker</string>
+    <string name="items_Tracker">Items Tracker Ar </string>
+    <string name="employeeTracker">employees Tracker</string>
+    <string name="supplierTracker">suppliers Tracker</string>
+    <string name="receiptTracker">receipts Tracker</string>
 
+    <string name="itemDetail">item Detail</string>
 </resources>
 

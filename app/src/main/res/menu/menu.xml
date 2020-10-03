@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/departmentTrackerFragment"
+        android:title="@string/departmentTracker" />
+    <item
+        android:id="@+id/itemTrackerFragment"
+        android:title="@string/items_Tracker" />
+    <item
+        android:id="@+id/employeeTrackerFragment"
+        android:title="@string/employeeTracker" />
+    <item
+        android:id="@+id/storeTrackerFragment"
+        android:title="@string/storeTracker" />
+    <item
+        android:id="@+id/supplierTrackerFragment"
+        android:title="@string/supplierTracker" />
+    <item
+        android:id="@+id/receiptTrackerFragment2"
+        android:title="@string/receiptTracker" />
+</menu>

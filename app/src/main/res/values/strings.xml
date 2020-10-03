@@ -59,7 +59,14 @@
     <string name="price">Price</string>
     <string name="item">Item Name</string>
     <string name="add">Add</string>
-
+    <string name="item_deleted"> The item has been deleted</string>
+    <string name="departmentTracker">department Tracker</string>
+    <string name="items_Tracker">Items Tracker</string>
+    <string name="employeeTracker">employees Tracker</string>
+    <string name="storeTracker">stores Tracker</string>
+    <string name="supplierTracker">suppliers Tracker</string>
+    <string name="receiptTracker">receipts Tracker</string>
+    <string name="itemDetail">item Detail</string>
 
     <string-array name="Languages">
         <item>jwad noor </item>

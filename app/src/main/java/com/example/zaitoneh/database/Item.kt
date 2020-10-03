@@ -40,9 +40,7 @@ data class Item(
 ): Parcelable
 
 {
-    override fun toString(): String {
-        return itemId.toString()  + "   " + itemMain + "   " + itemLevel1 + "  " + itemLevel2  + "  " + itemLevel3
-    }
+
 
 
 }

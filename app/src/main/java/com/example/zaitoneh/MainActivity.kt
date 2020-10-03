@@ -1,8 +1,10 @@
 package com.example.zaitoneh
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -46,7 +48,14 @@ class MainActivity: AppCompatActivity() {
 
     }
 
-
+    override fun onCreateView(
+        parent: View?,
+        name: String,
+        context: Context,
+        attrs: AttributeSet
+    ): View? {
+        return super.onCreateView(parent, name, context, attrs)
+    }
 
 
 

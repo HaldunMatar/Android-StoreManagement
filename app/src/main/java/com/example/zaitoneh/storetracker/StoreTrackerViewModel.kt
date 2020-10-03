@@ -107,6 +107,7 @@ class StoreTrackerViewModel(
 
     init {
         initializeLatestStore()
+        Log.i("initializeLatestStore",latestStore.value.toString())
     }
 
     private fun initializeLatestStore() {

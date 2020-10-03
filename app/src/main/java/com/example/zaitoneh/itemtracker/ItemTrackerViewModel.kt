@@ -22,7 +22,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.android.marsrealestate.network.ItemApiFilter
-import com.example.android.marsrealestate.network.MarsApi
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.ItemDatabaseDao
 import kotlinx.coroutines.*
@@ -136,7 +136,8 @@ class ItemTrackerViewModel(
     init {
         initializeLatestItem()
         _navigateToEditItem.value=null
-        getItemsProperties(ItemApiFilter.SHOW_ALL)
+
+       getItemsProperties(ItemApiFilter.SHOW_ALL)
     }
 
     private fun initializeLatestItem() {
@@ -210,7 +211,7 @@ class ItemTrackerViewModel(
 
         uiScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
+            var getPropertiesDeferred = StoreApi.retrofitService.getProperties()
             try {
                 _status.value = ItemApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
@@ -219,7 +220,7 @@ class ItemTrackerViewModel(
                 Log.i("getItemsProperties"," DONE " + listResult.size);
                 _properties.value = listResult
             } catch (e: Exception) {
-                Log.i("getItemsProperties"," Exception " );
+                Log.i("getItemsProperties"," Exception " +e.message);
                 _status.value = ItemApiStatus.ERROR
                 _properties.value = ArrayList()
             }

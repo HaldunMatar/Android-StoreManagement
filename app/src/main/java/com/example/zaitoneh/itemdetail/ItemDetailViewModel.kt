@@ -95,6 +95,7 @@ class ItemDetailViewModel(
         }
     }
     private suspend fun getItemFromNet(itemId: Long):Item? {
+
         return withContext(Dispatchers.IO) {
            var itemDeferred = StoreApi.retrofitService.getItemById(itemId)
 
@@ -143,51 +144,9 @@ class ItemDetailViewModel(
     private suspend fun insertNet(item: Item) {
         withContext(Dispatchers.IO) {
             val newDestination = item
-
             var newItemDeferred = StoreApi.retrofitService.newItem(newDestination)
-            try {
-                newItemDeferred.await()
-            } catch (e: Exception) {
-                Log.i("insertNet"," Exception " +e.message);
-
-            }
-
         }
     }
-
-    private suspend fun insert(item: Item) {
-        withContext(Dispatchers.IO) {
-            database.insert(item)
-        }
-    }
-
-    private suspend fun updateNet(item: Item) {
-        withContext(Dispatchers.IO) {
-            val newDestination = item
-
-            var updateItemDeferred = StoreApi.retrofitService.newItem(newDestination)
-            try {
-                updateItemDeferred.await()
-            } catch (e: Exception) {
-                Log.i("updateNet"," Exception updateNet " +e.message);
-
-            }
-        }
-    }
-
-    private suspend fun update(item: Item) {
-        withContext(Dispatchers.IO) {
-            database.update(item)
-            Log.i("update",item.itemId.toString())
-        }
-    }
-
-
-     fun   vaildateItem(newItem: Item) : Boolean {
-         return !(newItem.itemLevel1 == "" || newItem.itemLevel2 == ""  || newItem.itemLevel3 == "" )
-
-            }
-
     fun onCreateItemNet(newItem: Item,radioGroup: RadioGroup) {
         val radioButton =  radioGroup.findViewById<RadioButton>( radioGroup.checkedRadioButtonId)
         val   tempItem=newItem
@@ -228,6 +187,36 @@ class ItemDetailViewModel(
             _itemValidation.value=false
         }
     }
+
+
+    private suspend fun insert(item: Item) {
+        withContext(Dispatchers.IO) {
+            database.insert(item)
+        }
+    }
+
+    private suspend fun updateNet(item: Item) {
+        withContext(Dispatchers.IO) {
+            val newDestination = item
+
+               var updateItemDeferred = StoreApi.retrofitService.newItem(newDestination)
+
+        }
+    }
+
+    private suspend fun update(item: Item) {
+        withContext(Dispatchers.IO) {
+            database.update(item)
+            Log.i("update",item.itemId.toString())
+        }
+    }
+
+
+     fun   vaildateItem(newItem: Item) : Boolean {
+         return !(newItem.itemLevel1 == "" || newItem.itemLevel2 == ""  || newItem.itemLevel3 == "" )
+
+            }
+
 
      fun onCreateItem(newItem: Item,radioGroup: RadioGroup) {
 
@@ -270,7 +259,43 @@ class ItemDetailViewModel(
             }
     }
 
-fun OnDeleteItem() {
+    /*********************************
+     *
+     *
+     */
+    fun OnDeleteItemNet() {
+
+        uiScope.launch {
+            try {
+                Log.i("delete",item.value!!.itemId.toString())
+                item!!.value?.itemId?.let {
+                    deleteItemNet(it)
+                }
+                _deleteItemFromDataBase.value = true
+
+
+            } catch (E: Exception) {
+                E.printStackTrace()
+                Log.i("Exception", "The item was not deleted11" +  E.printStackTrace()  + E.message +E.toString() +  E.printStackTrace())
+                _deleteItemFromDataBase.value = false
+
+            }
+        }
+    }
+
+    private suspend fun deleteItemNet(itemId: Long) {
+            var itemDeferred = StoreApi.retrofitService.deleteItem(itemId)
+
+               if (!itemDeferred.await())
+               {
+                 throw  Exception()
+               }
+            }
+
+
+
+    //****************************
+    fun OnDeleteItem() {
 
     uiScope.launch {
         try {
@@ -279,7 +304,8 @@ fun OnDeleteItem() {
             _deleteItemFromDataBase.value = true
 
         } catch (E: Exception) {
-            Log.i("Exception", "The item was not deleted")
+            E.printStackTrace()
+            Log.i("Exception", "The item was not deleted11" +  E.printStackTrace()  + E.message +E.toString() +  E.printStackTrace())
             _deleteItemFromDataBase.value = false
 
         }

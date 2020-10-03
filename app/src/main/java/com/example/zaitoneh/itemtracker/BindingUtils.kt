@@ -44,10 +44,10 @@ fun ImageView.setItemImage(item: Item?) {
     item?.let {
         setImageResource(when (item.itemMain) {
 
-           "Materials" -> R.drawable.ic_lamp
-            "Box"->R.drawable.ic_rocket //box
+           "Materials" -> R.drawable.ic_butter
+            "Box"->R.drawable.ic_box//box
 
-            "Kratin"->R.drawable.ic_project
+            "Kratin"->R.drawable.ic_carateen
 
             else -> R.drawable.ic_boxdropboxicon
         })

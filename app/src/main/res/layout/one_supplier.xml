@@ -24,31 +24,28 @@
 
         <TextView
             android:id="@+id/supplier_name"
-            android:layout_width="150dp"
+            android:layout_width="132dp"
             android:layout_height="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/droid_sans"
             android:onClick="@{() -> clickListener.onClick(supplier)}"
             android:scrollbarSize="10dp"
             android:textColor="@android:color/background_dark"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="parent"
             app:supplierNameFormatted="@{supplier}"
             tools:text="Supplier Full Name" />
 
         <TextView
             android:id="@+id/supplier_address"
-            android:layout_width="0dp"
+            android:layout_width="126dp"
             android:layout_height="20dp"
 
             android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             android:fontFamily="@font/droid_sans"
             android:onClick="@{() -> clickListener.onClick(supplier)}"
             android:textColor="@android:color/background_dark"
@@ -61,19 +58,18 @@
 
         <TextView
             android:id="@+id/supplier_mobile1"
-            android:layout_width="0dp"
+            android:layout_width="129dp"
             android:layout_height="20dp"
             android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/droid_sans"
             android:onClick="@{() -> clickListener.onClick(supplier)}"
             android:textColor="@android:color/background_dark"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.45"
             app:layout_constraintStart_toEndOf="@+id/supplier_mobile2"
             app:supplierMobile1Formatted="@{supplier}"
             tools:text="Supplier First Mobile" />
@@ -81,14 +77,13 @@
         <TextView
             android:id="@+id/supplier_mobile2"
             style="@style/text_style"
-            android:layout_width="150dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="133dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="24dp"
             android:onClick="@{() -> clickListener.onClick(supplier)}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:supplierMobile2Formatted="@{supplier}"
             tools:text="Supplier Second Mobile!!!" />
 
@@ -101,6 +96,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="85dp"
+            android:layout_height="77dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.04"
+            app:srcCompat="@drawable/ic_supplier" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

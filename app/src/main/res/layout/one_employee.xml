@@ -20,7 +20,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="75dp"
         android:orientation="vertical">
 
 
@@ -30,36 +30,32 @@
 
             android:layout_width="150dp"
             android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:fontFamily="@font/droid_sans"
             android:onClick="@{() -> clickListener.onClick(employee)}"
             android:scrollbarSize="10dp"
+            android:textAlignment="center"
             android:textColor="@android:color/background_dark"
             android:textSize="16sp"
             app:employeeNameFormatted="@{employee}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/employee_code"
             app:layout_constraintEnd_toStartOf="@+id/employee_code"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
             tools:text="Employee Name" />
 
         <TextView
             android:id="@+id/employee_code"
             style="@style/Label_Style"
-            android:layout_width="0dp"
+            android:layout_width="99dp"
             android:layout_height="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:fontFamily="@font/droid_sans"
             android:onClick="@{() -> clickListener.onClick(employee)}"
             android:scrollbarSize="10dp"
+            android:textAlignment="center"
             android:textColor="@android:color/background_dark"
             android:textSize="16sp"
             app:employeeCodeFormatted="@{employee}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/employee_name"
+            app:layout_constraintBaseline_toBaselineOf="@+id/employee_address"
             app:layout_constraintEnd_toStartOf="@+id/employee_address"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/employee_name"
@@ -69,19 +65,31 @@
             android:id="@+id/employee_address"
             style="@style/Label_Style"
 
-            android:layout_width="0dp"
+            android:layout_width="98dp"
             android:layout_height="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:onClick="@{() -> clickListener.onClick(employee)}"
             android:scrollbarSize="10dp"
+            android:textAlignment="center"
             android:textColor="@android:color/background_dark"
             app:employeeAddressFormatted="@{employee}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/employee_code"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/employee_code"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Employee Address" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="50dp"
+            android:layout_height="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/employee_name"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.102"
+            app:srcCompat="@drawable/ic_best_employee" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

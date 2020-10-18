@@ -1,27 +1,21 @@
 package com.example.zaitoneh.storetracker
 
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.text.TextUtils
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.example.zaitoneh.MyDialog
+import androidx.navigation.ui.NavigationUI
 import com.example.zaitoneh.database.Store
-import com.example.zaitoneh.storetracker.StoreTrackerViewModel
 import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.databinding.FragmentStoreTrackerBinding
-import kotlinx.android.synthetic.main.fragment_store_tracker.*
 
 
 class StoreTrackerFragment : Fragment(){
@@ -30,6 +24,8 @@ class StoreTrackerFragment : Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.StoreTracker)
         // Inflate the layout for this fragment
         val binding: FragmentStoreTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_store_tracker, container, false)
@@ -67,7 +63,18 @@ class StoreTrackerFragment : Fragment(){
         storeTrackerViewModel.navigateToEditStore.observe(this, Observer { store ->
             store?.let {
 
-                view?.findNavController()?.navigate(StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it))
+                if(it!=null) {
+
+                    view?.findNavController()?.navigate(
+                        StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it))
+
+                    storeTrackerViewModel.onStoreClicked(null)
+
+
+
+                }
+
+
             }
         })
 
@@ -75,7 +82,9 @@ class StoreTrackerFragment : Fragment(){
         binding.storeList.adapter = adapter
 
 
-        storeTrackerViewModel.stores.observe(viewLifecycleOwner, Observer {
+
+
+        storeTrackerViewModel.list.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.updateList(it as MutableList<Store>)
                 adapter.submitList(it)
@@ -96,7 +105,7 @@ class StoreTrackerFragment : Fragment(){
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-
+                Log.i("filter",newText);
                 adapter.filter.filter(newText)
                 return false
 
@@ -104,8 +113,21 @@ class StoreTrackerFragment : Fragment(){
 
         })
 
+
+        setHasOptionsMenu(true)
+
         return binding.root
     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
+    }
+
+
 
 
 }

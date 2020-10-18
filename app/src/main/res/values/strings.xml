@@ -68,6 +68,24 @@
     <string name="receiptTracker">receipts Tracker</string>
     <string name="itemDetail">item Detail</string>
 
+    <string name="Updated"> This record is updated </string>
+    <string name="notUpdated">  Error This record  is not  updated </string>
+
+    <string name="deteted"> This record is deteted </string>
+    <string name="notDeteted">  Error This record  is not  deteted </string>
+
+
+
+    <string name="Fill_all_fields">   "Please Fill all fields" </string>
+    <string name="alreadyExist"> This record is already exist </string>
+    <string name="inserted"> This record is inserted </string>
+    <string name="notInserted">  Error This record  is not  inserted </string>
+    <string name="StoreDetail">Store Detail</string>
+    <string name="StoreTracker">Store Tracker</string>
+    <string name="EmployeeTracker">Employee Tracker</string>
+    <string name="SupplierTracker">Supplier Tracker</string>
+    <string name="SupplierDetails">Supplier Details</string>
+
     <string-array name="Languages">
         <item>jwad noor </item>
         <item>haldun matar </item>

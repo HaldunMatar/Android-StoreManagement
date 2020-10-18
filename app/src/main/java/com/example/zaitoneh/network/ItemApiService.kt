@@ -17,7 +17,10 @@
 
 package com.example.android.marsrealestate.network
 
+import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.Item
+import com.example.zaitoneh.database.Store
+import com.example.zaitoneh.database.Supplier
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -73,7 +76,7 @@ interface ItemApiService {
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
 
     @GET("listItemsREST")
-    fun getProperties():
+    fun getItems():
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<List<Item>>
 
@@ -85,7 +88,84 @@ interface ItemApiService {
 
     @DELETE("deleteItem")
         fun deleteItem( @Query("itemId") ItemId: Long):Deferred<Boolean>
+
+
+//***********************************************
+
+    @GET("StoreId")
+    fun getStoreById( @Query("storeId") storeId: Long):Deferred<Store>
+    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+
+
+
+    @POST("newStore")
+    fun newStore(@Body newDestination: Store):Deferred<Util>
+
+    @POST("updateStore")
+    fun updateStore(@Body newDestination: Store):Deferred<Util>
+
+    @DELETE("deleteStore")
+    fun deleteStore( @Query("storeId") storeId: Long):Deferred<Boolean>
+
+
+    @GET("listStoresREST")
+    fun getStores():
+    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+            Deferred<List<Store>>
+
+//***********************************************
+
+    @GET("EmployeeId")
+    fun getEmployeeById( @Query("employeeId") employeeId: Long):Deferred<Employee>
+    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+
+
+
+    @POST("newEmployee")
+    fun newEmployee(@Body newDestination: Employee):Deferred<Util>
+
+    @POST("updateEmployee")
+    fun updateEmployee(@Body newDestination: Employee):Deferred<Util>
+
+    @DELETE("deleteEmployee")
+    fun deleteEmployee( @Query("employeeId") employeeId: Long):Deferred<Boolean>
+
+
+    @GET("listEmployeeREST")
+    fun getEmployees():
+    // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+            Deferred<List<Employee>>
+
+    //***********************************************
+
+    @GET("SupplierId")
+    fun getSupplierById( @Query("supplierId") supplierId: Long):Deferred<Supplier>
+// The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+
+
+
+    @POST("newSupplier")
+    fun newSupplier(@Body newDestination: Supplier):Deferred<Util>
+
+    @POST("updateSupplier")
+    fun updateSupplier(@Body newDestination: Supplier):Deferred<Util>
+
+    @DELETE("deleteSupplier")
+    fun deleteSupplier( @Query("supplierId") supplierId: Long):Deferred<Boolean>
+
+
+    @GET("listSupplierREST")
+    fun getSuppliers():
+// The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+            Deferred<List<Supplier>>
 }
+//***********************************************************
+
+
+
+//***********************************************************
+
+
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service

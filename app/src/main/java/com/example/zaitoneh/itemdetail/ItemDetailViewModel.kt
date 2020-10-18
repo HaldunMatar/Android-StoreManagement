@@ -348,6 +348,7 @@ class ItemDetailViewModel(
         runBlocking {
             delay(200) // keeping jvm alive till calculateSum is finished
         }
+
     }
 
 

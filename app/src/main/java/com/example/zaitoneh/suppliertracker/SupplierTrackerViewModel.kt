@@ -8,8 +8,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.android.marsrealestate.network.ItemApiFilter
+import com.example.android.marsrealestate.network.StoreApi
+import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.Supplier
 import com.example.zaitoneh.database.SupplierDatabaseDao
+import com.example.zaitoneh.itemtracker.ItemApiStatus
 import kotlinx.coroutines.*
 
 /**
@@ -93,6 +97,12 @@ class SupplierTrackerViewModel(
 
     init {
         initializeLatestSupplier()
+        //initializeLatestEmployee()
+
+        //   Log.i("initializeLatestEmployee",lateEmployee.value.toString())
+        _navigateToEditSupplier.value=null
+        getSuppliersNet(ItemApiFilter.SHOW_ALL)
+
     }
 
     private fun initializeLatestSupplier() {
@@ -162,6 +172,39 @@ class SupplierTrackerViewModel(
         _navigateToEditSupplier.value=supId
     }
 
+    // The external immutable LiveData for the request status
+    private val _status = MutableLiveData<ItemApiStatus>()
+    val status: LiveData<ItemApiStatus>
+        get() = _status
+
+    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+    // with new values
+    private val _list = MutableLiveData<List<Supplier>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val list: LiveData<List<Supplier>>
+        get() = _list
+
+    private fun getSuppliersNet(filter: ItemApiFilter) {
+        Log.i("getSuppliersNet"," before ");
+
+        uiScope.launch {
+            // Get the Deferred object for our Retrofit request
+            var getPropertiesDeferred = StoreApi.retrofitService.getSuppliers()
+            try {
+                _status.value = ItemApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                val listResult = getPropertiesDeferred.await()
+                _status.value = ItemApiStatus.DONE
+                Log.i("getSupplierssNet"," DONE " + listResult.size);
+                _list.value = listResult
+            } catch (e: Exception) {
+                Log.i("getSupplierssNet",e.message);
+                _status.value = ItemApiStatus.ERROR
+                _list.value = ArrayList()
+            }
+        }
+    }
 
 
 }

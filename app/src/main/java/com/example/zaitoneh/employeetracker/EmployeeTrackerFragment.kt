@@ -2,19 +2,20 @@ package com.example.zaitoneh.employeetracker
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.zaitoneh.database.Employee
 //import com.example.zaitoneh.employeetracker.EmployeeTrackerViewModel
 
@@ -30,6 +31,8 @@ class EmployeeTrackerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.EmployeeTracker)
         // Inflate the layout for this fragment
         val binding: FragmentEmployeeTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_employee_tracker, container, false)
@@ -66,6 +69,7 @@ class EmployeeTrackerFragment : Fragment() {
       employeeTrackerViewModel.navigateToEditEmployee.observe(this, Observer { employee ->
             employee?.let {
             if(it!=null) {
+                Log.i("navigateToEditEmployee", it.toString())
                    view?.findNavController()?.navigate(
                        EmployeeTrackerFragmentDirections.actionEmployeeTrackerFragmentToEmployeeDetailFragment()
                            .setEmployeeId(it)
@@ -80,7 +84,7 @@ class EmployeeTrackerFragment : Fragment() {
        binding.employeeList.adapter = adapter
 
 
-      employeeTrackerViewModel.employees.observe(viewLifecycleOwner, Observer {
+      employeeTrackerViewModel.list.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.updateList(it as MutableList<Employee>)
                 adapter.submitList(it)
@@ -112,8 +116,18 @@ class EmployeeTrackerFragment : Fragment() {
             }
 
         })
-
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 
     lateinit var dispatcher : OnBackPressedDispatcher

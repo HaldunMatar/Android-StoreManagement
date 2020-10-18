@@ -26,8 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/SupplierMobile1"
-            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_First_Mobile_input"
-            app:layout_constraintStart_toStartOf="@+id/supplier_Second_Mobile" />
+            app:layout_constraintBottom_toTopOf="@+id/supplier_Second_Mobile"
+            app:layout_constraintStart_toStartOf="@+id/supplier_Second_Mobile"
+            app:layout_constraintTop_toBottomOf="@+id/supplier_Address" />
 
         <TextView
             android:id="@+id/supplier_Address"
@@ -35,8 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/SupplierAddress"
-            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_Address_input"
-            app:layout_constraintStart_toStartOf="@+id/supplier_First_Mobile" />
+            app:layout_constraintBottom_toTopOf="@+id/supplier_First_Mobile"
+            app:layout_constraintStart_toStartOf="@+id/supplier_First_Mobile"
+            app:layout_constraintTop_toBottomOf="@+id/supplier_Full_Name" />
 
         <TextView
             android:id="@+id/supplier_Full_Name"
@@ -44,8 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/SupplierName"
-            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_Full_Name_input"
-            app:layout_constraintStart_toStartOf="@+id/supplier_Address" />
+            app:layout_constraintBottom_toTopOf="@+id/supplier_Address"
+            app:layout_constraintStart_toStartOf="@+id/supplier_Address"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
         <TextView
             android:id="@+id/supplier_Second_Mobile"
@@ -53,67 +56,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
             android:text="@string/SupplierMobile2"
-            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_Second_Mobile_input"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toTopOf="@+id/back_supplier_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/supplier_First_Mobile" />
 
         <EditText
             android:id="@+id/supplier_Full_Name_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@={supplier.supFullName}"
-            app:supplierNameFormatted="@{supplierDetailViewModel.supplier}"
-            app:layout_constraintBottom_toTopOf="@+id/supplier_Address_input"
+            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_Full_Name"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/supplier_Address_input"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:supplierNameFormatted="@{supplierDetailViewModel.supplier}" />
 
         <EditText
             android:id="@+id/supplier_Address_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@={supplier.supAddress}"
-            app:supplierAddressFormatted="@{supplierDetailViewModel.supplier}"
-            app:layout_constraintBottom_toTopOf="@+id/supplier_First_Mobile_input"
+            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_Address"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/supplier_First_Mobile_input"
-            app:layout_constraintTop_toBottomOf="@+id/supplier_Full_Name_input" />
+            app:supplierAddressFormatted="@{supplierDetailViewModel.supplier}" />
 
         <EditText
             android:id="@+id/supplier_First_Mobile_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="@={supplier.supMobile1}"
-            app:supplierMobile1Formatted="@{supplierDetailViewModel.supplier}"
-            app:layout_constraintBottom_toTopOf="@+id/supplier_Second_Mobile_input"
+            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_First_Mobile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/supplier_Second_Mobile_input"
-            app:layout_constraintTop_toBottomOf="@+id/supplier_Address_input" />
+            app:supplierMobile1Formatted="@{supplierDetailViewModel.supplier}" />
 
-    <EditText
-        android:id="@+id/supplier_Second_Mobile_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@={supplier.supMobile2}"
-        app:supplierMobile1Formatted="@{supplierDetailViewModel.supplier}"
-        app:layout_constraintBottom_toTopOf="@+id/back_supplier_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/supplier_First_Mobile_input" />
+        <EditText
+            android:id="@+id/supplier_Second_Mobile_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={supplier.supMobile2}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/supplier_Second_Mobile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:supplierMobile1Formatted="@{supplierDetailViewModel.supplier}" />
 
         <Button
             android:id="@+id/back_supplier_button"
@@ -121,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/back"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/save_supplier_button"
             app:layout_constraintEnd_toStartOf="@+id/delete_supplier_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/save_supplier_button" />
@@ -131,23 +129,37 @@
             style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> supplierDetailViewModel.onCreateSupplier(supplier)}"
+            android:onClick="@{() -> supplierDetailViewModel.onCreateSupplierNet(supplier)}"
             android:text="@string/save"
-            app:layout_constraintBaseline_toBaselineOf="@+id/back_supplier_button"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/back_supplier_button"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/supplier_Second_Mobile"
+            app:layout_constraintVertical_bias="0.263" />
 
         <Button
             android:id="@+id/delete_supplier_button"
             style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> supplierDetailViewModel.OnDeleteSupplier()}"
+            android:onClick="@{() -> supplierDetailViewModel.OnDeleteSupplierNet()}"
             android:text="@string/delete"
             app:layout_constraintBaseline_toBaselineOf="@+id/back_supplier_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/back_supplier_button" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="204dp"
+            android:layout_height="151dp"
+            android:layout_marginBottom="44dp"
+            app:layout_constraintBottom_toTopOf="@+id/supplier_Full_Name_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.401"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_supplier" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

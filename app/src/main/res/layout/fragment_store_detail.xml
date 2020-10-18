@@ -89,7 +89,7 @@
             style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> storeDetailViewModel.onCreateStore(store)}"
+            android:onClick="@{() -> storeDetailViewModel.onCreateStoreNet(store)}"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/back_store_button"
@@ -104,7 +104,7 @@
             style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> storeDetailViewModel.OnDeleteStore()}"
+            android:onClick="@{() -> storeDetailViewModel.OnDeleteStoreNet()}"
             android:text="@string/delete"
             app:layout_constraintBaseline_toBaselineOf="@+id/back_store_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -122,6 +122,17 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/save_store_button"
             app:layout_constraintTop_toTopOf="@+id/save_store_button" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="91dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_store" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

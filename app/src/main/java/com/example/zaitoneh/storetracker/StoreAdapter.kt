@@ -16,6 +16,7 @@
 
 
 package com.example.zaitoneh.storetracker
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -79,6 +80,7 @@ class StoreAdapter(val clickListener: StoreListener) : ListAdapter <Store,StoreA
 
                  val filteredList = mLstStore.filter { (it.storeName+" " +it.storeCode).toLowerCase().contains(charString.toLowerCase()) }
                      .toMutableList()
+                     Log.i("filter"," filter " );
                      mFilteredList = filteredList
 
 
@@ -90,9 +92,11 @@ class StoreAdapter(val clickListener: StoreListener) : ListAdapter <Store,StoreA
          }
 
         override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
-            //submitList(filterResults.values as MutableList<Store>)
-           // notifyDataSetChanged()
+            if (filterResults?.values  != null)
+            submitList(filterResults.values as MutableList<Store>)
+            notifyDataSetChanged()
         }
+
     }
 
 

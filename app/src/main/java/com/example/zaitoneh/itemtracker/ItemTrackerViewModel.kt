@@ -137,7 +137,7 @@ class ItemTrackerViewModel(
         initializeLatestItem()
         _navigateToEditItem.value=null
 
-       getItemsProperties(ItemApiFilter.SHOW_ALL)
+       getItemsNet(ItemApiFilter.SHOW_ALL)
     }
 
     private fun initializeLatestItem() {
@@ -206,21 +206,21 @@ class ItemTrackerViewModel(
         Log.i("onclick","onItemClicked Receipt")
          _navigateToEditItem.value=itemId
     }
-    private fun getItemsProperties(filter: ItemApiFilter) {
-         Log.i("getItemsProperties"," before ");
+    private fun getItemsNet(filter: ItemApiFilter) {
+         Log.i("getItemsNet"," before ");
 
         uiScope.launch {
             // Get the Deferred object for our Retrofit request
-            var getPropertiesDeferred = StoreApi.retrofitService.getProperties()
+            var getPropertiesDeferred = StoreApi.retrofitService.getItems()
             try {
                 _status.value = ItemApiStatus.LOADING
                 // this will run on a thread managed by Retrofit
                 val listResult = getPropertiesDeferred.await()
                 _status.value = ItemApiStatus.DONE
-                Log.i("getItemsProperties"," DONE " + listResult.size);
+                Log.i("getItemsNet"," DONE " + listResult.size);
                 _properties.value = listResult
             } catch (e: Exception) {
-                Log.i("getItemsProperties"," Exception " +e.message);
+                Log.i("getItemsNet"," Exception " +e.message);
                 _status.value = ItemApiStatus.ERROR
                 _properties.value = ArrayList()
             }

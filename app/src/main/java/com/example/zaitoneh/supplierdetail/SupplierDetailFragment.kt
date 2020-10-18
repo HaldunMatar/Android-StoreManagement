@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.*
@@ -50,6 +51,8 @@ class SupplierDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.SupplierDetails)
         // Inflate the layout for this fragment
         val binding: FragmentSupplierDetailBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_supplier_detail, container, false

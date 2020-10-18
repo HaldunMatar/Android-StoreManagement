@@ -57,7 +57,7 @@ class EmployeeDetailFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = StoreDatabase.getInstance(application).employeeDatabaseDao
       val args = EmployeeDetailFragmentArgs.fromBundle(requireArguments())
-
+        Log.i("employee","args =" + args.employeeId )
         if (args.employeeId==0L) binding.saveEmployeeButton.text=this.context?.resources?.getString(R.string.save)
        else{
          binding.saveEmployeeButton.text=this.context?.resources?.getString(R.string.update)
@@ -172,7 +172,6 @@ class EmployeeDetailFragment : Fragment() {
             this
         ) {
            // fragmentService.fragmentsCount--
-
             //Called when user should be navigated back
             callback.isEnabled = false
             dispatcher.onBackPressed()

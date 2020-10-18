@@ -21,8 +21,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.android.marsrealestate.network.ItemApiFilter
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.database.Employee
 import com.example.zaitoneh.database.EmployeeDatabaseDao
+import com.example.zaitoneh.database.Store
+import com.example.zaitoneh.itemtracker.ItemApiStatus
 import kotlinx.coroutines.*
 
 /**
@@ -33,9 +37,8 @@ class EmployeeTrackerViewModel(
     application: Application) : AndroidViewModel(application) {
 
     private val _navigateToEditEmployee = MutableLiveData<Long>()
-    val navigateToEditEmployee
-        get() = _navigateToEditEmployee
-
+         val navigateToEditEmployee
+         get() = _navigateToEditEmployee
 
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
@@ -103,10 +106,16 @@ class EmployeeTrackerViewModel(
     fun doneNavigating() {
         _navigateToEmployee.value = null
     }
-
+    private var lateEmployee = MutableLiveData<Store?>()
     init {
+
         initializeLatestEmployee()
+
+     //   Log.i("initializeLatestEmployee",lateEmployee.value.toString())
         _navigateToEditEmployee.value=null
+        getEmployeesNet(ItemApiFilter.SHOW_ALL)
+
+
     }
 
     private fun initializeLatestEmployee() {
@@ -172,10 +181,42 @@ class EmployeeTrackerViewModel(
     }
 
     fun onEmployeeClicked(employeeId: Long?) {
-        Log.i("onclick","onEmployeeClicked")
+        Log.i("onclick","onEmployeeClicked"+ employeeId.toString())
          _navigateToEditEmployee.value=employeeId
     }
 
+    // The external immutable LiveData for the request status
+    private val _status = MutableLiveData<ItemApiStatus>()
+    val status: LiveData<ItemApiStatus>
+        get() = _status
 
+    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+    // with new values
+    private val _list = MutableLiveData<List<Employee>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val list: LiveData<List<Employee>>
+        get() = _list
+
+    private fun getEmployeesNet(filter: ItemApiFilter) {
+        Log.i("getStoresNet"," before ");
+
+        uiScope.launch {
+            // Get the Deferred object for our Retrofit request
+            var getPropertiesDeferred = StoreApi.retrofitService.getEmployees()
+            try {
+                _status.value = ItemApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                val listResult = getPropertiesDeferred.await()
+                _status.value = ItemApiStatus.DONE
+                Log.i("getEmployeessNet"," DONE " + listResult.size);
+                _list.value = listResult
+            } catch (e: Exception) {
+                Log.i("getEmployeessNet",e.message);
+                _status.value = ItemApiStatus.ERROR
+                _list.value = ArrayList()
+            }
+        }
+    }
 
 }

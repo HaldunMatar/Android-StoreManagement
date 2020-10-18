@@ -51,11 +51,11 @@ class ItemDetailFragment : Fragment() {
             ViewModelProviders.of(
                 this, viewModelFactory).get(ItemDetailViewModel::class.java)
 
-        /*if (args.itemId==0L) binding.saveBtn.text=this.context?.resources?.getString(R.string.save)
+        if (args.itemId==0L) binding.saveBtn.text=this.context?.resources?.getString(R.string.save)
         else{
             binding.saveBtn.text=this.context?.resources?.getString(R.string.update)
 
-        }*/
+        }
 
 
         binding.itemDetailViewModel = itemDetailViewModel
@@ -64,36 +64,44 @@ class ItemDetailFragment : Fragment() {
 
         itemDetailViewModel.updateItemToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "This item is updated",Toast.LENGTH_LONG
+
+                Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.Updated),Toast.LENGTH_LONG
                 ).show()
+
+
                 view?.findNavController()?.navigate(R.id.action_itemDetailFragment_to_itemTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error This item is not  updated",Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.notUpdated),Toast.LENGTH_LONG
                     ).show()
             }
         })
 
         itemDetailViewModel.deleteItemFromDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "The item has been deleted",Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.deteted),Toast.LENGTH_LONG
                 ).show()
                 view?.findNavController()?.navigate(R.id.action_itemDetailFragment_to_itemTrackerFragment)
             }
             else{
-                val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error, The item wasn't deleted",Toast.LENGTH_LONG
+                                val toast =
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.notDeteted),Toast.LENGTH_LONG
                     ).show()
             }
         })
         itemDetailViewModel.saveItemToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.inserted),Toast.LENGTH_LONG
+                    ).show()
                 binding.item=Item()
+
+
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "This item is already exist",Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.alreadyExist),Toast.LENGTH_LONG
                     ).show()
             }
         })
@@ -101,7 +109,7 @@ class ItemDetailFragment : Fragment() {
         itemDetailViewModel.itemValidation.observe(this, Observer {
             if (it == false) { // Observed state is true.
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Please Fill all fields",Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.Fill_all_fields) ,Toast.LENGTH_LONG
                    ).show()
                 itemDetailViewModel.setSaveItemToDataBase()
             }

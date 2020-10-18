@@ -15,8 +15,7 @@ import com.example.zaitoneh.database.Item
 
 import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.databinding.FragmentItemTrackerBinding
-
-
+import com.example.zaitoneh.storetracker.StoreTrackerFragmentDirections
 
 
 class ItemTrackerFragment : Fragment() {
@@ -72,8 +71,7 @@ class ItemTrackerFragment : Fragment() {
             item?.let {
                 if(it!=null) {
                     view?.findNavController()?.navigate(
-                        ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment()
-                            .setItemId(it)
+                        StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it)
                     )
                     itemTrackerViewModel.onItemClicked(null)
                 }
@@ -129,15 +127,7 @@ class ItemTrackerFragment : Fragment() {
     }
 
 
-    fun Fragment.setActivityTitle( id: Int)
-    {
-        (activity as AppCompatActivity?)!!.supportActionBar?.title ="kkkkk"
-    }
 
-    fun Fragment.setActivityTitle(title: String)
-    {
-        (activity as AppCompatActivity?)!!.supportActionBar?.title  ="kkkkk"
-    }
 
 
 

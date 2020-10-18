@@ -7,7 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.R
+import com.example.zaitoneh.database.Item
 import com.example.zaitoneh.database.StoreDatabaseDao
 import com.example.zaitoneh.database.Store
 import com.example.zaitoneh.database.Supplier
@@ -61,13 +63,131 @@ class StoreDetailViewModel(
         get() = _storeValidation
 
        fun getStore() = store
+    //***
+    var selectedStore = MutableLiveData<Store?>()
+
+
 
 
 
     init {
-        store.addSource(database.getStoreWithId(storeKey), store::setValue)
+      //  store.addSource(database.getStoreWithId(storeKey), store::setValue)
+
+        if(storeKey!=0L) {
+            initializeStoreFromNet(storeKey)
+            store.addSource(selectedStore, store::setValue)
+
+        }
       //  _storeValidation.value=false
     }
+
+    private fun initializeStoreFromNet(StoreId: Long) {
+        uiScope.launch {
+            Log.i("initializeStoreFromNet", "  brfore itemId   = " + StoreId );
+            selectedStore.value = getStoreFromNet(StoreId)
+            Log.i("initializeStoreFromNet", " initializeStoreFromNet  = " + selectedStore.value);
+        }
+    }
+    private suspend fun getStoreFromNet(StoreId: Long):Store? {
+        return withContext(Dispatchers.IO) {
+            Log.i("getStoreFromNet", " getStoreFromNet  = " );
+             var itemDeferred = StoreApi.retrofitService.getStoreById(StoreId)
+            Log.i("getStoreFromNet", " getStoreFromNet  = " );
+             itemDeferred.await()
+
+        }
+
+    }
+
+//******************************************
+
+    private suspend fun insertNet(store: Store) {
+        withContext(Dispatchers.IO) {
+            val newDestination = store
+            var newItemDeferred = StoreApi.retrofitService.newStore(newDestination)
+        }
+    }
+
+
+
+    //----------------------
+    fun onCreateStoreNet(newStore: Store) {
+        Log.i("vaildateStore", " onCreateStore")
+        Log.i("viewModelstore",newStore.storeName)
+
+        newStore.storeId= this.storeKey
+
+        if (vaildateStore(newStore)) {
+            Log.i("vaildateStore", " if  onCreateStore")
+            uiScope.launch {
+                try {
+
+                    if (storeKey==0L) {
+                        insertNet(newStore)
+                        _saveStoreToDataBase.value=true
+                    }else{
+                        Log.i("update","update")
+                        updateNet(newStore)
+                        _updateStoreToDataBase.value=true
+
+                    }
+
+                }
+                catch (E:Exception){
+                    Log.i("Exception", "There is a problem in insert ")
+                    if(newStore.storeId==0L)
+                        _saveStoreToDataBase.value = false
+                    else
+                        _updateStoreToDataBase.value = false
+                }
+            }
+        }
+        else{
+            _storeValidation.value=false
+        }
+    }
+
+    private suspend fun updateNet(store: Store) {
+        withContext(Dispatchers.IO) {
+            val newDestination = store
+
+            var updateItemDeferred = StoreApi.retrofitService.newStore(store)
+        }
+    }
+
+
+    fun OnDeleteStoreNet() {
+
+        uiScope.launch {
+            try {
+                Log.i("delete",store.value!!.storeId.toString())
+                store!!.value?.storeId?.let { deleteStoreNet(it) }
+                _deleteStoreFromDataBase.value = true
+
+            } catch (E: Exception) {
+                Log.i("Exception", "The store was not deleted")
+                _deleteStoreFromDataBase.value = false
+
+            }
+        }
+    }
+
+    private suspend fun deleteStoreNet(storeId: Long) {
+
+        withContext(Dispatchers.IO) {
+            var itemDeferred = StoreApi.retrofitService.deleteStore(storeId)
+            if (!itemDeferred.await())
+            {
+                throw  Exception()
+            }
+
+        }
+    }
+
+
+
+//***********************
+
 
 
     /**

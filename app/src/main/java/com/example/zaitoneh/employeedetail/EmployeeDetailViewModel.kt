@@ -7,9 +7,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.EmployeeDatabaseDao
 import com.example.zaitoneh.database.Employee
+import com.example.zaitoneh.database.Store
 import kotlinx.android.synthetic.main.fragment_employee_detail.view.*
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -33,7 +35,7 @@ class EmployeeDetailViewModel(
      */
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val employee = MediatorLiveData<Employee>()
+
 
     var employee1 = Employee()
     private val _saveEmployeeToDataBase = MutableLiveData<Boolean?>()
@@ -55,14 +57,134 @@ class EmployeeDetailViewModel(
     val employeeValidation: LiveData<Boolean?>
         get() = _employeeValidation
 
+
+    private val employee = MediatorLiveData<Employee>()
     fun getEmployee() = employee
 
+    var selectedEmployee = MutableLiveData<Employee?>()
 
     init {
-        employee.addSource(database.getEmployeeWithId(employeeKey), employee::setValue)
+        //employee.addSource(database.getEmployeeWithId(employeeKey), employee::setValue)
         Log.i("employeeInit","ReceiptDetailFragmentArgs=" + employee.value.toString() )
+
+        if(employeeKey!=0L) {
+            initializeEmployeeFromNet(employeeKey)
+            employee.addSource(selectedEmployee, employee::setValue)
+
+        }
+
+    }
+//************************************************
+private fun initializeEmployeeFromNet(EmployeeId: Long) {
+    uiScope.launch {
+       // Log.i("initializeEmployeeFromNet", "  brfore itemId   = " + EmployeeId );
+        selectedEmployee.value = getEmployeeFromNet(EmployeeId)
+       // Log.i("initializeEmployeeFromNet", " initializeEmployeeFromNet  = " + selectedEmployee.value);
+    }
+}
+    private suspend fun getEmployeeFromNet(EmployeeId: Long): Employee? {
+        return withContext(Dispatchers.IO) {
+            Log.i("getEmployeeFromNet", " getEmployeeFromNet  = " );
+            var itemDeferred = StoreApi.retrofitService.getEmployeeById(EmployeeId)
+            Log.i("getEmployeeFromNet", " getEmployeeFromNet  = " );
+            itemDeferred.await()
+
+        }
+
     }
 
+//******************************************
+
+    private suspend fun insertNet(employee: Employee) {
+        withContext(Dispatchers.IO) {
+            Log.i("insertNet", " insertNet in ")
+            val newDestination = employee
+            var newItemDeferred = StoreApi.retrofitService.newEmployee(newDestination)
+        }
+    }
+
+
+
+    //----------------------
+    fun onCreateEmployeeNet(newEmployee: Employee) {
+        Log.i("vaildateEmployee", " onCreateEmployee")
+        Log.i("viewModelemployee",newEmployee.employeeName)
+
+        newEmployee.employeeId= this.employeeKey
+
+        if (vaildateEmployee(newEmployee)) {
+            Log.i("vaildateEmployee", " if  onCreateEmployee")
+            uiScope.launch {
+                try {
+
+                    if (employeeKey==0L) {
+                        Log.i("insertNet", " insertNet out")
+                        insertNet(newEmployee)
+                        _saveEmployeeToDataBase.value=true
+                    }else{
+                        Log.i("update","update")
+                        updateNet(newEmployee)
+                        _updateEmployeeToDataBase.value=true
+
+                    }
+
+                }
+                catch (E:Exception){
+                    Log.i("Exception", "There is a problem in insert ")
+                    if(newEmployee.employeeId==0L)
+                        _saveEmployeeToDataBase.value = false
+                    else
+                        _updateEmployeeToDataBase.value = false
+                }
+            }
+        }
+        else{
+            _employeeValidation.value=false
+        }
+    }
+
+    private suspend fun updateNet(employee: Employee) {
+        withContext(Dispatchers.IO) {
+            val newDestination = employee
+
+            var updateItemDeferred = StoreApi.retrofitService.newEmployee(employee)
+        }
+    }
+
+
+    fun OnDeleteEmployeeNet() {
+
+        uiScope.launch {
+            try {
+                Log.i("delete",employee.value!!.employeeId.toString())
+                employee!!.value?.employeeId?.let { deleteEmployeeNet(it) }
+                _deleteEmployeeFromDataBase.value = true
+
+            } catch (E: Exception) {
+                Log.i("Exception", "The employee was not deleted")
+                _deleteEmployeeFromDataBase.value = false
+
+            }
+        }
+    }
+
+    private suspend fun deleteEmployeeNet(employeeId: Long) {
+
+        withContext(Dispatchers.IO) {
+            var itemDeferred = StoreApi.retrofitService.deleteEmployee(employeeId)
+            if (!itemDeferred.await())
+            {
+                throw  Exception()
+            }
+
+        }
+    }
+
+
+
+//***********************
+    
+//*************************************************    
 
     /**
      * Variable that tells the fragment whether it should navigate to [EmployeeTrackerFragment].

@@ -1,5 +1,6 @@
 package com.example.zaitoneh.storedetail
 
+import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
@@ -10,6 +11,10 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
@@ -46,6 +51,8 @@ class StoreDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.StoreDetail)
         // Inflate the layout for this fragment
         val binding: FragmentStoreDetailBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_store_detail, container, false
@@ -78,14 +85,13 @@ class StoreDetailFragment : Fragment() {
 
         storeDetailViewModel.updateStoreToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "This store is updated", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.Updated),Toast.LENGTH_LONG
                 ).show()
                 view?.findNavController()?.navigate(R.id.action_storeDetailFragment_to_storeTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error This store is not  updated",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.notUpdated),Toast.LENGTH_LONG
                     ).show()
 
             }
@@ -93,14 +99,13 @@ class StoreDetailFragment : Fragment() {
 
         storeDetailViewModel.deleteStoreFromDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "The store has been deleted", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.deteted),Toast.LENGTH_LONG
                 ).show()
                view?.findNavController()?.navigate(R.id.action_storeDetailFragment_to_storeTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error, The store wasn't deleted",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.notDeteted),Toast.LENGTH_LONG
                     ).show()
             }
         })
@@ -114,11 +119,15 @@ class StoreDetailFragment : Fragment() {
 
         storeDetailViewModel.saveStoreToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
+
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.inserted),Toast.LENGTH_LONG
+                    ).show()
                 binding.store= Store()
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "This store is already exist", Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.alreadyExist),Toast.LENGTH_LONG
                     ).show()
 
             }
@@ -127,14 +136,11 @@ class StoreDetailFragment : Fragment() {
         storeDetailViewModel.storeValidation.observe(this, Observer {
             if (it == false) { // Observed state is true.
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Please Fill all fields", Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.Fill_all_fields) ,Toast.LENGTH_LONG
                     ).show()
                 storeDetailViewModel.setSaveStoreToDataBase()
             }
         })
-
-
-
 
         binding.backStoreButton.setOnClickListener {
 
@@ -152,10 +158,6 @@ class StoreDetailFragment : Fragment() {
 
 
 
-       /* binding.saveStoreButton.setOnClickListener {
-
-           storeDetailViewModel.onCreateStore(Store(11,"GOP1","01541","adress1"))
-        }*/
 
 
 
@@ -178,7 +180,23 @@ class StoreDetailFragment : Fragment() {
 
 
 
+    lateinit var dispatcher : OnBackPressedDispatcher
+    lateinit var callback: OnBackPressedCallback
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dispatcher = requireActivity().onBackPressedDispatcher
+        callback = dispatcher.addCallback(
+            //Lifecycle owner
+            this
+        ) {
+            // fragmentService.fragmentsCount--
+
+            //Called when user should be navigated back
+            callback.isEnabled = false
+            dispatcher.onBackPressed()
+        }
+    }
 
 
 

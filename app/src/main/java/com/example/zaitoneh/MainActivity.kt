@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -64,7 +65,6 @@ override fun onBackPressed() {
        val navController = this.findNavController(R.id.nav_host_fragment)
               navController.popBackStack();
     }
-
 
 
 }

@@ -21,9 +21,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import com.example.android.marsrealestate.network.ItemApiFilter
+import com.example.android.marsrealestate.network.StoreApi
+
 import com.example.zaitoneh.database.Store
 import com.example.zaitoneh.database.StoreDatabaseDao
+import com.example.zaitoneh.itemtracker.ItemApiStatus
 import kotlinx.coroutines.*
 
 /**
@@ -32,6 +35,23 @@ import kotlinx.coroutines.*
 class StoreTrackerViewModel(
     val database: StoreDatabaseDao,
     application: Application) : AndroidViewModel(application) {
+
+
+
+    private val _status = MutableLiveData<ItemApiStatus>()
+
+    // The external immutable LiveData for the request status
+    val status: LiveData<ItemApiStatus>
+        get() = _status
+
+    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+    // with new values
+    private val _list = MutableLiveData<List<Store>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val list: LiveData<List<Store>>
+        get() = _list
+
 
     private val _navigateToEditStore = MutableLiveData<Long>()
     val navigateToEditStore
@@ -108,6 +128,8 @@ class StoreTrackerViewModel(
     init {
         initializeLatestStore()
         Log.i("initializeLatestStore",latestStore.value.toString())
+        _navigateToEditStore.value=null
+         getStoresNet(ItemApiFilter.SHOW_ALL)
     }
 
     private fun initializeLatestStore() {
@@ -172,9 +194,31 @@ class StoreTrackerViewModel(
         viewModelJob.cancel()
     }
 
-    fun onStoreClicked(storeId: Long) {
+    fun onStoreClicked(storeId: Long?) {
         Log.i("onclick","onStoreClicked")
          _navigateToEditStore.value=storeId
+    }
+
+
+    private fun getStoresNet(filter: ItemApiFilter) {
+        Log.i("getStoresNet"," before ");
+
+        uiScope.launch {
+            // Get the Deferred object for our Retrofit request
+            var getPropertiesDeferred = StoreApi.retrofitService.getStores()
+            try {
+                _status.value = ItemApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                val listResult = getPropertiesDeferred.await()
+                _status.value = ItemApiStatus.DONE
+                Log.i("getStoresNet"," DONE " + listResult.size);
+                _list.value = listResult
+            } catch (e: Exception) {
+
+                _status.value = ItemApiStatus.ERROR
+                _list.value = ArrayList()
+            }
+        }
     }
 
 

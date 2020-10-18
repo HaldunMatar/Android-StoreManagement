@@ -217,7 +217,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginBottom="72dp"
-         android:onClick="@{() -> employeeDetailViewModel.onCreateEmployee(employee)}"
+         android:onClick="@{() -> employeeDetailViewModel.onCreateEmployeeNet(employee)}"
          android:text="@string/save"
          app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintEnd_toStartOf="@+id/back_employee_button"
@@ -230,7 +230,7 @@
          style="@style/button_Style"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:onClick="@{() -> employeeDetailViewModel.OnDeleteEmployee()}"
+         android:onClick="@{() -> employeeDetailViewModel.OnDeleteEmployeeNet()}"
          android:text="@string/delete"
          app:layout_constraintBaseline_toBaselineOf="@+id/back_employee_button"
          app:layout_constraintEnd_toEndOf="parent"
@@ -367,5 +367,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/note_label" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+     <ImageView
+         android:id="@+id/imageView3"
+         android:layout_width="71dp"
+         android:layout_height="46dp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintVertical_bias="0.017"
+         app:srcCompat="@drawable/ic_best_employee" />
+
+ </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

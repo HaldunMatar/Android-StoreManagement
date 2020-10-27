@@ -71,5 +71,8 @@
     <string name="EmployeeTracker">Employee Tracker</string>
     <string name="SupplierTracker">Supplier Tracker</string>
     <string name="SupplierDetails">Supplier Details</string>
+    <string name="DepatmentTracker">Depatment Tracker</string>
+    <string name="DepatmentDetails">Depatment Details</string>
+    <string name="Save">Save</string>
 </resources>
 

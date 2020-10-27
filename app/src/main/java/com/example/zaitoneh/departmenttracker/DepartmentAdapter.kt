@@ -90,6 +90,7 @@ class DepartmentAdapter(val clickListener: DepartmentListener) : ListAdapter <De
          }
 
         override fun publishResults(charSequence: CharSequence, filterResults: Filter.FilterResults) {
+            if (filterResults?.values  != null)
             submitList(filterResults.values as MutableList<Department>)
            notifyDataSetChanged()
         }

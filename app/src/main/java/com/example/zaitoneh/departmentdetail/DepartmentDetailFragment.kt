@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.*
 import androidx.navigation.findNavController
@@ -38,6 +39,7 @@ class DepartmentDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.DepatmentDetails)
         // Inflate the layout for this fragment
         val binding: FragmentDeparmentDetailBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_deparment_detail, container, false
@@ -47,9 +49,9 @@ class DepartmentDetailFragment : Fragment() {
         val dataSource = StoreDatabase.getInstance(application).departmentDatabaseDao
         val args = DepartmentDetailFragmentArgs.fromBundle(requireArguments())
 
-       if (args.departmentId==0L) binding.saveDepartmentButton.text=this.context?.resources?.getString(R.string.save)
+       if (args.departmentId==0L) binding.saveDepartmentButton.text=  context?.resources?.getString(R.string.Save)
      else{
-       binding.saveDepartmentButton.text=this.context?.resources?.getString(R.string.update)
+       binding.saveDepartmentButton.text= context?.resources?.getString(R.string.update)
 
      }
 
@@ -73,14 +75,13 @@ class DepartmentDetailFragment : Fragment() {
 
         departmentDetailViewModel.updateDepartmentToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "This department is updated", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.Updated),Toast.LENGTH_LONG
                 ).show()
            view?.findNavController()?.navigate(R.id.action_departmentDetailFragment_to_departmentTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error This department is not  updated",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.notUpdated),Toast.LENGTH_LONG
                     ).show()
 
             }
@@ -88,14 +89,13 @@ class DepartmentDetailFragment : Fragment() {
 
         departmentDetailViewModel.deleteDepartmentFromDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "The department has been deleted", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.deteted),Toast.LENGTH_LONG
                 ).show()
               view?.findNavController()?.navigate(R.id.action_departmentDetailFragment_to_departmentTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error, The department wasn't deleted",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.notDeteted),Toast.LENGTH_LONG
                     ).show()
             }
         })
@@ -109,11 +109,15 @@ class DepartmentDetailFragment : Fragment() {
 
         departmentDetailViewModel.saveDepartmentToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
+
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.inserted),Toast.LENGTH_LONG
+                    ).show()
                 binding.department= Department()
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "This department is already exist", Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.alreadyExist),Toast.LENGTH_LONG
                     ).show()
 
             }

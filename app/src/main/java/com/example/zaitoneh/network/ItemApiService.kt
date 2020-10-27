@@ -17,10 +17,7 @@
 
 package com.example.android.marsrealestate.network
 
-import com.example.zaitoneh.database.Employee
-import com.example.zaitoneh.database.Item
-import com.example.zaitoneh.database.Store
-import com.example.zaitoneh.database.Supplier
+import com.example.zaitoneh.database.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -158,6 +155,31 @@ interface ItemApiService {
     fun getSuppliers():
 // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<List<Supplier>>
+
+
+
+    //***********************************************
+
+    @GET("departmentId")
+    fun getDepartmentById( @Query("departmentId") departmentId: Long):Deferred<Department>
+// The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+
+
+
+    @POST("newDepartment")
+    fun newDepartment(@Body newDestination: Department):Deferred<Util>
+
+    @POST("updateDepartment")
+    fun updateDepartment(@Body newDestination: Department):Deferred<Util>
+
+    @DELETE("deleteDepartment")
+    fun deleteDepartment( @Query("departmentId") departmentId: Long):Deferred<Boolean>
+
+
+    @GET("listDepartmentREST")
+    fun getDepartments():
+// The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+            Deferred<List<Department>>
 }
 //***********************************************************
 

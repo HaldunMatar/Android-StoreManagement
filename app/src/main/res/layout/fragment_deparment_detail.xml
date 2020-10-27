@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="72dp"
-            android:onClick="@{() -> departmentDetailViewModel.onCreateDepartment(department)}"
+            android:onClick="@{() -> departmentDetailViewModel.onCreateDepartmentNet(department)}"
             android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/back_department_button"
@@ -54,7 +54,7 @@
             style="@style/button_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> departmentDetailViewModel.OnDeleteDepartment()}"
+            android:onClick="@{() -> departmentDetailViewModel.OnDeleteDepartmentNet()}"
             android:text="@string/delete"
             app:layout_constraintBaseline_toBaselineOf="@+id/back_department_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,6 +133,18 @@
             app:layout_constraintBottom_toTopOf="@+id/back_department_button"
             app:layout_constraintStart_toEndOf="@+id/note_label"
             app:layout_constraintTop_toBottomOf="@+id/code_dep_input" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="167dp"
+            android:layout_height="74dp"
+            app:layout_constraintBottom_toTopOf="@+id/full_name_dep_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.627"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6"
+            app:srcCompat="@drawable/ic_department" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -22,10 +22,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.android.marsrealestate.network.ItemApiFilter
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.database.Department
 import com.example.zaitoneh.database.DepartmentDatabaseDao
-import com.example.zaitoneh.database.Store
-import com.example.zaitoneh.database.StoreDatabaseDao
+import com.example.zaitoneh.itemtracker.ItemApiStatus
 import kotlinx.coroutines.*
 
 /**
@@ -109,7 +110,15 @@ class DepartmentTrackerViewModel(
 
     init {
         initializeLatestDepartment()
+
+        _navigateToEditDepartment.value=null
+        getDeparmentsNet(ItemApiFilter.SHOW_ALL)
+
     }
+
+
+
+
 
     private fun initializeLatestDepartment() {
         uiScope.launch {
@@ -176,6 +185,41 @@ class DepartmentTrackerViewModel(
     fun onDepartmentClicked(departmentId: Long) {
         Log.i("onclick","onDepartmentClicked")
          _navigateToEditDepartment.value=departmentId
+    }
+
+
+    // The external immutable LiveData for the request status
+    private val _status = MutableLiveData<ItemApiStatus>()
+    val status: LiveData<ItemApiStatus>
+        get() = _status
+
+    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+    // with new values
+    private val _list = MutableLiveData<List<Department>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val list: LiveData<List<Department>>
+        get() = _list
+
+    private fun getDeparmentsNet(filter: ItemApiFilter) {
+        Log.i("getDeparmentsNet"," before ");
+
+        uiScope.launch {
+            // Get the Deferred object for our Retrofit request
+            var getPropertiesDeferred = StoreApi.retrofitService.getDepartments()
+            try {
+                _status.value = ItemApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                val listResult = getPropertiesDeferred.await()
+                _status.value = ItemApiStatus.DONE
+                Log.i("getDeparmentsNet"," DONE " + listResult.size);
+                _list.value = listResult
+            } catch (e: Exception) {
+                Log.i("getDeparmentsNet",e.message);
+                _status.value = ItemApiStatus.ERROR
+                _list.value = ArrayList()
+            }
+        }
     }
 
 

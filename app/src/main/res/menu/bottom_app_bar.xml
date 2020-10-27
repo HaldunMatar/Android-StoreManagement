@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_carateen"
+        android:title="@string/search"
+        android:contentDescription="@string/add_department_button"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/more"
+        android:title="@string/amount"
+        android:contentDescription="@string/address"
+        app:showAsAction="never"
+        />
+
+
+
+
+</menu>

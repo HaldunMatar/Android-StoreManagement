@@ -75,7 +75,6 @@
     <string name="notDeteted">  Error This record  is not  deteted </string>
 
 
-
     <string name="Fill_all_fields">   "Please Fill all fields" </string>
     <string name="alreadyExist"> This record is already exist </string>
     <string name="inserted"> This record is inserted </string>
@@ -85,6 +84,9 @@
     <string name="EmployeeTracker">Employee Tracker</string>
     <string name="SupplierTracker">Supplier Tracker</string>
     <string name="SupplierDetails">Supplier Details</string>
+    <string name="DepatmentTracker">Depatment Tracker</string>
+    <string name="DepatmentDetails">Depatment Details</string>
+    <string name="Save">Save</string>
 
     <string-array name="Languages">
         <item>jwad noor </item>

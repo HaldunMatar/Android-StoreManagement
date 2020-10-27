@@ -86,14 +86,13 @@ class SupplierDetailFragment : Fragment() {
 
         supplierDetailViewModel.updateSupplierToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "This supplier is updated", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.Updated),Toast.LENGTH_LONG
                 ).show()
                 view?.findNavController()?.navigate(R.id.action_supplierDetailFragment_to_supplierTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error This supplier is not  updated",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.notUpdated),Toast.LENGTH_LONG
                     ).show()
 
             }
@@ -101,14 +100,13 @@ class SupplierDetailFragment : Fragment() {
 
         supplierDetailViewModel.deleteSupplierFromDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "The supplier has been deleted", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.deteted),Toast.LENGTH_LONG
                 ).show()
                 view?.findNavController()?.navigate(R.id.action_supplierDetailFragment_to_supplierTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error, The supplier wasn't deleted",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.notDeteted),Toast.LENGTH_LONG
                     ).show()
             }
         })
@@ -118,12 +116,17 @@ class SupplierDetailFragment : Fragment() {
 
         supplierDetailViewModel.saveSupplierToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.inserted),Toast.LENGTH_LONG
+                    ).show()
                 binding.supplier= Supplier()
+
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "This supplier is already exist", Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.alreadyExist),Toast.LENGTH_LONG
                     ).show()
+
 
             }
         })

@@ -85,14 +85,13 @@ class EmployeeDetailFragment : Fragment() {
 
         employeeDetailViewModel.updateEmployeeToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "This employee is updated", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.Updated),Toast.LENGTH_LONG
                 ).show()
               view?.findNavController()?.navigate(R.id.action_employeeDetailFragment_to_employeeTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error This employee is not  updated",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext,context?.resources?.getString(R.string.notUpdated),Toast.LENGTH_LONG
                     ).show()
 
             }
@@ -100,14 +99,13 @@ class EmployeeDetailFragment : Fragment() {
 
         employeeDetailViewModel.deleteEmployeeFromDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Toast.makeText(activity!!.applicationContext, "The employee has been deleted", Toast.LENGTH_LONG
+                Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.deteted),Toast.LENGTH_LONG
                 ).show()
                view?.findNavController()?.navigate(R.id.action_employeeDetailFragment_to_employeeTrackerFragment)
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "Error, The employee wasn't deleted",
-                        Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.notDeteted),Toast.LENGTH_LONG
                     ).show()
             }
         })
@@ -121,12 +119,17 @@ class EmployeeDetailFragment : Fragment() {
 
         employeeDetailViewModel.saveEmployeeToDataBase.observe(this, Observer {
             if (it == true) { // Observed state is true.
+                val toast =
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.inserted),Toast.LENGTH_LONG
+                    ).show()
                 binding.employee= Employee()
+
             }
             else{
                 val toast =
-                    Toast.makeText(activity!!.applicationContext, "This employee is already exist", Toast.LENGTH_LONG
+                    Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.alreadyExist),Toast.LENGTH_LONG
                     ).show()
+
 
             }
         })

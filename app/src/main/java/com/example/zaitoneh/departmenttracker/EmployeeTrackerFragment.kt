@@ -1,16 +1,16 @@
 package com.example.zaitoneh.departmenttracker
 
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import com.example.zaitoneh.R
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.zaitoneh.database.Department
 //import com.example.zaitoneh.departmenttracker.DepartmentTrackerViewModel
 
@@ -27,6 +27,7 @@ class DepartmentTrackerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.DepatmentTracker)
         val binding: FragmentDepartmentTrackerBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_department_tracker, container, false)
 
@@ -70,7 +71,7 @@ class DepartmentTrackerFragment : Fragment() {
        binding.departmentList.adapter = adapter
 
 
-      departmentTrackerViewModel.departments.observe(viewLifecycleOwner, Observer {
+      departmentTrackerViewModel.list.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.updateList(it as MutableList<Department>)
                 adapter.submitList(it)
@@ -102,10 +103,19 @@ class DepartmentTrackerFragment : Fragment() {
             }
 
         })
-
+        setHasOptionsMenu(true)
         return binding.root
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu, menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
+    }
 
 }
 

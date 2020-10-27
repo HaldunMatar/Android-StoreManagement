@@ -7,9 +7,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.DepartmentDatabaseDao
 import com.example.zaitoneh.database.Department
+import com.example.zaitoneh.database.Supplier
 ///import kotlinx.android.synthetic.main.fragment_department_detail.view.*
 import kotlinx.coroutines.*
 import java.lang.Exception
@@ -57,11 +59,140 @@ class DepartmentDetailViewModel(
 
     fun getDepartment() = department
 
-
+    var selectedDepartment = MutableLiveData<Department?>()
     init {
         department.addSource(database.getDepartmentWithId(departmentKey), department::setValue)
-        //  _departmentValidation.value=false
+
+        //  _supplierValidation.value=false
+        //supplier.addSource(database.getEmployeeWithId(supplierKey), supplier::setValue)
+        Log.i("departmentInit","departmentArgs=" + department.value.toString() )
+
+        if(departmentKey!=0L) {
+            initializeDepartmentFromNet(departmentKey)
+            department.addSource(selectedDepartment, department::setValue)
+
+        }
+
+
+
     }
+//***************************************
+private fun initializeDepartmentFromNet(department: Long) {
+    uiScope.launch {
+        // Log.i("initializeEmployeeFromNet", "  brfore itemId   = " + EmployeeId );
+        selectedDepartment.value = getDepartmentFromNet(department)
+        // Log.i("initializeEmployeeFromNet", " initializeEmployeeFromNet  = " + selectedEmployee.value);
+    }
+
+}
+
+
+    private suspend fun getDepartmentFromNet(departmentId: Long): Department? {
+        return withContext(Dispatchers.IO) {
+            Log.i("getDepartmentFromNet", " getDepartmentFromNet  = " );
+            var itemDeferred = StoreApi.retrofitService.getDepartmentById(departmentId)
+            Log.i("getDepartmentFromNet", " getDepartmentFromNet  =   after " );
+            itemDeferred.await()
+
+        }
+
+    }
+
+
+    private suspend fun insertNet(department: Department) {
+        withContext(Dispatchers.IO) {
+            Log.i("insertNet", " insertNet in ")
+            val newDestination = department
+            var newItemDeferred = StoreApi.retrofitService.newDepartment(newDestination)
+        }
+    }
+
+
+
+    //----------------------
+    fun onCreateDepartmentNet(newDepartment: Department) {
+        Log.i("vaildateDepartment", " onCreateDepartment")
+        Log.i("viewModeldepartment",newDepartment.departmentName)
+
+        newDepartment.departmentId= this.departmentKey
+
+        if (vaildateDepartment(newDepartment)) {
+            Log.i("vaildateDepartment", " if  onCreateDepartment")
+            uiScope.launch {
+                try {
+
+                    if (departmentKey==0L) {
+                        Log.i("insertNet", " insertNet out")
+                        insertNet(newDepartment)
+                        _saveDepartmentToDataBase.value=true
+                    }else{
+                        Log.i("update","update")
+                        updateNet(newDepartment)
+                        _updateDepartmentToDataBase.value=true
+
+                    }
+
+                }
+                catch (E:Exception){
+                    Log.i("Exception", "There is a problem in insert ")
+                    if(newDepartment.departmentId==0L)
+                        _saveDepartmentToDataBase.value = false
+                    else
+                        _updateDepartmentToDataBase.value = false
+                }
+            }
+        }
+        else{
+            _departmentValidation.value=false
+        }
+    }
+
+    private suspend fun updateNet(department: Department) {
+        withContext(Dispatchers.IO) {
+            val newDestination = department
+
+            var updateItemDeferred = StoreApi.retrofitService.newDepartment(department)
+        }
+    }
+
+
+    fun OnDeleteDepartmentNet() {
+
+        uiScope.launch {
+            try {
+                Log.i("delete",department.value!!.departmentId.toString())
+                department!!.value?.departmentId?.let { deleteDepartmentNet(it) }
+                _deleteDepartmentFromDataBase.value = true
+
+            } catch (E: Exception) {
+                Log.i("Exception", "The department was not deleted"+ E.message)
+                _deleteDepartmentFromDataBase.value = false
+
+            }
+        }
+    }
+
+    private suspend fun deleteDepartmentNet(departmentId: Long) {
+
+        withContext(Dispatchers.IO) {
+            var itemDeferred = StoreApi.retrofitService.deleteDepartment(departmentId)
+            if (!itemDeferred.await())
+            {
+                throw  Exception()
+            }
+
+        }
+    }
+
+
+
+//***********************
+
+
+
+
+
+
 
 
     /**

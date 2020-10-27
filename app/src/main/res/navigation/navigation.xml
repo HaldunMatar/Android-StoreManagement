@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/supplierTrackerFragment">
+    app:startDestination="@id/blankFragment">
 
     <fragment
         android:id="@+id/itemTrackerFragment"
@@ -149,4 +149,8 @@
             app:argType="long"
             android:defaultValue="0L" />
     </fragment>
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.zaitoneh.BlankFragment"
+        android:label="BlankFragment" />
 </navigation>

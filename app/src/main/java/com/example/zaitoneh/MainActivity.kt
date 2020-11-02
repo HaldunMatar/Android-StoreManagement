@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -36,6 +37,35 @@ class MainActivity: AppCompatActivity() {
 
         NavigationUI.setupActionBarWithNavController(this, navController)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+
+        bottomAppBar.setNavigationOnClickListener {
+            val toast =
+                Toast.makeText(applicationContext, "setNavigationOnClickListener  ",
+                    Toast.LENGTH_LONG
+                ).show()
+        }
+
+    /*    bottomAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.search -> {
+                    val toast =
+                        Toast.makeText(applicationContext, "setOnMenuItemClickListener search ",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    true
+                }
+                R.id.more -> {
+                    val toast =
+                        Toast.makeText(applicationContext, "setOnMenuItemClickListener more ",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    true
+                }
+                else -> false
+            }
+        }*/
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -65,6 +95,11 @@ override fun onBackPressed() {
        val navController = this.findNavController(R.id.nav_host_fragment)
               navController.popBackStack();
     }
+
+
+
+
+
 
 
 }

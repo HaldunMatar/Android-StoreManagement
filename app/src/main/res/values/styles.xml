@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+
        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorMainBar</item>
         <item name="colorPrimaryDark">@color/colorTopBar</item>
@@ -10,9 +11,6 @@
     </style>
 
 
-    <style name="Theme.MyApp" parent="Theme.MaterialComponents.DayNight">
-        <!-- ... -->
-    </style>
 
 
     <style name="Label_Style">

@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/search"
-        android:icon="@drawable/ic_carateen"
-        android:title="@string/search"
-        android:contentDescription="@string/add_department_button"
-        app:showAsAction="ifRoom"
-        />
-
+        android:id="@+id/departmentTrackerFragment"
+        android:title="@string/departmentTracker" />
     <item
-        android:id="@+id/more"
-        android:title="@string/amount"
-        android:contentDescription="@string/address"
-        app:showAsAction="never"
-        />
-
-
-
-
+        android:id="@+id/itemTrackerFragment"
+        android:title="@string/items_Tracker" />
+    <item
+        android:id="@+id/employeeTrackerFragment"
+        android:title="@string/employeeTracker" />
+    <item
+        android:id="@+id/storeTrackerFragment"
+        android:title="@string/storeTracker" />
+    <item
+        android:id="@+id/supplierTrackerFragment"
+        android:title="@string/supplierTracker" />
+    <item
+        android:id="@+id/receiptTrackerFragment2"
+        android:title="@string/receiptTracker" />
 </menu>

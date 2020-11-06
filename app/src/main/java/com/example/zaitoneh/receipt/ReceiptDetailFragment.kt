@@ -2,14 +2,12 @@ package com.example.zaitoneh.receipt
 
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -22,18 +20,11 @@ import com.example.zaitoneh.R
 import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
-import com.example.zaitoneh.employeedetail.EmployeeDetailFragmentArgs
-import com.example.zaitoneh.receipt.ReceiptDialogViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
-import com.example.zaitoneh.itemdetail.ItemDetailFragmentArgs
 import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
 import com.example.zaitoneh.receiptDetail.ReceiptDetailListener
-import com.example.zaitoneh.receipttracker.ReceiptAdapter
-import com.example.zaitoneh.receipttracker.ReceiptListener
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
 import com.example.zaitoneh.supplierdetail.SupplierDetailViewModel
-import kotlinx.android.synthetic.main.fragment_store_tracker.*
-import kotlinx.android.synthetic.main.one_department.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -84,14 +75,14 @@ class ReceiptDetailFragment
 
 
         binding.receiptDetailViewModel= receiptDetailViewModel
-
+        binding.setLifecycleOwner(this)
 
 
 
 
 
         val dataSourceEmp = StoreDatabase.getInstance(application).employeeDatabaseDao
-        val  employeeDetailViewModel : EmployeeDetailViewModel  =EmployeeDetailViewModel(0,dataSourceEmp)
+        val  employeeDetailViewModel : EmployeeDetailViewModel  =EmployeeDetailViewModel(null,dataSourceEmp)
 
         val dataSourceSup = StoreDatabase.getInstance(application).supplierDatabaseDao
         val   supplierDetailViewModel : SupplierDetailViewModel  =SupplierDetailViewModel(0,dataSourceSup)
@@ -105,7 +96,7 @@ class ReceiptDetailFragment
 
 
 
-        Log.i("ArrayAdapter",supplierDetailViewModel.sups.toString())
+//        Log.i("ArrayAdapter",supplierDetailViewModel.sups.toString())
         val employees = employeeDetailViewModel.getEmployees()
         val supspinner = binding.receiptSupInput
         val languages  = resources.getStringArray(R.array.Languages)
@@ -126,8 +117,7 @@ class ReceiptDetailFragment
         if (supspinner != null) {
             val adapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,supplierDetailViewModel.sups.toTypedArray())
-
-            supspinner.adapter = adapter
+                supspinner.adapter = adapter
         }
 
         val dataSourceStore = StoreDatabase.getInstance(application).storeDatabaseDao

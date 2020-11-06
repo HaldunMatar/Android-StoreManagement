@@ -21,8 +21,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.android.marsrealestate.network.ItemApiFilter
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.database.Receipt
 import com.example.zaitoneh.database.ReceiptDatabaseDao
+import com.example.zaitoneh.database.Supplier
+import com.example.zaitoneh.itemtracker.ItemApiStatus
 import kotlinx.coroutines.*
 
 /**
@@ -108,6 +112,7 @@ class ReceiptTrackerViewModel(
         initializeLatestReceipt()
 
         _navigateToEditReceipt.value=null
+        getReceiptsNet(ItemApiFilter.SHOW_ALL)
     }
 
     private fun initializeLatestReceipt() {
@@ -176,6 +181,41 @@ class ReceiptTrackerViewModel(
         Log.i("onclick","onReceiptClicked")
          _navigateToEditReceipt.value=receiptId
     }
+
+    // The external immutable LiveData for the request status
+    private val _status = MutableLiveData<ItemApiStatus>()
+    val status: LiveData<ItemApiStatus>
+        get() = _status
+
+    // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
+    // with new values
+    private val _list = MutableLiveData<List<Receipt>>()
+
+    // The external LiveData interface to the property is immutable, so only this class can modify
+    val list: LiveData<List<Receipt>>
+        get() = _list
+
+    private fun getReceiptsNet(filter: ItemApiFilter) {
+        Log.i("getReceiptsNet"," before ");
+
+        uiScope.launch {
+            // Get the Deferred object for our Retrofit request
+            var getPropertiesDeferred = StoreApi.retrofitService.getReceipts()
+            try {
+                _status.value = ItemApiStatus.LOADING
+                // this will run on a thread managed by Retrofit
+                val listResult = getPropertiesDeferred.await()
+                _status.value = ItemApiStatus.DONE
+                Log.i("getReceiptssNet"," DONE " + listResult.size);
+                _list.value = listResult
+            } catch (e: Exception) {
+                Log.i("getReceiptssNet",e.message);
+                _status.value = ItemApiStatus.ERROR
+                _list.value = ArrayList()
+            }
+        }
+    }
+
 
 
 

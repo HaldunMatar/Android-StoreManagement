@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/receiptDetailFragment">
+    app:startDestination="@id/employeeTrackerFragment">
 
     <fragment
         android:id="@+id/itemTrackerFragment"
@@ -51,8 +51,8 @@
         android:label="EmployeeDetailFragment" >
         <argument
             android:name="employee_id"
-            app:argType="long"
-            android:defaultValue="0L" />
+            app:argType="string"
+            android:defaultValue="null" />
         <action
             android:id="@+id/action_employeeDetailFragment_to_employeeTrackerFragment"
             app:destination="@id/employeeTrackerFragment" />

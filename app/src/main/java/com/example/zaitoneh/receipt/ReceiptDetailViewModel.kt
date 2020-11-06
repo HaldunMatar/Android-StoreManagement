@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.*
 import kotlinx.coroutines.*
@@ -24,10 +25,7 @@ class ReceiptDetailViewModel(
     dataSource: ReceiptDatabaseDao,receiptDetailDataSource:ReceiptDetailDatabaseDao) : ViewModel() {
      var  latestreciept:Long=0L
     val database = dataSource
-
     var receiptEdite = Receipt()
-
-
     val receiptdetailDatabase=receiptDetailDataSource
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -45,16 +43,23 @@ class ReceiptDetailViewModel(
 
 
      var receiptdetails   : LiveData<List<ReceiptDetail>> = receiptDetailDataSource.getAllReceiptDetails()
-
+    var selectedReceipt = MutableLiveData<Receipt?>()
     init {
-        receiptTest.value?.receiptStoreId=2
-       if(receiptKey!= 0L ) {
-           getReceipt(receiptKey)
-       }
-
-        //receipt.addSource(database.getReceiptWithId(receiptKey), receipt::setValue)
-
+        uiScope.launch {
+            if (receiptKey != 0L) {
+                var selectedReceipt = MutableLiveData<Receipt?>()
+                selectedReceipt.value=    getReceiptFromNet(receiptKey)
+                receipt.addSource(selectedReceipt, receipt::setValue)
+            }
+        }
     }
+    private suspend fun getReceiptFromNet(receiptId: Long): Receipt? {
+        return withContext(Dispatchers.IO) {
+            var itemDeferred = StoreApi.retrofitService.getReceiptById(receiptId)
+            itemDeferred.await()
+                  }
+    }
+
 
     override fun onCleared() {
         super.onCleared()
@@ -68,7 +73,8 @@ class ReceiptDetailViewModel(
     fun onCreateReceipt(newReceipt: Receipt) {
                 uiScope.launch {
                     try {
-                        if (receiptKey == 0L) {
+                        if (receiptKey == 0L) 
+                        {
                             newReceipt.receiptDate= fromDate(Date())
                             insert(newReceipt)
                            Log.i("Insert: ","1- Done! Reciept Master")
@@ -130,9 +136,17 @@ class ReceiptDetailViewModel(
 
     suspend fun getReceiptFromDB(id: Long): Receipt {
         // simulate long running task
-        var receiptEdite = database.get(id)!!
+      //  var receiptEdite = database.get(id)!!
+
+
+      //  var itemDeferred = StoreApi.retrofitService.getReceiptById(id)
+    //    Log.i("getReceiptFromNet", " getReceiptFromNet getReceiptFromDB  =   after  + "  + itemDeferred.await().toString() );
+
+
+
         this.receiptEdite = receiptEdite;
-        return receiptEdite
+     return receiptEdite
+      //  return  itemDeferred.await()
     }
 
 

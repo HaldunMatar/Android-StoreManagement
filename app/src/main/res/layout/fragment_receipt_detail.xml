@@ -111,7 +111,8 @@
             android:inputType="textPersonName"
 
 
-            android:text="@={receipt.receiptNote}"
+            android:text="@={receiptDetailViewModel.receipt.receiptNote}"
+            app:receiptreceiptNoteFormatted="@{receiptDetailViewModel.selectedReceipt}"
 
             app:layout_constraintBottom_toTopOf="@+id/receipt_detail_list"
             app:layout_constraintStart_toStartOf="@+id/receipt_sup_input"

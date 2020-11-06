@@ -113,7 +113,7 @@ interface ItemApiService {
 //***********************************************
 
     @GET("EmployeeId")
-    fun getEmployeeById( @Query("employeeId") employeeId: Long):Deferred<Employee>
+    fun getEmployeeById( @Query("employeeId") employeeId: Long?):Deferred<Employee?>
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
 
 
@@ -180,12 +180,34 @@ interface ItemApiService {
     fun getDepartments():
 // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
             Deferred<List<Department>>
+
+    //***********************************************************
+
+    @GET("receiptId")
+    fun getReceiptById( @Query("receiptId") receiptId: Long):Deferred<Receipt>
+// The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+
+
+
+    @POST("newReceipt")
+    fun newReceipt(@Body newDestination: Receipt):Deferred<Util>
+
+    @POST("updateReceipt")
+    fun updateReceipt(@Body newDestination: Receipt):Deferred<Util>
+
+    @DELETE("deleteReceipt")
+    fun deleteReceipt( @Query("receiptId") receiptId: Long):Deferred<Boolean>
+
+
+    @GET("listReceiptREST")
+    fun getReceipts():
+// The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
+            Deferred<List<Receipt>>
+
+
+//***********************************************************
 }
-//***********************************************************
 
-
-
-//***********************************************************
 
 
 

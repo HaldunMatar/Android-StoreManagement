@@ -58,7 +58,8 @@ class EmployeeDetailFragment : Fragment() {
         val dataSource = StoreDatabase.getInstance(application).employeeDatabaseDao
       val args = EmployeeDetailFragmentArgs.fromBundle(requireArguments())
         Log.i("employee","args =" + args.employeeId )
-        if (args.employeeId==0L) binding.saveEmployeeButton.text=this.context?.resources?.getString(R.string.save)
+        if (args.employeeId=="null")
+            binding.saveEmployeeButton.text=this.context?.resources?.getString(R.string.save)
        else{
          binding.saveEmployeeButton.text=this.context?.resources?.getString(R.string.update)
 

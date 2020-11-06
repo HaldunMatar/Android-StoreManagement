@@ -67,7 +67,6 @@ class DepartmentDetailFragment : Fragment() {
 
         binding.departmentDetailViewModel = departmentDetailViewModel
         binding.setLifecycleOwner(this)
-
         binding.department=Department()
 
         //**************************************
@@ -119,7 +118,6 @@ class DepartmentDetailFragment : Fragment() {
                 val toast =
                     Toast.makeText(activity!!.applicationContext, context?.resources?.getString(R.string.alreadyExist),Toast.LENGTH_LONG
                     ).show()
-
             }
         })
 
@@ -136,25 +134,10 @@ class DepartmentDetailFragment : Fragment() {
 
 
         binding.backDepartmentButton.setOnClickListener {
-
         it.findNavController().navigate(R.id.action_departmentDetailFragment_to_departmentTrackerFragment)
-
         }
-
         binding.department=Department()
-
-
         return binding.root
     }
-
-
-
-
-
-
-
-
-
-
 }
 

@@ -85,7 +85,7 @@ class ReceiptTrackerFragment : Fragment() {
         binding.receiptDetailList.adapter = adapter
 
 
-        receiptTrackerViewModel.receipts.observe(viewLifecycleOwner, Observer {
+        receiptTrackerViewModel.list.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.updateList(it as MutableList<Receipt>)
                 adapter.submitList(it)

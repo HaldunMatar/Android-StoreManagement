@@ -63,6 +63,7 @@ class DepartmentTrackerFragment : Fragment() {
       departmentTrackerViewModel.navigateToEditDepartment.observe(this, Observer { department ->
             department?.let {
 
+
                 view?.findNavController()?.navigate(DepartmentTrackerFragmentDirections.actionDepartmentTrackerFragmentToDepartmentDetailFragment().setDepartmentId(it))
             }
         })

@@ -72,7 +72,7 @@ class EmployeeTrackerFragment : Fragment() {
                 Log.i("navigateToEditEmployee", it.toString())
                    view?.findNavController()?.navigate(
                        EmployeeTrackerFragmentDirections.actionEmployeeTrackerFragmentToEmployeeDetailFragment()
-                           .setEmployeeId(it)
+                           .setEmployeeId(it.toString())
                    )
                   employeeTrackerViewModel.onEmployeeClicked(null)
             }

@@ -1,25 +1,20 @@
 package com.example.zaitoneh.employeedetail
 
 import android.util.Log
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.marsrealestate.network.StoreApi
-import com.example.zaitoneh.R
 import com.example.zaitoneh.database.EmployeeDatabaseDao
 import com.example.zaitoneh.database.Employee
-import com.example.zaitoneh.database.Store
-import kotlinx.android.synthetic.main.fragment_employee_detail.view.*
 import kotlinx.coroutines.*
 import java.lang.Exception
 
 
 
 class EmployeeDetailViewModel(
-    private val employeeKey: Long = 0L,
+    private val employeeKey: String?,
     dataSource: EmployeeDatabaseDao) : ViewModel() {
 
     /**
@@ -53,10 +48,10 @@ class EmployeeDetailViewModel(
         get() = _updateEmployeeToDataBase
 
 
+
     private val _employeeValidation = MutableLiveData<Boolean?>()
     val employeeValidation: LiveData<Boolean?>
         get() = _employeeValidation
-
 
     private val employee = MediatorLiveData<Employee>()
     fun getEmployee() = employee
@@ -67,22 +62,24 @@ class EmployeeDetailViewModel(
         //employee.addSource(database.getEmployeeWithId(employeeKey), employee::setValue)
         Log.i("employeeInit","ReceiptDetailFragmentArgs=" + employee.value.toString() )
 
-        if(employeeKey!=0L) {
-            initializeEmployeeFromNet(employeeKey)
+        if( !employeeKey.equals("null")) {
+            initializeEmployeeFromNet(employeeKey?.toLong())
             employee.addSource(selectedEmployee, employee::setValue)
 
         }
 
+
+
     }
 //************************************************
-private fun initializeEmployeeFromNet(EmployeeId: Long) {
+private fun initializeEmployeeFromNet(EmployeeId: Long?) {
     uiScope.launch {
        // Log.i("initializeEmployeeFromNet", "  brfore itemId   = " + EmployeeId );
         selectedEmployee.value = getEmployeeFromNet(EmployeeId)
        // Log.i("initializeEmployeeFromNet", " initializeEmployeeFromNet  = " + selectedEmployee.value);
     }
 }
-    private suspend fun getEmployeeFromNet(EmployeeId: Long): Employee? {
+    private suspend fun getEmployeeFromNet(EmployeeId: Long?): Employee? {
         return withContext(Dispatchers.IO) {
             Log.i("getEmployeeFromNet", " getEmployeeFromNet  = " );
             var itemDeferred = StoreApi.retrofitService.getEmployeeById(EmployeeId)
@@ -110,18 +107,20 @@ private fun initializeEmployeeFromNet(EmployeeId: Long) {
         Log.i("vaildateEmployee", " onCreateEmployee")
         Log.i("viewModelemployee",newEmployee.employeeName)
 
-        newEmployee.employeeId= this.employeeKey
+
 
         if (vaildateEmployee(newEmployee)) {
             Log.i("vaildateEmployee", " if  onCreateEmployee")
             uiScope.launch {
                 try {
 
-                    if (employeeKey==0L) {
+                    if (employeeKey.equals("null")) {
+
                         Log.i("insertNet", " insertNet out")
-                        insertNet(newEmployee)
+                            insertNet(newEmployee)
                         _saveEmployeeToDataBase.value=true
                     }else{
+                        newEmployee.employeeId= employeeKey?.toLong()!!
                         Log.i("update","update")
                         updateNet(newEmployee)
                         _updateEmployeeToDataBase.value=true
@@ -243,11 +242,11 @@ private fun initializeEmployeeFromNet(EmployeeId: Long) {
     }
 
 
-    fun onCreateEmployee(newEmployee: Employee) {
+  /* fun onCreateEmployee(newEmployee: Employee) {
         Log.i("vaildateEmployee", " onCreateEmployee")
         Log.i("viewModelemployee", newEmployee.toString())
 
-        newEmployee.employeeId = this.employeeKey
+        newEmployee.employeeId = this.employeeKey!!
 
         if (vaildateEmployee(newEmployee)) {
             Log.i("vaildateEmployee", " if  onCreateEmployee")
@@ -275,7 +274,7 @@ private fun initializeEmployeeFromNet(EmployeeId: Long) {
         } else {
             _employeeValidation.value = false
         }
-    }
+    }*/
 
     fun OnDeleteEmployee() {
 

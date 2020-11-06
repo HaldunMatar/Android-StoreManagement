@@ -10,7 +10,7 @@ import com.example.zaitoneh.database.EmployeeDatabaseDao
  * Provides the key for the night and the SleepDatabaseDao to the ViewModel.
  */
 class EmployeeDetailViewModelFactory(
-    private val smployeeKey: Long,
+    private val smployeeKey: String?,
     private val dataSource: EmployeeDatabaseDao) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

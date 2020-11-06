@@ -43,7 +43,16 @@ fun TextView.setAmountFormatted(receiptdetail: ReceiptDetail?) {
     }
 }
 
-
+@BindingAdapter("receiptreceiptNoteFormatted")
+fun TextView.setreceiptreceiptNoteFormatted(receipt: Receipt?) {
+    Log.i("receiptreceiptNote" , receipt?.receiptNote.toString() )
+    if (receipt != null) {
+        Log.i("receiptreceiptNote" ,  " not null "+receipt.receiptNote.toString() )
+    }
+    receipt?.let {
+        text = receipt.receiptNote.toString()
+    }
+}
 
 
 @BindingAdapter("receiptDepatmentFormatted")
@@ -56,7 +65,8 @@ fun Spinner.setreceiptDepatmentFormatted(receipt: Receipt?) {
 @BindingAdapter("receiptEmployeeFormatted")
 fun Spinner.setreceiptEmployeeFormatted(receipt: Receipt?) {
     var Index : Int  = getIndex(this,receipt?.receiptEmpId.toString()) ;
-    setSelection(Index)
+       setSelection(Index)
+
 }
 
 

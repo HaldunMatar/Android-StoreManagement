@@ -21,6 +21,7 @@ import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
 import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
+import com.example.zaitoneh.employeetracker.EmployeeTrackerViewModel
 import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
 import com.example.zaitoneh.receiptDetail.ReceiptDetailListener
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
@@ -82,7 +83,7 @@ class ReceiptDetailFragment
 
 
         val dataSourceEmp = StoreDatabase.getInstance(application).employeeDatabaseDao
-        val  employeeDetailViewModel : EmployeeDetailViewModel  =EmployeeDetailViewModel(null,dataSourceEmp)
+        val  employeeDetailViewModel : EmployeeTrackerViewModel =EmployeeTrackerViewModel(dataSourceEmp,   requireNotNull(this.activity).application)
 
         val dataSourceSup = StoreDatabase.getInstance(application).supplierDatabaseDao
         val   supplierDetailViewModel : SupplierDetailViewModel  =SupplierDetailViewModel(0,dataSourceSup)
@@ -97,7 +98,7 @@ class ReceiptDetailFragment
 
 
 //        Log.i("ArrayAdapter",supplierDetailViewModel.sups.toString())
-        val employees = employeeDetailViewModel.getEmployees()
+        val employees = employeeDetailViewModel.list.value
         val supspinner = binding.receiptSupInput
         val languages  = resources.getStringArray(R.array.Languages)
         val empspinner = binding.receiptEmpInput
@@ -108,9 +109,10 @@ class ReceiptDetailFragment
 
 
         if (empspinner != null) {
-          val adapter =
-               ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,employeeDetailViewModel.emps.toTypedArray())
-            empspinner.adapter = adapter
+
+          //val adapter =
+             //  ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,employeeDetailViewModel.list.value!!.toTypedArray())
+          //  empspinner.adapter = adapter
         }
 
 

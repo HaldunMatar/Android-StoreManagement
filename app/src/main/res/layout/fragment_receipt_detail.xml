@@ -88,7 +88,9 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_dep_input"
             app:layout_constraintStart_toStartOf="@+id/receipt_store_input"
             app:layout_constraintTop_toBottomOf="@+id/receipt_store_input"
-            app:receiptEmployeeFormatted="@{receiptDetailViewModel.receiptEdite}" />
+            app:receiptEmployeeFormattedSelected="@{receiptDetailViewModel.receipt}"
+            app:receiptEmployeeFormatted="@{receiptDetailViewModel.employeesList }" />
+
 
         <Spinner
             android:id="@+id/receipt_sup_input"

@@ -82,23 +82,11 @@ class ReceiptDetailFragment
 
 
 
-        val dataSourceEmp = StoreDatabase.getInstance(application).employeeDatabaseDao
-        val  employeeDetailViewModel : EmployeeTrackerViewModel =EmployeeTrackerViewModel(dataSourceEmp,   requireNotNull(this.activity).application)
 
         val dataSourceSup = StoreDatabase.getInstance(application).supplierDatabaseDao
         val   supplierDetailViewModel : SupplierDetailViewModel  =SupplierDetailViewModel(0,dataSourceSup)
         val supplier = supplierDetailViewModel.getSuppliers()
 
-
-
-
-
-
-
-
-
-//        Log.i("ArrayAdapter",supplierDetailViewModel.sups.toString())
-        val employees = employeeDetailViewModel.list.value
         val supspinner = binding.receiptSupInput
         val languages  = resources.getStringArray(R.array.Languages)
         val empspinner = binding.receiptEmpInput
@@ -108,22 +96,9 @@ class ReceiptDetailFragment
         storspinner.setOnItemSelectedListener(this)
 
 
-        if (empspinner != null) {
-
-          //val adapter =
-             //  ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,employeeDetailViewModel.list.value!!.toTypedArray())
-          //  empspinner.adapter = adapter
-        }
-
-
-        if (supspinner != null) {
-            val adapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,supplierDetailViewModel.sups.toTypedArray())
-                supspinner.adapter = adapter
-        }
-
         val dataSourceStore = StoreDatabase.getInstance(application).storeDatabaseDao
         val   storeDetailViewModel : StoreDetailViewModel  =StoreDetailViewModel(0,dataSourceStore)
+
 
         storeDetailViewModel.getStores()
         if (storspinner != null) {
@@ -132,12 +107,6 @@ class ReceiptDetailFragment
             storspinner.adapter = adapter
         }
 
-
-        binding.backBtn.setOnClickListener {
-
-            it.findNavController().navigate(R.id.action_receiptDetailFragment_to_receiptTrackerFragment2)
-
-        }
 
         val dataSourceDep = StoreDatabase.getInstance(application).departmentDatabaseDao
         val   departmentDetailViewModel : DepartmentDetailViewModel =DepartmentDetailViewModel(0,dataSourceDep)
@@ -152,11 +121,11 @@ class ReceiptDetailFragment
         }
 
 
+
         binding.itemAddBtn.setOnClickListener(this)
 
         var receipt:Receipt = Receipt()
 
-     //   val receipt= Receipt(0,"", 12555585,0,"",0,0,0)
         binding.receipt=receipt
 
 
@@ -168,7 +137,7 @@ class ReceiptDetailFragment
 
         val receiptdetailadapter = ReceiptDetailAdapter(ReceiptDetailListener { receiptId ->
             receiptDetailViewModel.onReceiptDetailClicked(receiptId)
-            //  Toast.makeText(context, "${nightId}", Toast.LENGTH_LONG).show()
+
         })
 
 
@@ -205,6 +174,13 @@ class ReceiptDetailFragment
 
 
 
+
+        }
+
+
+        binding.backBtn.setOnClickListener {
+
+            it.findNavController().navigate(R.id.action_receiptDetailFragment_to_receiptTrackerFragment2)
 
         }
 

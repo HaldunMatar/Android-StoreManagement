@@ -26,14 +26,17 @@ import com.example.zaitoneh.employeetracker.EmployeeTrackerViewModel
  *
  * Provides the SleepDatabaseDao and context to the ViewModel.
  */
-class EmployeeTrackerViewModelFactory(
+/*class EmployeeTrackerViewModelFactory(
         private val dataSource: EmployeeDatabaseDao,
 
-        private val application: Application) : ViewModelProvider.Factory {
+        private val application: Application) : ViewModelProvider.Factory {*/
+
+class EmployeeTrackerViewModelFactory() : ViewModelProvider.Factory {
+
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EmployeeTrackerViewModel::class.java)) {
-            return EmployeeTrackerViewModel(dataSource, application) as T
+            return EmployeeTrackerViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

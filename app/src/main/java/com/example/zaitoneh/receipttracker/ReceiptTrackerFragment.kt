@@ -70,17 +70,7 @@ class ReceiptTrackerFragment : Fragment() {
                 receiptTrackerViewModel.onReceiptClicked(null)
             }
         })
-/*
 
-  if(it!=null) {
-                    view?.findNavController()?.navigate(
-                        ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment()
-                            .setItemId(it)
-                    )
-                    itemTrackerViewModel.onItemClicked(null)
-
-
- */
 
         binding.receiptDetailList.adapter = adapter
 

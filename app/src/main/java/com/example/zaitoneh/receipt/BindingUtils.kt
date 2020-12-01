@@ -16,12 +16,15 @@
 
 package com.example.zaitoneh.receipt
 
+import android.R
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import com.example.zaitoneh.database.*
+import com.example.zaitoneh.employeetracker.EmployeeTrackerViewModel
 
 
 @BindingAdapter("receiptdetailItemFormatted")
@@ -57,15 +60,29 @@ fun TextView.setreceiptreceiptNoteFormatted(receipt: Receipt?) {
 
 @BindingAdapter("receiptDepatmentFormatted")
 fun Spinner.setreceiptDepatmentFormatted(receipt: Receipt?) {
+    Log.i("DepatmentFormatted", receipt.toString())
     var Index : Int  = getIndex(this,receipt?.receiptDepId.toString()) ;
     setSelection(Index)
 }
 
 
-@BindingAdapter("receiptEmployeeFormatted")
-fun Spinner.setreceiptEmployeeFormatted(receipt: Receipt?) {
-    var Index : Int  = getIndex(this,receipt?.receiptEmpId.toString()) ;
+@BindingAdapter("receiptEmployeeFormatted" ,"receiptEmployeeFormattedSelected")
+fun Spinner.setreceiptEmployeeFormatted(receipt: List<Employee>? , receipt1: Receipt?) {
+   if (receipt.isNullOrEmpty()) {
+
+    }else{
+       val adapter =
+           ArrayAdapter(
+               this.context,
+               android.R.layout.simple_spinner_item,
+               receipt!!.toTypedArray()
+           )
+       this.adapter = adapter
+   }
+       var Index : Int  = getIndex(this,receipt1?.receiptEmpId.toString()) ;
+       Log.i("EmployeeFormattedSele", receipt1.toString())
        setSelection(Index)
+
 
 }
 

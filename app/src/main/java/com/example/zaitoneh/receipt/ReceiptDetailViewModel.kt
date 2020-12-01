@@ -10,9 +10,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.android.marsrealestate.network.ItemApiFilter
 import com.example.android.marsrealestate.network.StoreApi
 import com.example.zaitoneh.R
 import com.example.zaitoneh.database.*
+import com.example.zaitoneh.employeetracker.EmployeeTrackerViewModel
+import com.example.zaitoneh.itemtracker.ItemApiStatus
 import kotlinx.coroutines.*
 import java.lang.Error
 import java.lang.Exception
@@ -44,6 +47,15 @@ class ReceiptDetailViewModel(
 
      var receiptdetails   : LiveData<List<ReceiptDetail>> = receiptDetailDataSource.getAllReceiptDetails()
     var selectedReceipt = MutableLiveData<Receipt?>()
+
+
+
+
+
+
+     var employeesList = MediatorLiveData<List<Employee>>()
+
+
     init {
         uiScope.launch {
             if (receiptKey != 0L) {
@@ -51,8 +63,25 @@ class ReceiptDetailViewModel(
                 selectedReceipt.value=    getReceiptFromNet(receiptKey)
                 receipt.addSource(selectedReceipt, receipt::setValue)
             }
+             getEmployeesNet(ItemApiFilter.SHOW_ALL)
+        }
+
+
+    }
+    fun getEmployeesNet(filter: ItemApiFilter) {
+        uiScope.launch {
+            var getPropertiesDeferred = StoreApi.retrofitService.getEmployees()
+            try {
+                val listResult = getPropertiesDeferred.await()
+                employeesList.value = listResult
+            } catch (e: Exception) {
+                employeesList.value = ArrayList()
+            }
         }
     }
+
+
+
     private suspend fun getReceiptFromNet(receiptId: Long): Receipt? {
         return withContext(Dispatchers.IO) {
             var itemDeferred = StoreApi.retrofitService.getReceiptById(receiptId)
@@ -137,13 +166,8 @@ class ReceiptDetailViewModel(
     suspend fun getReceiptFromDB(id: Long): Receipt {
         // simulate long running task
       //  var receiptEdite = database.get(id)!!
-
-
       //  var itemDeferred = StoreApi.retrofitService.getReceiptById(id)
     //    Log.i("getReceiptFromNet", " getReceiptFromNet getReceiptFromDB  =   after  + "  + itemDeferred.await().toString() );
-
-
-
         this.receiptEdite = receiptEdite;
      return receiptEdite
       //  return  itemDeferred.await()

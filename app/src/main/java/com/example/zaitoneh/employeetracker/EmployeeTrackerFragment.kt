@@ -45,7 +45,7 @@ class EmployeeTrackerFragment : Fragment() {
 
         val dataSource = StoreDatabase.getInstance(application).employeeDatabaseDao
 
-        val viewModelFactory = EmployeeTrackerViewModelFactory(dataSource, application)
+        val viewModelFactory = EmployeeTrackerViewModelFactory()
 
        val employeeTrackerViewModel =
           ViewModelProviders.of(

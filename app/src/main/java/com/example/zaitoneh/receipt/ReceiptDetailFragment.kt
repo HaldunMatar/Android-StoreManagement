@@ -125,7 +125,6 @@ class ReceiptDetailFragment
         binding.itemAddBtn.setOnClickListener(this)
 
         var receipt:Receipt = Receipt()
-
         binding.receipt=receipt
 
 
@@ -169,7 +168,7 @@ class ReceiptDetailFragment
         binding.addreceiptbtk.setOnClickListener {
 
 
-                receiptDetailViewModel.onCreateReceipt(binding.receipt as Receipt )
+                receiptDetailViewModel.onCreateReceiptNet(binding.receipt as Receipt )
                 receiptDetailViewModel.getLatestReciept()
 
 
@@ -219,6 +218,7 @@ class ReceiptDetailFragment
         dialogFragment.arguments = bundle
         val ft = myActivity?.supportFragmentManager?.beginTransaction()
         val prev = myActivity?.supportFragmentManager?.findFragmentByTag("dialog")
+
         if (prev != null)
         {
             if (ft != null) {
@@ -234,8 +234,6 @@ class ReceiptDetailFragment
 
     }
 //  android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
-
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onFinishEditDialog(receiptDetail:ReceiptDetail) {
     val application = requireNotNull(this.activity).application
@@ -263,14 +261,6 @@ class ReceiptDetailFragment
     receiptDaialogViewModel.onCreateReceiptDetail(receiptDetail)
 
 
-   /* Toast.makeText(activity!!.applicationContext, binding.receipt?.receiptDepId.toString(),
-        Toast.LENGTH_LONG
-    ).show()*/
-
-
-       /* Toast.makeText(activity!!.applicationContext, receiptDetail.toString(),
-            Toast.LENGTH_LONG
-        ).show()*/
 
 
 

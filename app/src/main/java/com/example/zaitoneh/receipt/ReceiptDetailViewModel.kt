@@ -106,7 +106,7 @@ class ReceiptDetailViewModel(
                         {
                             newReceipt.receiptDate= fromDate(Date())
                             insert(newReceipt)
-                           Log.i("Insert: ","1- Done! Reciept Master")
+                            Log.i("Insert: ","1- Done! Reciept Master")
                             _saveReceiptToDataBase.value = true
                         }
                     }
@@ -172,10 +172,55 @@ class ReceiptDetailViewModel(
      return receiptEdite
       //  return  itemDeferred.await()
     }
+//******************************************
 
+    private suspend fun insertNet(receipt: Receipt) {
+        withContext(Dispatchers.IO) {
+            var newItemDeferred = StoreApi.retrofitService.newReceipt(receipt)
+        }
+    }
+    //----------------------
+    fun onCreateReceiptNet(NewReceipt: Receipt) {
 
+        Log.i("onCreateReceiptNet",NewReceipt.toString())
 
+        if (vaildateReceipt(NewReceipt)) {
+            Log.i("vaildateEmployee", " if  onCreateEmployee")
+            uiScope.launch {
+                try {
 
+                    //if (receiptKey.equals("null")) {
+                    if (receiptKey==0L) {
+                        Log.i("insertNet", " insertNet out")
+                        insertNet(NewReceipt)
+                        _saveReceiptToDataBase.value=true
+                    }else{
+                        NewReceipt.receiptId= receiptKey?.toLong()!!
+                        Log.i("update","update")
+                       // updateNet(NewReceipt)
+                       // _updateReceiptToDataBase.value=true
+
+                    }
+
+                }
+                catch (E:Exception){
+                    Log.i("Exception", "There is a problem in insert ")
+                  /*  if(NewReceipt.receiptId==0L)
+                     //   _saveEmployeeToDataBase.value = false
+                    else
+                       // _updateEmployeeToDataBase.value = false*/
+                }
+            }
+        }
+        else{
+          //  _employeeValidation.value=false
+        }
+    }
+
+    fun vaildateReceipt(receipt: Receipt): Boolean {
+        return !false
+        Log.i("vaildateReceipt", " inside vaildateReceipt")
+    }
 
 }
 

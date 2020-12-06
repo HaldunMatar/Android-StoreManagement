@@ -4,10 +4,10 @@
 
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <!--   <variable
+           <variable
 
-             name="receiptDetailDetailViewModel"
-              type="com.example.zaitoneh.receipt.ReceiptDetailDetailViewModel" />-->
+             name="receiptDialogViewModel"
+              type="com.example.zaitoneh.receipt.ReceiptDialogViewModel" />
         <variable
             name="receiptDetail"
             type="com.example.zaitoneh.database.ReceiptDetail" />
@@ -35,7 +35,11 @@
             app:layout_constraintBottom_toTopOf="@+id/input_amount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/input_amount"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:receiptItemsFormatted="@{receiptDialogViewModel.itemList }"
+
+            />
 
         <TextView
             android:id="@+id/textView_lable_item"

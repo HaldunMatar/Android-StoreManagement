@@ -14,14 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.example.android.marsrealestate.network.ItemApiFilter
 import com.example.zaitoneh.MyDialog
 import com.example.zaitoneh.R
 
 import com.example.zaitoneh.database.*
 import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
-import com.example.zaitoneh.employeedetail.EmployeeDetailViewModel
-import com.example.zaitoneh.employeetracker.EmployeeTrackerViewModel
 import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
 import com.example.zaitoneh.receiptDetail.ReceiptDetailListener
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
@@ -71,8 +70,6 @@ class ReceiptDetailFragment
         receiptDetailViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptDetailViewModel::class.java)
 
         receiptDetailViewModel.latestreciept=EditReceiptId
-      //  receiptDetailViewModel.getReceipt(EditReceiptId)
-        Log.i("getReceipt","receiptDetailViewModel.getReceipt()=" +receiptDetailViewModel.receiptEdite.toString() )
 
 
         binding.receiptDetailViewModel= receiptDetailViewModel
@@ -165,16 +162,7 @@ class ReceiptDetailFragment
             }
         })
 
-        binding.addreceiptbtk.setOnClickListener {
 
-
-                receiptDetailViewModel.onCreateReceiptNet(binding.receipt as Receipt )
-                receiptDetailViewModel.getLatestReciept()
-
-
-
-
-        }
 
 
         binding.backBtn.setOnClickListener {
@@ -204,7 +192,6 @@ class ReceiptDetailFragment
         }
 
 
-       // Toast.makeText(parent.context, text, Toast.LENGTH_SHORT).show()
 
 
     }
@@ -235,30 +222,32 @@ class ReceiptDetailFragment
     }
 //  android:onClick="@{() -> receiptDetailViewModel.onCreateReceipt(receipt)}"
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onFinishEditDialog(receiptDetail:ReceiptDetail) {
+    override fun onFinishEditDialog(
+    receiptDetail: ReceiptDetail,
+    receiptDaialogViewModel: ReceiptDialogViewModel
+) {
     val application = requireNotNull(this.activity).application
 
 
-       // receiptDetailViewModel.getLatestReciept()
-
-    Log.i("latestreciept",receiptDetailViewModel.receiptEdite.receiptId.toString())
-
-    val dataSourceReciptDetailDao = StoreDatabase.getInstance(application).receiptDetailDatabaseDao
-     var receiptDaialogViewModel:ReceiptDialogViewModel=ReceiptDialogViewModel(dataSourceReciptDetailDao)
 
 
-  if(receiptDetailViewModel.receiptEdite.receiptId!=0L) {
-      receiptDetail.receiptId = receiptDetailViewModel.receiptEdite.receiptId
-  }else{
 
-       receiptDetailViewModel.getLatestReciept()
-      receiptDetail.receiptId = receiptDetailViewModel.latestreciept
-  }
+  //if(receiptDetailViewModel.receiptEdite.receiptId!=0L) {
+      receiptDetail.receiptId = receiptDetailViewModel.receiptKey
+      Log.i("insertNet", "onFinishEditDialog"+receiptDetail.toString())
+      receiptDaialogViewModel.onCreateReceiptDetailNet(receiptDetail)
+    receiptDetailViewModel.getReceiptDetailsNet(ItemApiFilter.SHOW_ALL)
+
+ // }else{
+
+     //  receiptDetailViewModel.getLatestReciept()
+     // receiptDetail.receiptId = receiptDetailViewModel.latestreciept
+ // }
 
 
       //  receiptDetail.receiptId=   EditReceiptId
     Log.i("Insert:",receiptDetail.toString())
-    receiptDaialogViewModel.onCreateReceiptDetail(receiptDetail)
+
 
 
 

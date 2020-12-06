@@ -29,5 +29,8 @@ data class Store(
 
 
 ): Parcelable {
+    override fun toString():String{
 
+        return storeId.toString() +"   " +  storeName
+    }
 }

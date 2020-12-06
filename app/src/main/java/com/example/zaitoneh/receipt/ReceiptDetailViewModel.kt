@@ -24,7 +24,7 @@ import java.util.*
 
 
 class ReceiptDetailViewModel(
-    private val receiptKey: Long = 0L,
+    val receiptKey: Long = 0L,
     dataSource: ReceiptDatabaseDao,receiptDetailDataSource:ReceiptDetailDatabaseDao) : ViewModel() {
      var  latestreciept:Long=0L
     val database = dataSource
@@ -45,35 +45,64 @@ class ReceiptDetailViewModel(
         get() = _navigateToEditReceipt
 
 
-     var receiptdetails   : LiveData<List<ReceiptDetail>> = receiptDetailDataSource.getAllReceiptDetails()
+
     var selectedReceipt = MutableLiveData<Receipt?>()
 
 
 
 
 
-
+    var receiptdetails = MediatorLiveData<List<ReceiptDetail>>()
      var employeesList = MediatorLiveData<List<Employee>>()
+      var storList = MediatorLiveData<List<Store>>()
+    var departmentList = MediatorLiveData<List<Department>>()
+    var supplierList = MediatorLiveData<List<Supplier>>()
 
 
     init {
         uiScope.launch {
             if (receiptKey != 0L) {
-                var selectedReceipt = MutableLiveData<Receipt?>()
+                 selectedReceipt = MutableLiveData<Receipt?>()
                 selectedReceipt.value=    getReceiptFromNet(receiptKey)
                 receipt.addSource(selectedReceipt, receipt::setValue)
+
+                getReceiptDetailsNet(ItemApiFilter.SHOW_ALL);
             }
              getEmployeesNet(ItemApiFilter.SHOW_ALL)
+
+
         }
 
+
+    }
+
+    fun getReceiptDetailsNet(filter: ItemApiFilter) {
+        uiScope.launch {
+            var Deferred = StoreApi.retrofitService.getReceiptDetails()
+            try {
+                receiptdetails.value = Deferred.await()
+            } catch (e: Exception) {
+             Log.i("getReceiptdetailsNet" , "erorr ")
+            }
+        }
 
     }
     fun getEmployeesNet(filter: ItemApiFilter) {
         uiScope.launch {
             var getPropertiesDeferred = StoreApi.retrofitService.getEmployees()
+            var getstore = StoreApi.retrofitService.getStores()
+            var getdep = StoreApi.retrofitService.getDepartments()
+            var getsupp = StoreApi.retrofitService.getSuppliers()
             try {
                 val listResult = getPropertiesDeferred.await()
                 employeesList.value = listResult
+                storList.value=getstore.await()
+                departmentList.value=getdep.await()
+                supplierList.value=getsupp.await()
+
+
+
+
             } catch (e: Exception) {
                 employeesList.value = ArrayList()
             }
@@ -92,7 +121,7 @@ class ReceiptDetailViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        Log.i("receiptdetails" ," onCleared v M " )
+
         viewModelJob.cancel()
     }
     fun fromDate(date: Date):Long{
@@ -106,7 +135,7 @@ class ReceiptDetailViewModel(
                         {
                             newReceipt.receiptDate= fromDate(Date())
                             insert(newReceipt)
-                            Log.i("Insert: ","1- Done! Reciept Master")
+
                             _saveReceiptToDataBase.value = true
                         }
                     }
@@ -128,7 +157,7 @@ class ReceiptDetailViewModel(
             val result = async {
                  latestreciept=getLatestRecieptDB().receiptId
 
-                Log.i("getLatestRecieptDB",latestreciept.toString())
+
             }
         }
         runBlocking {
@@ -144,19 +173,19 @@ class ReceiptDetailViewModel(
      _saveReceiptToDataBase.value=true
  }
     fun onReceiptDetailClicked(receiptId: Long) {
-        Log.i("onclick","onReceiptClicked")
+
         _navigateToEditReceipt.value=receiptId
     }
 
 
     fun getReceipt(id: Long) {
-        println("Gone to calculate sum of a & b")
+
 
         GlobalScope.launch {
             val result = async {
                 getReceiptFromDB(id)
             }
-            println("Sum of a & b is: ${result.await()}")
+
         }
         runBlocking {
             delay(200) // keeping jvm alive till calculateSum is finished
@@ -164,10 +193,7 @@ class ReceiptDetailViewModel(
     }
 
     suspend fun getReceiptFromDB(id: Long): Receipt {
-        // simulate long running task
-      //  var receiptEdite = database.get(id)!!
-      //  var itemDeferred = StoreApi.retrofitService.getReceiptById(id)
-    //    Log.i("getReceiptFromNet", " getReceiptFromNet getReceiptFromDB  =   after  + "  + itemDeferred.await().toString() );
+
         this.receiptEdite = receiptEdite;
      return receiptEdite
       //  return  itemDeferred.await()
@@ -182,22 +208,22 @@ class ReceiptDetailViewModel(
     //----------------------
     fun onCreateReceiptNet(NewReceipt: Receipt) {
 
-        Log.i("onCreateReceiptNet",NewReceipt.toString())
+
 
         if (vaildateReceipt(NewReceipt)) {
-            Log.i("vaildateEmployee", " if  onCreateEmployee")
+
             uiScope.launch {
                 try {
 
                     //if (receiptKey.equals("null")) {
                     if (receiptKey==0L) {
-                        Log.i("insertNet", " insertNet out")
+
                         insertNet(NewReceipt)
                         _saveReceiptToDataBase.value=true
                     }else{
                         NewReceipt.receiptId= receiptKey?.toLong()!!
-                        Log.i("update","update")
-                       // updateNet(NewReceipt)
+
+                        updateNet(NewReceipt)
                        // _updateReceiptToDataBase.value=true
 
                     }
@@ -219,8 +245,15 @@ class ReceiptDetailViewModel(
 
     fun vaildateReceipt(receipt: Receipt): Boolean {
         return !false
-        Log.i("vaildateReceipt", " inside vaildateReceipt")
-    }
 
+    }
+    private suspend fun updateNet(NewReceipt: Receipt) {
+        withContext(Dispatchers.IO) {
+
+            withContext(Dispatchers.IO) {
+                var newItemDeferred = StoreApi.retrofitService.newReceipt(NewReceipt)
+            }
+        }
+    }
 }
 

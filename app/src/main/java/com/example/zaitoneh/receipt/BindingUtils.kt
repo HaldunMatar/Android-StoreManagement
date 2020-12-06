@@ -48,9 +48,9 @@ fun TextView.setAmountFormatted(receiptdetail: ReceiptDetail?) {
 
 @BindingAdapter("receiptreceiptNoteFormatted")
 fun TextView.setreceiptreceiptNoteFormatted(receipt: Receipt?) {
-    Log.i("receiptreceiptNote" , receipt?.receiptNote.toString() )
+
     if (receipt != null) {
-        Log.i("receiptreceiptNote" ,  " not null "+receipt.receiptNote.toString() )
+
     }
     receipt?.let {
         text = receipt.receiptNote.toString()
@@ -58,48 +58,133 @@ fun TextView.setreceiptreceiptNoteFormatted(receipt: Receipt?) {
 }
 
 
+
+@BindingAdapter("receiptDepatmentFormatted" ,"receiptDepatmentFormattedSelected")
+fun Spinner.setreceiptDepatmentFormatted(receiptList: List<Department>? , receipt1: Receipt?) {
+    if (receiptList.isNullOrEmpty()) {
+
+    }else{
+        val adapter =
+            ArrayAdapter(
+                this.context,
+                android.R.layout.simple_spinner_item,
+                receiptList!!.toTypedArray()
+            )
+        this.adapter = adapter
+    }
+    var Index : Int  = getIndex(this,receipt1?.receiptDepId.toString()) ;
+
+    setSelection(Index)
+
+
+}
+
+
+
+
 @BindingAdapter("receiptDepatmentFormatted")
-fun Spinner.setreceiptDepatmentFormatted(receipt: Receipt?) {
-    Log.i("DepatmentFormatted", receipt.toString())
+fun Spinner.setreceiptDepatmentFormatted1(receipt: Receipt?) {
+
     var Index : Int  = getIndex(this,receipt?.receiptDepId.toString()) ;
     setSelection(Index)
 }
 
 
 @BindingAdapter("receiptEmployeeFormatted" ,"receiptEmployeeFormattedSelected")
-fun Spinner.setreceiptEmployeeFormatted(receipt: List<Employee>? , receipt1: Receipt?) {
-   if (receipt.isNullOrEmpty()) {
+fun Spinner.setreceiptEmployeeFormatted(receiptList: List<Employee>? , receipt1: Receipt?) {
+   if (receiptList.isNullOrEmpty()) {
 
     }else{
        val adapter =
            ArrayAdapter(
                this.context,
                android.R.layout.simple_spinner_item,
-               receipt!!.toTypedArray()
+               receiptList!!.toTypedArray()
            )
        this.adapter = adapter
    }
        var Index : Int  = getIndex(this,receipt1?.receiptEmpId.toString()) ;
-       Log.i("EmployeeFormattedSele", receipt1.toString())
+
        setSelection(Index)
 
 
 }
 
 
+@BindingAdapter("receiptSupplierFormatted" ,"receiptSupplierFormattedSelected")
+fun Spinner.setreceiptSupplierFormatted(receiptList: List<Supplier>? , receipt1: Receipt?) {
+    if (receiptList.isNullOrEmpty()) {
 
-@BindingAdapter("receiptSupplierFormatted")
-fun Spinner.setreceiptSupplierFormatted(receipt: Receipt?) {
-    var Index : Int  = getIndex(this,receipt?.receiptSupId.toString()) ;
+    }else{
+        val adapter =
+            ArrayAdapter(
+                this.context,
+                android.R.layout.simple_spinner_item,
+                receiptList!!.toTypedArray()
+            )
+        this.adapter = adapter
+    }
+    var Index : Int  = getIndex(this,receipt1?.receiptSupId.toString()) ;
+
     setSelection(Index)
+
+
 }
 
 
 
+
+
+@BindingAdapter("receiptSupplierFormatted")
+fun Spinner.setreceiptSupplierFormatted1(receipt: Receipt?) {
+    var Index : Int  = getIndex(this,receipt?.receiptSupId.toString()) ;
+    setSelection(Index)
+}
+
+@BindingAdapter("receiptItemsFormatted")
+fun Spinner.setreceiptItemsFormatted(receiptList: List<Item>? ) {
+    if (receiptList.isNullOrEmpty()) {
+
+    }else{
+        val adapter =
+            ArrayAdapter(
+                this.context,
+                android.R.layout.simple_spinner_item,
+                receiptList!!.toTypedArray()
+            )
+        this.adapter = adapter
+    }
+
+
+
+}
+
+
+
+@BindingAdapter("receiptStoreFormatted" ,"receiptStoreFormattedSelected")
+fun Spinner.setreceiptStoreFormatted(receiptList: List<Store>? , receipt1: Receipt?) {
+    if (receiptList.isNullOrEmpty()) {
+
+    }else{
+        val adapter =
+            ArrayAdapter(
+                this.context,
+                android.R.layout.simple_spinner_item,
+                receiptList!!.toTypedArray()
+            )
+        this.adapter = adapter
+    }
+    var Index : Int  = getIndex(this,receipt1?.receiptStoreId.toString()) ;
+
+    setSelection(Index)
+
+
+}
+
 @BindingAdapter("receiptStoreFormatted")
-fun Spinner.setreceiptStoreFormatted(receipt: Receipt?) {
-    var Index : Int  = getIndex(this,receipt?.receiptStoreId.toString()) ;
-      setSelection(Index)
+fun Spinner.setreceiptStoreFormatted1(receipt: Receipt?) {
+  //  var Index : Int  = getIndex(this,receipt?.receiptStoreId.toString()) ;
+   //   setSelection(Index)
 }
 private  fun getIndex(spinner: Spinner, myString: String): Int {
     var index = 0
@@ -117,7 +202,7 @@ private  fun getIndex(spinner: Spinner, myString: String): Int {
 
         if (valueindex.equals(myString) ) {
             index = i
-            Log.i("spinner" ,i.toString() )
+
         }
     }
 

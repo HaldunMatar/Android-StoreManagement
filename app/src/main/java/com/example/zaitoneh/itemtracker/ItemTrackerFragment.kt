@@ -71,7 +71,8 @@ class ItemTrackerFragment : Fragment() {
             item?.let {
                 if(it!=null) {
                     view?.findNavController()?.navigate(
-                        StoreTrackerFragmentDirections.actionStoreTrackerFragmentToStoreDetailFragment().setStoreId(it)
+                       ItemTrackerFragmentDirections.actionItemTrackerFragmentToItemDetailFragment().setItemId(it)
+
                     )
                     itemTrackerViewModel.onItemClicked(null)
                 }

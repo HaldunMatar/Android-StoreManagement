@@ -37,10 +37,18 @@ data class Item(
     var last_update: String = "",*/
     @ColumnInfo(name = "item_type_level6")
     var itemLevel6: String = ""
-): Parcelable
+): Parcelable {
+    override fun toString():String{
 
-{
-
+        return itemId.toString() +" " + itemMain +"  " + itemLevel1
+    }
 
 
 }
+
+
+
+
+
+
+

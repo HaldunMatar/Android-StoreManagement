@@ -24,8 +24,8 @@ data class Department(
 
 ){
     override fun toString():String{
+        return departmentId.toString() +"   " + departmentName
 
-        return departmentName
     }
 
 

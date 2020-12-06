@@ -31,8 +31,11 @@ data class Supplier(
 
 ) : Parcelable {
     override fun toString(): String {
-
+        return supId.toString() +"   " + supFullName
         return supFullName
     }
+
+
+
 
 }

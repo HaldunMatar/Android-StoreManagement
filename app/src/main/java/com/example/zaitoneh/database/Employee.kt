@@ -34,7 +34,7 @@ data class Employee(
 ) : Parcelable {
     override fun toString():String{
 
-        return employeeId.toString() + employeeName
+        return employeeId.toString() +"   " + employeeName
     }
 
 

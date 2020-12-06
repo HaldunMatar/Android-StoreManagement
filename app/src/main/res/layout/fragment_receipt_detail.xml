@@ -75,7 +75,12 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_sup_input"
             app:layout_constraintStart_toStartOf="@+id/receipt_emp_input"
             app:layout_constraintTop_toBottomOf="@+id/receipt_emp_input"
-            app:receiptDepatmentFormatted="@{receiptDetailViewModel.receiptEdite}" />
+
+            app:receiptDepatmentFormattedSelected="@{receiptDetailViewModel.receipt}"
+            app:receiptDepatmentFormatted="@{receiptDetailViewModel.departmentList }"
+
+
+       />
 
         <Spinner
             android:id="@+id/receipt_emp_input"
@@ -102,7 +107,10 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_note_input"
             app:layout_constraintStart_toStartOf="@+id/receipt_dep_input"
             app:layout_constraintTop_toBottomOf="@+id/receipt_dep_input"
-            app:receiptSupplierFormatted="@{receiptDetailViewModel.receiptEdite}" />
+            app:receiptSupplierFormattedSelected="@{receiptDetailViewModel.receipt}"
+            app:receiptSupplierFormatted="@{receiptDetailViewModel.supplierList }"
+
+           />
 
 
         <EditText
@@ -113,8 +121,8 @@
             android:inputType="textPersonName"
 
 
-            android:text="@={receiptDetailViewModel.receipt.receiptNote}"
-            app:receiptreceiptNoteFormatted="@{receiptDetailViewModel.selectedReceipt}"
+            android:text="@={receipt.receiptNote}"
+            app:receiptreceiptNoteFormatted="@{receiptDetailViewModel.receipt}"
 
             app:layout_constraintBottom_toTopOf="@+id/receipt_detail_list"
             app:layout_constraintStart_toStartOf="@+id/receipt_sup_input"
@@ -156,7 +164,10 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_emp_input"
             app:layout_constraintStart_toEndOf="@+id/receipt_store_lab"
             app:layout_constraintTop_toTopOf="parent"
-            app:receiptStoreFormatted="@{receiptDetailViewModel.receiptEdite}" />
+            app:receiptStoreFormattedSelected="@{receiptDetailViewModel.receipt}"
+            app:receiptStoreFormatted="@{receiptDetailViewModel.storList }"
+
+          />
 
         <Button
             android:id="@+id/back_btn"
@@ -196,6 +207,8 @@
             app:layout_constraintBottom_toTopOf="@+id/receipt_note_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{() -> receiptDetailViewModel.onCreateReceiptNet(receipt)}"
+
             app:layout_constraintVertical_bias="0.658" />
 
 

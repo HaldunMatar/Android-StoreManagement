@@ -141,11 +141,11 @@ class MyDialog(receiptDetailFragment: ReceiptDetailFragment) : DialogFragment() 
               //  binding.receiptDetail = receiptDetail
                 receiptDetail.amount=   binding.inputAmount.text.toString().toFloat()
                 receiptDetail.itemPrice=   binding.inputPrice.text.toString().toFloat()
-                receiptDetail.receiptId=38
+                receiptDetail.receiptId=18
 
                 receiptDetail.itemId=   (binding.spinnerItem.selectedItem as Item).itemId
 
-                Log.i("receiptDetail", receiptDetail.toString())
+                Log.i("receiptDetail1", receiptDetail.toString())
 
 
                 dialogListener.onFinishEditDialog(receiptDetail,receiptDaialogViewModel)

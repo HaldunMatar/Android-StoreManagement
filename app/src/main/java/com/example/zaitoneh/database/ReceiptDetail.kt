@@ -19,7 +19,7 @@ data class ReceiptDetail(
     @ColumnInfo(name = "receipt_id")
     var receiptId: Long=0 ,
     @ColumnInfo(name = "item_price")
-    var itemPrice: Float =0F,
+    var itemPrice: Float =10F,
 
     @ColumnInfo(name = "amount")
     var amount : Float=0F

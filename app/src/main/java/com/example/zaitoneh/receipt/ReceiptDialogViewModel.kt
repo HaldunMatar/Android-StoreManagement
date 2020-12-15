@@ -67,6 +67,8 @@ class ReceiptDialogViewModel(
             uiScope.launch {
                 try {
                         insertNet(newReceiptDetail)
+                    
+                   // getItemsNet(ItemApiFilter.SHOW_ALL)
 
                 }
                 catch (E:Exception){

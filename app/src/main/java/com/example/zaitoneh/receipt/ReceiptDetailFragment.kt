@@ -23,6 +23,7 @@ import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
 import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
 import com.example.zaitoneh.receiptDetail.ReceiptDetailListener
+import com.example.zaitoneh.receipttracker.ReceiptTrackerFragmentDirections
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
 import com.example.zaitoneh.supplierdetail.SupplierDetailViewModel
 
@@ -44,7 +45,7 @@ class ReceiptDetailFragment
     private var param2: String? = null
     lateinit var binding: FragmentReceiptDetailBinding
     lateinit var receiptDetailViewModel : ReceiptDetailViewModel
-    lateinit var recieptDialogViewModel: ReceiptDialogViewModel
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,23 +117,13 @@ class ReceiptDetailFragment
                 ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,departmentDetailViewModel.deps.toTypedArray())
             departmentspinner.adapter = adapter
         }
-
-
-
         binding.itemAddBtn.setOnClickListener(this)
 
         var receipt:Receipt = Receipt()
         binding.receipt=receipt
 
-
-
-
-
-
-
-
         val receiptdetailadapter = ReceiptDetailAdapter(ReceiptDetailListener { receiptId ->
-            receiptDetailViewModel.onReceiptDetailClicked(receiptId)
+            receiptDetailViewModel.onReceiptClicked(receiptId)
 
         })
 
@@ -141,14 +132,18 @@ class ReceiptDetailFragment
 
 
 
-
-
-
-
         receiptDetailViewModel.receiptdetails?.observe(viewLifecycleOwner, Observer {
             it?.let {
 
+         Log.i("observe", " receiptdetails")
+                receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
+                receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
 
+                receiptdetailadapter.submitList(it)
+
+               // receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
+             //   receiptdetailadapter.filter.filter(receiptDetailViewModel.receiptEdite.receiptId.toString())
+                /*
                if(receiptDetailViewModel.receiptEdite.receiptId!=0L   ) {
                     receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
                     receiptdetailadapter.filter.filter(receiptDetailViewModel.receiptEdite.receiptId.toString())
@@ -156,7 +151,7 @@ class ReceiptDetailFragment
                    receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
                    receiptdetailadapter.filter.filter(receiptDetailViewModel.latestreciept.toString())
                }
-
+*/
 
 
             }
@@ -170,6 +165,19 @@ class ReceiptDetailFragment
             it.findNavController().navigate(R.id.action_receiptDetailFragment_to_receiptTrackerFragment2)
 
         }
+
+
+        receiptDetailViewModel.navigateToEditReceipt.observe(this, Observer { receipt ->
+            receipt?.let {
+                if(it!=null) {
+                    view?.findNavController()?.navigate(
+                        ReceiptDetailFragmentDirections.actionReceiptDetailFragmentSelf().setReceiptId(it)
+                    )
+                }
+
+                receiptDetailViewModel.onReceiptClicked(null)
+            }
+        })
 
         return binding.root
     }
@@ -227,16 +235,12 @@ class ReceiptDetailFragment
     receiptDaialogViewModel: ReceiptDialogViewModel
 ) {
     val application = requireNotNull(this.activity).application
-
-
-
-
-
   //if(receiptDetailViewModel.receiptEdite.receiptId!=0L) {
       receiptDetail.receiptId = receiptDetailViewModel.receiptKey
       Log.i("insertNet", "onFinishEditDialog"+receiptDetail.toString())
       receiptDaialogViewModel.onCreateReceiptDetailNet(receiptDetail)
-    receiptDetailViewModel.getReceiptDetailsNet(ItemApiFilter.SHOW_ALL)
+      receiptDetailViewModel.onReceiptClicked(  receiptDetail.receiptId)
+
 
  // }else{
 

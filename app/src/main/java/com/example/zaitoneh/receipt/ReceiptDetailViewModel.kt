@@ -24,8 +24,8 @@ import java.util.*
 
 
 class ReceiptDetailViewModel(
-    val receiptKey: Long = 0L,
-    dataSource: ReceiptDatabaseDao,receiptDetailDataSource:ReceiptDetailDatabaseDao) : ViewModel() {
+    var receiptKey: Long = 0L,
+    dataSource: ReceiptDatabaseDao, receiptDetailDataSource:ReceiptDetailDatabaseDao) : ViewModel() {
      var  latestreciept:Long=0L
     val database = dataSource
     var receiptEdite = Receipt()
@@ -66,7 +66,7 @@ class ReceiptDetailViewModel(
                 selectedReceipt.value=    getReceiptFromNet(receiptKey)
                 receipt.addSource(selectedReceipt, receipt::setValue)
 
-                getReceiptDetailsNet(ItemApiFilter.SHOW_ALL);
+                getReceiptDetailsNet(receiptKey);
             }
              getEmployeesNet(ItemApiFilter.SHOW_ALL)
 
@@ -76,11 +76,12 @@ class ReceiptDetailViewModel(
 
     }
 
-    fun getReceiptDetailsNet(filter: ItemApiFilter) {
+    fun getReceiptDetailsNet(id: Long) {
         uiScope.launch {
-            var Deferred = StoreApi.retrofitService.getReceiptDetails()
+            var Deferred = StoreApi.retrofitService.getReceiptDetails(id)
             try {
                 receiptdetails.value = Deferred.await()
+                Log.i("getReceiptdetailsNet" , "  ge "+ receiptdetails.value!!.size.toString())
             } catch (e: Exception) {
              Log.i("getReceiptdetailsNet" , "erorr ")
             }
@@ -172,8 +173,8 @@ class ReceiptDetailViewModel(
  fun   setSaveReceiptToDataBase(){
      _saveReceiptToDataBase.value=true
  }
-    fun onReceiptDetailClicked(receiptId: Long) {
-
+    fun onReceiptClicked(receiptId: Long?) {
+        Log.i("onclick","onReceiptClicked")
         _navigateToEditReceipt.value=receiptId
     }
 
@@ -203,6 +204,9 @@ class ReceiptDetailViewModel(
     private suspend fun insertNet(receipt: Receipt) {
         withContext(Dispatchers.IO) {
             var newItemDeferred = StoreApi.retrofitService.newReceipt(receipt)
+
+            receiptKey = newItemDeferred.await() as Long
+
         }
     }
     //----------------------

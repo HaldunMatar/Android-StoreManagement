@@ -201,29 +201,36 @@ class ReceiptDetailViewModel(
     }
 //******************************************
 
-    private suspend fun insertNet(receipt: Receipt) {
-        withContext(Dispatchers.IO) {
-            var newItemDeferred = StoreApi.retrofitService.newReceipt(receipt)
+    private suspend fun insertNet(receipt: Receipt): Long? {
+        Log.i("navigateToEditReceipt", " receiptKey  receiptKey"+receiptKey.toString())
+        return withContext(Dispatchers.IO) {
+           var newItemDeferred = StoreApi.retrofitService.newReceipt(receipt)
+          //  return@withContext 88L
 
-            receiptKey = newItemDeferred.await() as Long
-
+            return@withContext newItemDeferred.await() as Long
         }
+
+
     }
     //----------------------
     fun onCreateReceiptNet(NewReceipt: Receipt) {
 
-
+        Log.i("navigateToEditReceipt", " onCreateReceiptNet")
 
         if (vaildateReceipt(NewReceipt)) {
 
             uiScope.launch {
                 try {
 
+
                     //if (receiptKey.equals("null")) {
                     if (receiptKey==0L) {
 
-                        insertNet(NewReceipt)
+                       _navigateToEditReceipt.value=   insertNet(NewReceipt)
+                     //   _navigateToEditReceipt.value= 88
                         _saveReceiptToDataBase.value=true
+
+
                     }else{
                         NewReceipt.receiptId= receiptKey?.toLong()!!
 
@@ -245,6 +252,8 @@ class ReceiptDetailViewModel(
         else{
           //  _employeeValidation.value=false
         }
+
+
     }
 
     fun vaildateReceipt(receipt: Receipt): Boolean {

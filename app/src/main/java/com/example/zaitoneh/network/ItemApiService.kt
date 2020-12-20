@@ -190,7 +190,7 @@ interface ItemApiService {
 
 
     @POST("newReceipt")
-    fun newReceipt(@Body newDestination: Receipt):Deferred<Util>
+    fun newReceipt(@Body newDestination: Receipt):Deferred<Long>
 
     @POST("updateReceipt")
     fun updateReceipt(@Body newDestination: Receipt):Deferred<Util>

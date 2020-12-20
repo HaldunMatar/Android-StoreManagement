@@ -136,8 +136,8 @@ class ReceiptDetailFragment
             it?.let {
 
          Log.i("observe", " receiptdetails")
-                receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
-                receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
+              //  receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
+               // receiptdetailadapter.updateList(it as MutableList<ReceiptDetail>)
 
                 receiptdetailadapter.submitList(it)
 
@@ -170,9 +170,10 @@ class ReceiptDetailFragment
         receiptDetailViewModel.navigateToEditReceipt.observe(this, Observer { receipt ->
             receipt?.let {
                 if(it!=null) {
-                    view?.findNavController()?.navigate(
-                        ReceiptDetailFragmentDirections.actionReceiptDetailFragmentSelf().setReceiptId(it)
-                    )
+                    Log.i("navigateToEditReceipt", " observe  navigateToEditReceipt"+it.toString())
+                   view?.findNavController()?.navigate(
+                       ReceiptDetailFragmentDirections.actionReceiptDetailFragmentSelf().setReceiptId(it)
+                  )
                 }
 
                 receiptDetailViewModel.onReceiptClicked(null)
@@ -239,6 +240,7 @@ class ReceiptDetailFragment
       receiptDetail.receiptId = receiptDetailViewModel.receiptKey
       Log.i("insertNet", "onFinishEditDialog"+receiptDetail.toString())
       receiptDaialogViewModel.onCreateReceiptDetailNet(receiptDetail)
+       receiptDetailViewModel.getReceiptDetailsNet(receiptDetail.receiptId);
       receiptDetailViewModel.onReceiptClicked(  receiptDetail.receiptId)
 
 

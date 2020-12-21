@@ -1,8 +1,6 @@
 package com.example.zaitoneh.receipt
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -55,19 +53,31 @@ class ReceiptDialogViewModel(
     }
 //******************************************
 
-    private suspend fun insertNet(receiptDetail: ReceiptDetail) {
-        withContext(Dispatchers.IO) {
-            Log.i("insertNet", receiptDetail.toString())
+    private suspend fun insertNet(
+        receiptDetail: ReceiptDetail,
+        receiptDetailViewModel: ReceiptDetailViewModel
+    ): List<ReceiptDetail>? {
+        return withContext(Dispatchers.IO) {
+          //  Log.i("insertNet", receiptDetail.toString())
             var newItemDeferred = StoreApi.retrofitService.newReceiptDetail(receiptDetail)
+            newItemDeferred.await()
+
+            //  var Deferred = StoreApi.retrofitService.getReceiptDetails(receiptDetail.receiptId)
+
+            return@withContext newItemDeferred.await()
+            // receiptDetailViewModel.getReceiptDetailsNet(receiptDetail.receiptId);
         }
     }
-    fun onCreateReceiptDetailNet(newReceiptDetail: ReceiptDetail) {
+    fun onCreateReceiptDetailNet(
+        newReceiptDetail: ReceiptDetail,
+        receiptDetailViewModel: ReceiptDetailViewModel
+    ) {
 
-        Log.i("insertNet", newReceiptDetail.toString())
+       // Log.i("insertNet", newReceiptDetail.toString())
             uiScope.launch {
                 try {
-                        insertNet(newReceiptDetail)
-                    
+                    receiptDetailViewModel.receiptdetails.value=   insertNet(newReceiptDetail,receiptDetailViewModel)
+                    receiptDetailViewModel.getReceiptDetailsNet(newReceiptDetail.receiptId);
                    // getItemsNet(ItemApiFilter.SHOW_ALL)
 
                 }

@@ -48,7 +48,8 @@
             android:text="@string/SupplierName"
             app:layout_constraintBottom_toTopOf="@+id/supplier_Address"
             app:layout_constraintStart_toStartOf="@+id/supplier_Address"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+            app:layout_constraintVertical_bias="0.120000005" />
 
         <TextView
             android:id="@+id/supplier_Second_Mobile"
@@ -136,7 +137,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/supplier_Second_Mobile"
-            app:layout_constraintVertical_bias="0.263" />
+            app:layout_constraintVertical_bias="0.14999998" />
 
         <Button
             android:id="@+id/delete_supplier_button"
@@ -152,14 +153,15 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="204dp"
-            android:layout_height="151dp"
-            android:layout_marginBottom="44dp"
+            android:layout_width="111dp"
+            android:layout_height="62dp"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@+id/supplier_Full_Name_input"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.401"
+            app:layout_constraintHorizontal_bias="0.416"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.193"
             app:srcCompat="@drawable/ic_supplier" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.example.android.marsrealestate.network.ItemApiFilter
 import com.example.zaitoneh.MyDialog
 import com.example.zaitoneh.R
 
@@ -23,7 +23,6 @@ import com.example.zaitoneh.databinding.FragmentReceiptDetailBinding
 import com.example.zaitoneh.departmentdetail.DepartmentDetailViewModel
 import com.example.zaitoneh.receiptDetail.ReceiptDetailAdapter
 import com.example.zaitoneh.receiptDetail.ReceiptDetailListener
-import com.example.zaitoneh.receipttracker.ReceiptTrackerFragmentDirections
 import com.example.zaitoneh.storedetail.StoreDetailViewModel
 import com.example.zaitoneh.supplierdetail.SupplierDetailViewModel
 
@@ -63,7 +62,7 @@ class ReceiptDetailFragment
 
        val EditReceiptId =  ReceiptDetailFragmentArgs.fromBundle(requireArguments()).receiptId
 
-
+        (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.ReceiptDetails)
 
 
 
@@ -239,9 +238,11 @@ class ReceiptDetailFragment
   //if(receiptDetailViewModel.receiptEdite.receiptId!=0L) {
       receiptDetail.receiptId = receiptDetailViewModel.receiptKey
       Log.i("insertNet", "onFinishEditDialog"+receiptDetail.toString())
-      receiptDaialogViewModel.onCreateReceiptDetailNet(receiptDetail)
+      receiptDaialogViewModel.onCreateReceiptDetailNet(receiptDetail,receiptDetailViewModel)
        receiptDetailViewModel.getReceiptDetailsNet(receiptDetail.receiptId);
-      receiptDetailViewModel.onReceiptClicked(  receiptDetail.receiptId)
+
+
+   //   receiptDetailViewModel.onReceiptClicked(  receiptDetail.receiptId)
 
 
  // }else{

@@ -16,6 +16,8 @@ import com.example.zaitoneh.database.Receipt
 
 import com.example.zaitoneh.database.StoreDatabase
 import com.example.zaitoneh.databinding.FragmentReceiptTrackerBinding
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class ReceiptTrackerFragment : Fragment() {
@@ -104,6 +106,21 @@ class ReceiptTrackerFragment : Fragment() {
 
         })
 
+
+
+
+
+        val   bottomAppBar = getActivity()?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+
+        if (bottomAppBar != null) {
+            bottomAppBar.visibility=  View.VISIBLE
+        }
+
+        val   floatingActionButton = getActivity()?.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+
+        if (floatingActionButton != null) {
+            floatingActionButton.visibility=  View.VISIBLE
+        }
         return binding.root
     }
 

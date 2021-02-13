@@ -17,36 +17,32 @@
 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@color/white_color"
         android:minWidth="300dp"
-        android:minHeight="400dp"
-        android:background="@color/white_color">
+        android:minHeight="400dp">
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
             android:id="@+id/spinnerItem"
             android:layout_width="200dp"
             android:layout_height="35dp"
 
-            android:layout_marginEnd="87dp"
+            android:layout_marginStart="56dp"
             android:layout_weight="1"
+
             android:background="@color/white_color"
             app:BoarderColor="@color/colorMainBar"
             app:BordersSize="@dimen/triple_margin"
             app:ShowBorders="?android:attr/windowActionBar"
-            app:layout_constraintBottom_toTopOf="@+id/input_amount"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/input_amount"
-            app:layout_constraintTop_toTopOf="parent"
-
-            app:receiptItemsFormatted="@{receiptDialogViewModel.itemList }"
-
-            />
+            app:layout_constraintStart_toEndOf="@+id/textView_lable_item"
+            app:layout_constraintTop_toTopOf="@+id/textView_lable_item"
+            app:receiptItemsFormatted="@{receiptDialogViewModel.itemList }" />
 
         <TextView
             android:id="@+id/textView_lable_item"
             style="@style/Label_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="64dp"
             android:text="@string/items"
             app:layout_constraintBottom_toTopOf="@+id/textView_lable_amount"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,9 +53,10 @@
             style="@style/Label_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
             android:text="@string/price"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_lable_amount"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_lable_amount" />
 
         <EditText
@@ -67,43 +64,39 @@
             style="@style/text_style"
             android:layout_width="200dp"
             android:layout_height="35dp"
-            android:layout_marginEnd="87dp"
+
+
+            android:layout_marginStart="48dp"
             android:ems="10"
             android:inputType="numberDecimal"
-
-
             android:text="50"
-            app:layout_constraintBottom_toTopOf="@+id/input_price"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/input_price"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerItem" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_lable_amount"
+            app:layout_constraintStart_toEndOf="@+id/textView_lable_amount" />
 
         <EditText
             android:id="@+id/input_price"
             style="@style/text_style"
             android:layout_width="200dp"
             android:layout_height="35dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginEnd="87dp"
+
+
+            android:layout_marginStart="68dp"
             android:ems="10"
             android:inputType="textPersonName"
-
-
             android:text="60"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView_lable_price"
-            app:layout_constraintTop_toBottomOf="@+id/input_amount" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView_lable_price"
+            app:layout_constraintStart_toEndOf="@+id/textView_lable_price" />
 
         <TextView
             android:id="@+id/textView_lable_amount"
             style="@style/Label_Style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/amount"
 
+            android:layout_marginStart="64dp"
+            android:text="@string/amount"
             app:layout_constraintBottom_toTopOf="@+id/textView_lable_price"
-            app:layout_constraintStart_toStartOf="@+id/textView_lable_item"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_lable_item" />
 
         <Button

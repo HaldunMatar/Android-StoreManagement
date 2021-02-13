@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
@@ -45,16 +46,25 @@ class MainActivity: AppCompatActivity() {
                 ).show()
         }
 
-    /*    bottomAppBar.setOnMenuItemClickListener { menuItem ->
+
+        floatingActionButton.setOnClickListener {
+
+
+            val toast =
+            Toast.makeText(applicationContext, "setNavigationOnClickListener  ",
+                Toast.LENGTH_LONG
+            ).show() }
+        bottomAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.search -> {
+
+                R.id.employeeTrackerFragment -> {
                     val toast =
-                        Toast.makeText(applicationContext, "setOnMenuItemClickListener search ",
+                        Toast.makeText(applicationContext, "employeeTrackerFragment employeeTrackerFragment ",
                             Toast.LENGTH_LONG
                         ).show()
                     true
                 }
-                R.id.more -> {
+                R.id.receiptTrackerFragment2 -> {
                     val toast =
                         Toast.makeText(applicationContext, "setOnMenuItemClickListener more ",
                             Toast.LENGTH_LONG
@@ -63,20 +73,21 @@ class MainActivity: AppCompatActivity() {
                 }
                 else -> false
             }
-        }*/
+        }
+
+
+
 
 
     }
 
+
+
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment)
-      //  onBackPressed()
-     return NavigationUI.navigateUp(navController,drawerLayout )
-
-
-
-
-
+         //  onBackPressed()
+        return NavigationUI.navigateUp(navController,drawerLayout )
     }
 
     override fun onCreateView(
@@ -96,10 +107,33 @@ override fun onBackPressed() {
               navController.popBackStack();
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
+/*
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        val id = item.getItemId()
 
+        if (id == R.id.store) {
+            Toast.makeText(this, "Item One Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+        if (id == R.id.receiptTrackerFragment2) {
+            Toast.makeText(this, "Item Two Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
+        if (id == R.id.employeeTrackerFragment) {
+            Toast.makeText(this, "Item Three Clicked", Toast.LENGTH_LONG).show()
+            return true
+        }
 
+        return super.onOptionsItemSelected(item)
 
+    }*/
 
 
 }

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/receiptTrackerFragment2">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/itemTrackerFragment"
@@ -156,4 +156,17 @@
         android:id="@+id/blankFragment"
         android:name="com.example.zaitoneh.BlankFragment"
         android:label="BlankFragment" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.zaitoneh.MainActivity"
+        android:label="MainActivity" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.zaitoneh.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_receiptTrackerFragment2"
+            app:destination="@id/receiptTrackerFragment2" />
+    </fragment>
 </navigation>

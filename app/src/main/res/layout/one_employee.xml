@@ -28,7 +28,7 @@
             android:id="@+id/employee_name"
             style="@style/Label_Style"
 
-            android:layout_width="150dp"
+            android:layout_width="125dp"
             android:layout_height="20dp"
             android:fontFamily="@font/droid_sans"
             android:onClick="@{() -> clickListener.onClick(employee)}"
@@ -46,7 +46,7 @@
         <TextView
             android:id="@+id/employee_code"
             style="@style/Label_Style"
-            android:layout_width="99dp"
+            android:layout_width="75dp"
             android:layout_height="20dp"
             android:fontFamily="@font/droid_sans"
             android:onClick="@{() -> clickListener.onClick(employee)}"
@@ -65,7 +65,7 @@
             android:id="@+id/employee_address"
             style="@style/Label_Style"
 
-            android:layout_width="98dp"
+            android:layout_width="75dp"
             android:layout_height="20dp"
             android:layout_marginTop="20dp"
             android:onClick="@{() -> clickListener.onClick(employee)}"
@@ -81,7 +81,7 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="50dp"
+            android:layout_width="40dp"
             android:layout_height="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/employee_name"

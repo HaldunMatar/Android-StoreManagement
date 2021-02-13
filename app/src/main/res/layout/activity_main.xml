@@ -33,8 +33,10 @@
             android:layout_width="match_parent">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorTopBar"
                 app:layout_anchor="@id/bottomAppBar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +54,8 @@
                 android:layout_gravity="bottom"
                 style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
                 app:navigationIcon="@drawable/ic_baseline_list_24"
-                app:menu="@menu/bottom_app_bar"
+                app:hideOnScroll="true"
+                app:menu="@menu/navdrawer_menu"
 
                 />
 

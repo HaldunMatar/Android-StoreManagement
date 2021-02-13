@@ -29,10 +29,9 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 //private const val BASE_URL ="http://localhost:8080/"
+private const val BASE_URL ="http://10.0.2.2:8080/"
 
-//private const val BASE_URL ="http://10.0.2.2:8080/"
-
-private const val BASE_URL = "https://murmuring-forest-07493.herokuapp.com/"
+//private const val BASE_URL = "https://murmuring-forest-07493.herokuapp.com/"
 
 enum class ItemApiFilter(val value: String) { SHOW_RENT("id"), SHOW_BUY("level1"), SHOW_ALL("all") }
 

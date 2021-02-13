@@ -75,5 +75,6 @@
     <string name="DepatmentDetails">Depatment Details</string>
     <string name="Save">Save</string>
     <string name="ReceiptTracker">Receip tTracker</string>
+    <string name="login">Log in</string>
 </resources>
 

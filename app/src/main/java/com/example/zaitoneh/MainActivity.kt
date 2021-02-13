@@ -13,6 +13,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -76,8 +78,24 @@ class MainActivity: AppCompatActivity() {
         }
 
 
+        val   bottomAppBar =binding.bottomAppBar
+        val   floatingActionButton = binding.floatingActionButton
+        navController.addOnDestinationChangedListener { nc: NavController, nd: NavDestination, args: Bundle? ->
+            if (nd.id == nc.graph.startDestination) {
+                if (bottomAppBar != null) {
+                    bottomAppBar.visibility=  View.GONE
+                }
+                if (floatingActionButton != null) {
+                    floatingActionButton.visibility=  View.GONE
+                }
+              ///*****************
+            } else {
 
+                    bottomAppBar.visibility=  View.VISIBLE
+                floatingActionButton.visibility=  View.VISIBLE
 
+            }
+        }
 
     }
 

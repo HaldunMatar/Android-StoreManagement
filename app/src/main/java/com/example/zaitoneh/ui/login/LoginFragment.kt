@@ -42,17 +42,7 @@ class LoginFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title =  context?.resources?.getString(R.string.login)
      //   binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-       val   bottomAppBar = getActivity()?.findViewById<BottomAppBar>(R.id.bottomAppBar)
 
-        if (bottomAppBar != null) {
-            bottomAppBar.visibility=  View.GONE
-        }
-
-        val   floatingActionButton = getActivity()?.findViewById<FloatingActionButton>(R.id.floatingActionButton)
-
-        if (floatingActionButton != null) {
-            floatingActionButton.visibility=  View.GONE
-        }
 
        /* supportFragmentManager.beginTransaction()
             .add(R.id.item_detail_container, fragment)
